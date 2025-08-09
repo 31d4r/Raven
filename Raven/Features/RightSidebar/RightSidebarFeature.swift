@@ -186,8 +186,8 @@ extension RightSidebarView.RightSidebarFeature {
         
         let host1Voice = AVSpeechSynthesisVoice(language: "en-US") ?? AVSpeechSynthesisVoice.speechVoices().first!
         let host2Voice = AVSpeechSynthesisVoice(identifier: "com.apple.voice.premium.en-US.Zoe") ??
-        AVSpeechSynthesisVoice(language: "en-GB") ??
-        AVSpeechSynthesisVoice.speechVoices()[1]
+            AVSpeechSynthesisVoice(language: "en-GB") ??
+            AVSpeechSynthesisVoice.speechVoices()[1]
         
         for (index, line) in parsedLines.enumerated() {
             let utterance = AVSpeechUtterance(string: line.text)
