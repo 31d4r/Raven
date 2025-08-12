@@ -5,11 +5,13 @@
 //  Created by Eldar Tutnjic on 24.07.25.
 //
 
+import QuickLook
 import SwiftUI
 
 struct FileRowView: View {
     let file: FileRecord
     let onDelete: () -> Void
+    @State private var selectedURL: URL?
     
     var body: some View {
         HStack(spacing: 12) {
@@ -28,9 +30,18 @@ struct FileRowView: View {
             Spacer()
             
             Menu {
-                Button("Delete", role: .destructive) {
-                    onDelete()
+                Button {
+                    selectedURL = URL(fileURLWithPath: file.publicPath)
+                } label: {
+                    Text("Preview")
                 }
+                
+                Button {
+                    onDelete()
+                } label: {
+                    Text("Delete")
+                }
+     
             } label: {
                 Image(systemName: "ellipsis")
                     .foregroundColor(.secondary)
@@ -41,6 +52,12 @@ struct FileRowView: View {
         .padding(.vertical, 8)
         .background(Color.gray.opacity(0.1))
         .cornerRadius(8)
+        .quickLookPreview(
+            $selectedURL,
+            in: [URL(
+                fileURLWithPath: file.publicPath
+            )]
+        )
     }
     
     func fileIcon(for fileType: String) -> some View {
