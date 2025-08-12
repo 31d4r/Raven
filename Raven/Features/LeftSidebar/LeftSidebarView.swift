@@ -62,6 +62,7 @@ struct LeftSidebarView: View {
                 }
             }
             .disabled(selectedProject == nil)
+            .padding(.bottom)
         }
     }
     
