@@ -9,76 +9,70 @@ import SwiftUI
 
 struct PodcastCustomizationView: View {
     var feature: RightSidebarView.RightSidebarFeature
-    
+
     var body: some View {
-        VStack(
-            alignment: .leading,
-            spacing: 20
-        ) {
+        VStack(spacing: 32) {
             Text("Customize Podcast")
                 .font(.title2)
-                .fontWeight(.medium)
-            
-            VStack(
-                alignment: .leading,
-                spacing: 10
+                .fontWeight(.semibold)
+                .foregroundColor(.primary)
+
+            Picker(
+                "Host Style",
+                selection: feature.binding(for: \.hostStyle)
             ) {
-                Text("Host Style")
-                    .font(.headline)
-                
-                Picker(
-                    "Host Style",
-                    selection: feature.binding(for: \.hostStyle)
-                ) {
-                    Text("Casual & Friendly").tag("casual")
-                    Text("Professional").tag("professional")
-                    Text("Entertaining").tag("entertaining")
-                }
-                .pickerStyle(.segmented)
+                Text("Casual & Friendly")
+                    .tag("casual")
+                Text("Professional")
+                    .tag("professional")
+                Text("Entertaining")
+                    .tag("entertaining")
             }
-            
-            VStack(
-                alignment: .leading,
-                spacing: 10
+            .pickerStyle(.menu)
+
+            Picker(
+                "Length",
+                selection: feature.binding(for: \.podcastLength)
             ) {
-                Text("Podcast Length")
-                    .font(.headline)
-                
-                Picker(
-                    "Length",
-                    selection: feature.binding(for: \.podcastLength)
-                ) {
-                    Text("Short (5-7 min)").tag("short")
-                    Text("Medium (10-15 min)").tag("medium")
-                    Text("Long (20-25 min)").tag("long")
-                }
-                .pickerStyle(.segmented)
+                Text("Short (5-7 min)")
+                    .tag("short")
+                Text("Medium (10-15 min)")
+                    .tag("medium")
+                Text("Long (20-25 min)").tag(
+                    "long"
+                )
             }
-            
-            Spacer()
-            
-            HStack {
+            .pickerStyle(.menu)
+
+            HStack(spacing: 12) {
                 Button {
                     feature.send(.hideCustomization)
                 } label: {
                     Text("Cancel")
+                        .font(.title3)
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.bordered)
-                
-                Spacer()
-                
+                .controlSize(.large)
+
                 Button {
                     feature.send(.hideCustomization)
                 } label: {
                     Text("Done")
+                        .font(.title3)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
+                .controlSize(.large)
             }
         }
         .padding()
-        .frame(
-            width: 400,
-            height: 300
-        )
+        .frame(width: 400)
     }
+}
+
+#Preview {
+    PodcastCustomizationView(feature: .init())
 }
