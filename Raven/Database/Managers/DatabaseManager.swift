@@ -8,12 +8,28 @@
 import GRDB
 import SwiftUI
 
+protocol DatabaseManaging {
+    func createProject(name: String) throws -> Project
+    func fetchProjects() throws -> [Project]
+    func deleteProject(_ project: Project) throws
+    func renameProject(_ project: Project, newName: String) throws -> Project
+    func addFiles(_ urls: [URL], to project: Project) throws -> [FileRecord]
+    func fetchFiles(for project: Project) throws -> [FileRecord]
+    func deleteFile(_ fileRecord: FileRecord) throws
+    func createNote(for project: Project, title: String, content: String) throws -> Note
+    func fetchNotes(for project: Project) throws -> [Note]
+    func deleteNote(_ note: Note) throws
+    func updateNote(_ note: Note, title: String, content: String) throws -> Note
+    func projectCount() -> Int
+    func fileCount(for project: Project) -> Int
+    func clearAllData() throws
+}
+
 @Observable
-class DatabaseManager {
-    static let shared = DatabaseManager()
+class DatabaseManager: DatabaseManaging {
     private var dbQueue: DatabaseQueue!
     
-    private init() {
+    init() {
         setupDatabase()
     }
     
@@ -89,7 +105,10 @@ class DatabaseManager {
         let projectFolderURL = documentsURL.appendingPathComponent("Parrot Projects").appendingPathComponent(name)
         let publicFolderURL = projectFolderURL.appendingPathComponent("public")
         
-        try FileManager.default.createDirectory(at: publicFolderURL, withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(
+            at: publicFolderURL,
+            withIntermediateDirectories: true
+        )
         
         var project = Project(
             name: name,
@@ -203,39 +222,6 @@ class DatabaseManager {
         }
     }
     
-    // MARK: - Additional Convenience Methods
-    
-    func projectCount() -> Int {
-        do {
-            return try dbQueue.read { db in
-                try Project.fetchCount(db)
-            }
-        } catch {
-            return 0
-        }
-    }
-    
-    func fileCount(
-        for project: Project
-    ) -> Int {
-        guard let projectId = project.id else { return 0 }
-        
-        do {
-            return try dbQueue.read { db in
-                try FileRecord.filter(Column("projectId") == projectId).fetchCount(db)
-            }
-        } catch {
-            return 0
-        }
-    }
-    
-    func clearAllData() throws {
-        try dbQueue.write { db in
-            try Project.deleteAll(db)
-            try FileRecord.deleteAll(db)
-        }
-    }
-    
     // MARK: - Note Operations
 
     func createNote(
@@ -298,6 +284,39 @@ class DatabaseManager {
         }
         
         return updatedNote
+    }
+    
+    // MARK: - Additional Convenience Methods
+    
+    func projectCount() -> Int {
+        do {
+            return try dbQueue.read { db in
+                try Project.fetchCount(db)
+            }
+        } catch {
+            return 0
+        }
+    }
+    
+    func fileCount(
+        for project: Project
+    ) -> Int {
+        guard let projectId = project.id else { return 0 }
+        
+        do {
+            return try dbQueue.read { db in
+                try FileRecord.filter(Column("projectId") == projectId).fetchCount(db)
+            }
+        } catch {
+            return 0
+        }
+    }
+    
+    func clearAllData() throws {
+        try dbQueue.write { db in
+            try Project.deleteAll(db)
+            try FileRecord.deleteAll(db)
+        }
     }
 }
 

@@ -47,12 +47,36 @@ extension RightSidebarView {
     }
     
     @Observable
-    class RightSidebarFeature {
+    class RightSidebarFeature: NSObject, AVSpeechSynthesizerDelegate {
         private(set) var state = RightSidebarState()
         private let foundationsManager = FoundationsManager.shared
-        private let databaseManager = DatabaseManager.shared
+        private let databaseManager: DatabaseManaging
         private let speechSynthesizer = AVSpeechSynthesizer()
         private var currentUtterance: AVSpeechUtterance?
+        
+        override init() {
+            self.databaseManager = DatabaseManager()
+            super.init()
+            speechSynthesizer.delegate = self
+        }
+        
+        func speechSynthesizer(
+            _ synthesizer: AVSpeechSynthesizer,
+            didStart utterance: AVSpeechUtterance
+        ) {
+            Task { @MainActor in
+                self.set(\.isPlaying, to: true)
+            }
+        }
+        
+        func speechSynthesizer(
+            _ synthesizer: AVSpeechSynthesizer,
+            didFinish utterance: AVSpeechUtterance
+        ) {
+            Task { @MainActor in
+                self.set(\.isPlaying, to: false)
+            }
+        }
     }
 }
 
@@ -93,10 +117,10 @@ extension RightSidebarView.RightSidebarFeature {
             await generatePodcast(for: project)
             
         case .playPodcast:
-            playPodcast()
+            await playPodcast()
             
         case .stopPodcast:
-            stopPodcast()
+            await stopPodcast()
             
         case .showCustomization:
             set(\.showingCustomization, to: true)
@@ -135,10 +159,12 @@ extension RightSidebarView.RightSidebarFeature {
         }
     }
     
-    private func generatePodcast(for project: Project) async {
+    private func generatePodcast(
+        for project: Project
+    ) async {
         set(\.isGenerating, to: true)
         set(\.errorMessage, to: nil)
-        
+
         do {
             let podcastScript = try await foundationsManager.generatePodcastScript(
                 for: project,
@@ -149,60 +175,62 @@ extension RightSidebarView.RightSidebarFeature {
         } catch {
             set(\.errorMessage, to: error.localizedDescription)
         }
-        
+
         set(\.isGenerating, to: false)
     }
     
-    private func playPodcast() {
+    private func playPodcast() async {
         guard !value(\.generatedPodcast).isEmpty else { return }
         
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            
-            if self.speechSynthesizer.isSpeaking {
-                if self.speechSynthesizer.isPaused {
-                    self.speechSynthesizer.continueSpeaking()
-                } else {
-                    self.speechSynthesizer.pauseSpeaking(at: .immediate)
-                }
-                self.set(\.isPlaying, to: !self.speechSynthesizer.isPaused)
+        if speechSynthesizer.isSpeaking {
+            if speechSynthesizer.isPaused {
+                speechSynthesizer.continueSpeaking()
             } else {
-                self.playParsedPodcast()
-                self.set(\.isPlaying, to: true)
+                speechSynthesizer.pauseSpeaking(at: .immediate)
             }
+            set(\.isPlaying, to: !speechSynthesizer.isPaused)
+        } else {
+            await playParsedPodcast()
+            set(\.isPlaying, to: true)
         }
     }
     
-    private func stopPodcast() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.speechSynthesizer.stopSpeaking(at: .immediate)
-            self.set(\.isPlaying, to: false)
-        }
+    private func stopPodcast() async {
+        speechSynthesizer.stopSpeaking(at: .immediate)
+        set(\.isPlaying, to: false)
     }
     
-    private func playParsedPodcast() {
+    private func playParsedPodcast() async {
         let parsedLines = parsePodcastScript(value(\.generatedPodcast))
         
-        let host1Voice = AVSpeechSynthesisVoice(language: "en-US") ?? AVSpeechSynthesisVoice.speechVoices().first!
-        let host2Voice = AVSpeechSynthesisVoice(identifier: "com.apple.voice.premium.en-US.Zoe") ??
-            AVSpeechSynthesisVoice(language: "en-GB") ??
-            AVSpeechSynthesisVoice.speechVoices()[1]
+        let availableVoices = AVSpeechSynthesisVoice.speechVoices()
+        
+        let host1Voice = availableVoices.first(where: {
+            $0.language.hasPrefix("en")
+        }) ?? AVSpeechSynthesisVoice(language: "en-US") ?? availableVoices.first!
+        
+        let host2Voice = availableVoices.first(where: {
+            $0.language.hasPrefix("en") && $0 != host1Voice
+        }) ?? AVSpeechSynthesisVoice(language: "en-GB") ?? availableVoices[min(1, availableVoices.count - 1)]
         
         for (index, line) in parsedLines.enumerated() {
             let utterance = AVSpeechUtterance(string: line.text)
             
-            utterance.rate = 0.52
-            utterance.pitchMultiplier = line.isHost1 ? 1.0 : 0.85
+            utterance.rate = 0.45
+            utterance.pitchMultiplier = line.isHost1 ? 1.0 : 0.9
+            utterance.volume = 0.8
             utterance.voice = line.isHost1 ? host1Voice : host2Voice
-            utterance.preUtteranceDelay = index == 0 ? 0 : 0.8
+            utterance.preUtteranceDelay = index == 0 ? 0.1 : 0.8
             utterance.postUtteranceDelay = 0.3
             
             speechSynthesizer.speak(utterance)
         }
     }
     
-    private func parsePodcastScript(_ script: String) -> [(text: String, isHost1: Bool)] {
+    private func parsePodcastScript(_ script: String) -> [(
+        text: String,
+        isHost1: Bool
+    )] {
         let lines = script.components(separatedBy: .newlines)
         var parsedLines: [(text: String, isHost1: Bool)] = []
         
@@ -221,6 +249,8 @@ extension RightSidebarView.RightSidebarFeature {
                 if !text.isEmpty {
                     parsedLines.append((text: text, isHost1: false))
                 }
+            } else if !trimmedLine.hasPrefix("HOST") {
+                parsedLines.append((text: trimmedLine, isHost1: parsedLines.last?.isHost1 == false))
             }
         }
         
@@ -229,11 +259,13 @@ extension RightSidebarView.RightSidebarFeature {
     
     // MARK: - Notes Functions
     
-    private func loadNotes(for project: Project) async {
+    private func loadNotes(
+        for project: Project
+    ) async {
         set(\.isLoadingNotes, to: true)
         
         do {
-            let notes = try databaseManager.fetchNotes(for: project)
+            let notes = try await databaseManager.fetchNotes(for: project)
             set(\.notes, to: notes)
         } catch {
             set(\.errorMessage, to: error.localizedDescription)
@@ -249,7 +281,11 @@ extension RightSidebarView.RightSidebarFeature {
         guard !title.isEmpty && !content.isEmpty else { return }
         
         do {
-            let note = try databaseManager.createNote(for: project, title: title, content: content)
+            let note = try await databaseManager.createNote(
+                for: project,
+                title: title,
+                content: content
+            )
             var updatedNotes = value(\.notes)
             updatedNotes.insert(note, at: 0)
             set(\.notes, to: updatedNotes)
@@ -261,7 +297,7 @@ extension RightSidebarView.RightSidebarFeature {
     
     private func deleteNote(_ note: Note) async {
         do {
-            try databaseManager.deleteNote(note)
+            try await databaseManager.deleteNote(note)
             let updatedNotes = value(\.notes).filter { $0.id != note.id }
             set(\.notes, to: updatedNotes)
         } catch {

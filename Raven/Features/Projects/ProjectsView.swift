@@ -140,5 +140,3 @@ struct ProjectsView: View {
         .listStyle(.sidebar)
     }
 }
-
-
