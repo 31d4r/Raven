@@ -50,11 +50,12 @@ extension RightSidebarView {
     class RightSidebarFeature: NSObject, AVSpeechSynthesizerDelegate {
         private(set) var state = RightSidebarState()
         private let foundationsManager = FoundationsManager.shared
-        private let databaseManager = DatabaseManager.shared
+        private let databaseManager: DatabaseManaging
         private let speechSynthesizer = AVSpeechSynthesizer()
         private var currentUtterance: AVSpeechUtterance?
         
         override init() {
+            self.databaseManager = DatabaseManager()
             super.init()
             speechSynthesizer.delegate = self
         }

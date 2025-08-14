@@ -20,9 +20,15 @@ class FoundationsManager {
     static let shared = FoundationsManager()
     
     private let session = LanguageModelSession()
-    private let databaseManager = DatabaseManager.shared
+    private let databaseManager: DatabaseManaging
     
-    private init() {}
+    private init() {
+        self.databaseManager = DatabaseManager()
+    }
+    
+    init(databaseManager: DatabaseManaging) {
+        self.databaseManager = databaseManager
+    }
     
     // MARK: - Main Processing Function
     
