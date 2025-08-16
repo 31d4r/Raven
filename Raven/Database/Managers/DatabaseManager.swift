@@ -8,25 +8,8 @@
 import GRDB
 import SwiftUI
 
-protocol DatabaseManaging {
-    func createProject(name: String) throws -> Project
-    func fetchProjects() throws -> [Project]
-    func deleteProject(_ project: Project) throws
-    func renameProject(_ project: Project, newName: String) throws -> Project
-    func addFiles(_ urls: [URL], to project: Project) throws -> [FileRecord]
-    func fetchFiles(for project: Project) throws -> [FileRecord]
-    func deleteFile(_ fileRecord: FileRecord) throws
-    func createNote(for project: Project, title: String, content: String) throws -> Note
-    func fetchNotes(for project: Project) throws -> [Note]
-    func deleteNote(_ note: Note) throws
-    func updateNote(_ note: Note, title: String, content: String) throws -> Note
-    func projectCount() -> Int
-    func fileCount(for project: Project) -> Int
-    func clearAllData() throws
-}
-
 @Observable
-class DatabaseManager: DatabaseManaging {
+class DatabaseManager {
     private var dbQueue: DatabaseQueue!
     
     init() {

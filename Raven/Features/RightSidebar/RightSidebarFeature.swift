@@ -36,11 +36,7 @@ extension RightSidebarView {
     class RightSidebarFeature {
         private(set) var state = RightSidebarState()
         private let foundationsManager = FoundationsManager.shared
-        private let databaseManager: DatabaseManaging
-        
-        init(databaseManager: DatabaseManaging = DatabaseManager()) {
-            self.databaseManager = databaseManager
-        }
+        private let databaseManager = DatabaseManager()
     }
 }
 
