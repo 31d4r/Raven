@@ -44,13 +44,15 @@ struct NewNoteView: View {
                 TextEditor(text: feature.binding(for: \.newNoteContent))
                     .frame(minHeight: 120)
                     .background(Color.gray.opacity(0.1))
-                    .cornerRadius(8)
+                    .cornerRadius(
+                        8,
+                        corners: .allCorners
+                    )
             }
             
             Spacer()
             
             HStack {
-                
                 Button {
                     feature.send(.hideNewNoteSheet)
                 } label: {
@@ -70,7 +72,7 @@ struct NewNoteView: View {
                 .buttonStyle(.borderedProminent)
                 .disabled(
                     feature.value(\.newNoteTitle).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||
-                    feature.value(\.newNoteContent).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                        feature.value(\.newNoteContent).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                 )
             }
         }

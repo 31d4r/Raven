@@ -133,6 +133,7 @@ struct MainContentView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 if !feature.value(\.responseText).isEmpty {
+                    promptView()
                     responseView()
                 }
                 
@@ -150,8 +151,25 @@ struct MainContentView: View {
         }
     }
     
+    func promptView() -> some View {
+        HStack {
+            Spacer()
+            
+            Text(feature.value(\.promptText))
+                .padding()
+        }
+        .background(Color.gray.opacity(0.1))
+        .cornerRadius(
+            12,
+            corners: .allCorners
+        )
+    }
+    
     func responseView() -> some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(
+            alignment: .leading,
+            spacing: 10
+        ) {
             HStack {
                 Image(systemName: "brain.head.profile")
                     .foregroundColor(.blue)
@@ -184,21 +202,31 @@ struct MainContentView: View {
                     )
             }
             .background(Color.blue.opacity(0.1))
-            .cornerRadius(12, corners: .allCorners)
-            .frame(maxHeight: 400)
+            .cornerRadius(
+                12,
+                corners: .allCorners
+            )
         }
     }
     
     func processingView() -> some View {
         HStack {
+            Spacer()
+            
             ProgressView()
                 .scaleEffect(0.8)
+            
             Text("Processing documents and generating response...")
                 .foregroundColor(.secondary)
+            
+            Spacer()
         }
         .padding()
         .background(Color.gray.opacity(0.1))
-        .cornerRadius(8, corners: .allCorners)
+        .cornerRadius(
+            8,
+            corners: .allCorners
+        )
     }
     
     func errorView(
@@ -212,7 +240,10 @@ struct MainContentView: View {
         }
         .padding()
         .background(Color.red.opacity(0.1))
-        .cornerRadius(8, corners: .allCorners)
+        .cornerRadius(
+            8,
+            corners: .allCorners
+        )
     }
     
     func bottomInputView() -> some View {
