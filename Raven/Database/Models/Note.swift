@@ -1,6 +1,6 @@
 //
 //  Note.swift
-//  Parrot
+//  Raven
 //
 //  Created by Eldar Tutnjic on 24.07.25.
 //
@@ -22,11 +22,13 @@ struct Note: Codable, FetchableRecord, MutablePersistableRecord, Equatable, Hash
     }
     
     // MARK: - Equatable
+
     static func == (lhs: Note, rhs: Note) -> Bool {
         return lhs.id == rhs.id
     }
     
     // MARK: - Hashable
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

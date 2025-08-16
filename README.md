@@ -1,5 +1,7 @@
 # Raven
 
+![Raven](Screenshots/Raven.png)
+
 ## Overview
 
 Raven is a powerful AI assistant app built for macOS that transforms your documents into interactive content. Upload your files and get intelligent responses, summaries.

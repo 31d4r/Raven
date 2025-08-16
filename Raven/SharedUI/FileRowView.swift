@@ -1,6 +1,6 @@
 //
 //  FileRowView.swift
-//  Parrot
+//  Raven
 //
 //  Created by Eldar Tutnjic on 24.07.25.
 //
