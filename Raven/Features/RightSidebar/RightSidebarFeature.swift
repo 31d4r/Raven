@@ -110,7 +110,7 @@ extension RightSidebarView.RightSidebarFeature {
         set(\.isLoadingNotes, to: true)
         
         do {
-            let notes = try await databaseManager.fetchNotes(for: project)
+            let notes = try databaseManager.fetchNotes(for: project)
             set(\.notes, to: notes)
         } catch {
             set(\.errorMessage, to: error.localizedDescription)
@@ -126,7 +126,7 @@ extension RightSidebarView.RightSidebarFeature {
         guard !title.isEmpty && !content.isEmpty else { return }
         
         do {
-            let note = try await databaseManager.createNote(
+            let note = try databaseManager.createNote(
                 for: project,
                 title: title,
                 content: content
@@ -142,7 +142,7 @@ extension RightSidebarView.RightSidebarFeature {
     
     private func deleteNote(_ note: Note) async {
         do {
-            try await databaseManager.deleteNote(note)
+            try databaseManager.deleteNote(note)
             let updatedNotes = value(\.notes).filter { $0.id != note.id }
             set(\.notes, to: updatedNotes)
         } catch {

@@ -10,6 +10,7 @@ import SwiftUI
 extension MainContentView {
     struct MainContentState {
         var questionText = ""
+        var promptText = ""
         var responseText = ""
         var isProcessing = false
         var errorMessage: String?
@@ -85,7 +86,7 @@ extension MainContentView.MainContentFeature {
         
         set(\.isProcessing, to: true)
         set(\.errorMessage, to: nil)
-        set(\.responseText, to: "Processing...")
+        set(\.promptText, to: state.questionText)
         
         do {
             let response = try await foundationsManager.processQuestion(question, for: project)

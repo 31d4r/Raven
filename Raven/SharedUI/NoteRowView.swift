@@ -48,10 +48,12 @@ struct NoteRowView: View {
             )
             .font(.caption2)
             .foregroundColor(.secondary)
-            
         }
         .padding(8)
         .background(Color.white.opacity(0.5))
-        .cornerRadius(6)
+        .cornerRadius(
+            6,
+            corners: .allCorners
+        )
     }
 }

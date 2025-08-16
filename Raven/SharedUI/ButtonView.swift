@@ -26,7 +26,10 @@ struct ButtonView: View {
                 .padding(.horizontal)
                 .padding(.vertical, 8)
                 .background(.gray.opacity(0.1))
-                .cornerRadius(8, corners: .allCorners)
+                .cornerRadius(
+                    8,
+                    corners: .allCorners
+                )
             }
             .buttonStyle(.plain)
         }

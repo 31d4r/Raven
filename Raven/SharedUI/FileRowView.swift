@@ -51,8 +51,10 @@ struct FileRowView: View {
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
         .background(Color.gray.opacity(0.1))
-        .cornerRadius(8)
-        .quickLookPreview(
+        .cornerRadius(
+            8,
+            corners: .allCorners
+        ).quickLookPreview(
             $selectedURL,
             in: [URL(
                 fileURLWithPath: file.publicPath
