@@ -35,7 +35,7 @@ extension RightSidebarView {
     @Observable
     class RightSidebarFeature {
         private(set) var state = RightSidebarState()
-        private let foundationsManager = FoundationsManager.shared
+        private let foundationsManager = FoundationsManager()
         private let databaseManager = DatabaseManager()
     }
 }
