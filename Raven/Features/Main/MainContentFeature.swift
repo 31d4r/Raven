@@ -26,7 +26,7 @@ extension MainContentView {
     @Observable
     class MainContentFeature {
         private(set) var state = MainContentState()
-        private let foundationsManager = FoundationsManager.shared
+        private let foundationsManager = FoundationsManager()
     }
 }
 
