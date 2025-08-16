@@ -14,7 +14,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CE86BED92E4E36CE0025DBBA /* Raven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Raven.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE86BED92E4E36CE0025DBBA /* Raven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Raven.app; path = /Users/eldartutnjic/Desktop/Raven/build/Debug/Raven.app; sourceTree = "<absolute>"; };
 		CEC2F8F12E33B41F00388BB6 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		CEC2F8F22E33B41F00388BB6 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		CEC2F8F32E33B41F00388BB6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -64,7 +64,6 @@
 				CEC2F8F12E33B41F00388BB6 /* CONTRIBUTING.md */,
 				CEC2F8F22E33B41F00388BB6 /* LICENSE.md */,
 				CEC2F82C2E33A65400388BB6 /* Raven */,
-				CE86BED92E4E36CE0025DBBA /* Raven.app */,
 				CEC2F8F32E33B41F00388BB6 /* README.md */,
 				CE43F35E2E50FCC1007843A8 /* Screenshots */,
 			);

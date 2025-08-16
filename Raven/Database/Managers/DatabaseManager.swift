@@ -1,6 +1,6 @@
 //
 //  DatabaseManager.swift
-//  Parrot
+//  Raven
 //
 //  Created by Eldar Tutnjic on 24.07.25.
 //
@@ -26,7 +26,7 @@ class DatabaseManager {
                     appropriateFor: nil,
                     create: true
                 )
-            let dbURL = folderURL.appendingPathComponent("parrot.sqlite")
+            let dbURL = folderURL.appendingPathComponent("raven.sqlite")
             
             dbQueue = try DatabaseQueue(path: dbURL.path)
             
@@ -85,7 +85,7 @@ class DatabaseManager {
             for: .documentDirectory,
             in: .userDomainMask
         ).first!
-        let projectFolderURL = documentsURL.appendingPathComponent("Parrot Projects").appendingPathComponent(name)
+        let projectFolderURL = documentsURL.appendingPathComponent("Raven Projects").appendingPathComponent(name)
         let publicFolderURL = projectFolderURL.appendingPathComponent("public")
         
         try FileManager.default.createDirectory(
