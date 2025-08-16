@@ -31,6 +31,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		CE43F35E2E50FCC1007843A8 /* Screenshots */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Screenshots;
+			sourceTree = "<group>";
+		};
 		CEC2F82C2E33A65400388BB6 /* Raven */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -56,11 +61,12 @@
 		CEC2F8212E33A65400388BB6 = {
 			isa = PBXGroup;
 			children = (
-				CEC2F82C2E33A65400388BB6 /* Raven */,
 				CEC2F8F12E33B41F00388BB6 /* CONTRIBUTING.md */,
 				CEC2F8F22E33B41F00388BB6 /* LICENSE.md */,
-				CEC2F8F32E33B41F00388BB6 /* README.md */,
+				CEC2F82C2E33A65400388BB6 /* Raven */,
 				CE86BED92E4E36CE0025DBBA /* Raven.app */,
+				CEC2F8F32E33B41F00388BB6 /* README.md */,
+				CE43F35E2E50FCC1007843A8 /* Screenshots */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,6 +86,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				CE43F35E2E50FCC1007843A8 /* Screenshots */,
 				CEC2F82C2E33A65400388BB6 /* Raven */,
 			);
 			name = Raven;

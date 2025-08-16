@@ -2,7 +2,7 @@
 
 ## Overview
 
-Raven is a powerful AI assistant app built for macOS that transforms your documents into interactive content. Upload your files and get intelligent responses, summaries, or even generate podcast conversations from your content.
+Raven is a powerful AI assistant app built for macOS that transforms your documents into interactive content. Upload your files and get intelligent responses, summaries.
 
 **🔒 Privacy First**: All your documents stay completely local on your device. Raven uses Apple's on-device Foundation Models, so nothing gets sent to external servers or cloud services.
 
@@ -24,12 +24,6 @@ Raven is a powerful AI assistant app built for macOS that transforms your docume
 * **Content Analysis**: AI analyzes all your files and provides contextual answers
 * **Multi Format Support**: Works with images, PDFs, and audio files simultaneously
 * **100% Local Processing**: All AI processing happens on your device using Apple's Foundation Models
-
-### Podcast Generator
-* **Two Host Conversations**: Generates realistic podcast scripts with two different speakers
-* **Voice Synthesis**: Plays generated podcasts with different voices for each host
-* **Customizable Styles**: Choose between casual, professional, or entertaining conversation styles
-* **Multiple Lengths**: Generate short (5-7 min), medium (10-15 min), or long (20-25 min) podcasts
 
 ### Project Management
 * **Project Organization**: Create and manage multiple projects
@@ -72,12 +66,6 @@ Raven is a powerful AI assistant app built for macOS that transforms your docume
 3. Get intelligent responses based on your content
 4. Copy responses for later use
 
-### Generating Podcasts
-1. Go to the right sidebar
-2. Click "Customize" to choose style and length
-3. Click "Generate" to create a podcast script
-4. Click the play button to listen to your generated podcast
-
 ### Managing Notes
 1. Scroll to the bottom of the right sidebar
 2. Click "+" to add a new note
@@ -107,7 +95,6 @@ Raven uses GRDB.swift for local data storage with SQLite. All project metadata, 
 * Project creation and management
 * Multi format file processing (images, PDFs, audio)
 * AI powered Q&A system
-* Podcast generation with voice synthesis
 * Notes system
 * Modern SwiftUI interface
 * Complete local processing with Apple Foundation Models
@@ -174,3 +161,13 @@ Built with Apple's latest technologies including Foundation Models framework for
 ---
 
 **Note**: This app requires macOS 26 Tahoe and uses Apple's Foundation Models which run completely on-device without requiring internet connectivity for AI features.
+
+## Screenshots
+
+![Raven1](Screenshots/Raven1.png)  
+![Raven2](Screenshots/Raven2.png)  
+![Raven3](Screenshots/Raven3.png)  
+![Raven4](Screenshots/Raven4.png)  
+![Raven5](Screenshots/Raven5.png)  
+![Raven6](Screenshots/Raven6.png)  
+![Raven7](Screenshots/Raven7.png)
