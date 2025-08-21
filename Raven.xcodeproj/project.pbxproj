@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE881B452E54986B00ED9DCE /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = CE881B442E54986B00ED9DCE /* MarkdownUI */; };
 		CEC2F8742E33A6D600388BB6 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = CEC2F8732E33A6D600388BB6 /* GRDB */; };
 		CEC2F8F42E33B41F00388BB6 /* CONTRIBUTING.md in Resources */ = {isa = PBXBuildFile; fileRef = CEC2F8F12E33B41F00388BB6 /* CONTRIBUTING.md */; };
 		CEC2F8F52E33B41F00388BB6 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = CEC2F8F22E33B41F00388BB6 /* LICENSE.md */; };
@@ -14,7 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CE86BED92E4E36CE0025DBBA /* Raven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Raven.app; path = /Users/eldartutnjic/Desktop/Raven/build/Debug/Raven.app; sourceTree = "<absolute>"; };
+		CE73BBCB2E53D38400482581 /* Raven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Raven.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC2F8F12E33B41F00388BB6 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		CEC2F8F22E33B41F00388BB6 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		CEC2F8F32E33B41F00388BB6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -31,11 +32,6 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		CE43F35E2E50FCC1007843A8 /* Screenshots */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Screenshots;
-			sourceTree = "<group>";
-		};
 		CEC2F82C2E33A65400388BB6 /* Raven */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -52,6 +48,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEC2F8742E33A6D600388BB6 /* GRDB in Frameworks */,
+				CE881B452E54986B00ED9DCE /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,7 +62,7 @@
 				CEC2F8F22E33B41F00388BB6 /* LICENSE.md */,
 				CEC2F82C2E33A65400388BB6 /* Raven */,
 				CEC2F8F32E33B41F00388BB6 /* README.md */,
-				CE43F35E2E50FCC1007843A8 /* Screenshots */,
+				CE73BBCB2E53D38400482581 /* Raven.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,15 +82,15 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				CE43F35E2E50FCC1007843A8 /* Screenshots */,
 				CEC2F82C2E33A65400388BB6 /* Raven */,
 			);
 			name = Raven;
 			packageProductDependencies = (
 				CEC2F8732E33A6D600388BB6 /* GRDB */,
+				CE881B442E54986B00ED9DCE /* MarkdownUI */,
 			);
 			productName = Raven;
-			productReference = CE86BED92E4E36CE0025DBBA /* Raven.app */;
+			productReference = CE73BBCB2E53D38400482581 /* Raven.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -122,6 +119,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				CEC2F8722E33A6D600388BB6 /* XCRemoteSwiftPackageReference "GRDB" */,
+				CE881B432E54986B00ED9DCE /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CEC2F8212E33A65400388BB6;
@@ -282,10 +280,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = HBSJWT4Z7H;
+				DEVELOPMENT_TEAM = 89ZNTTCP5L;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -317,10 +316,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = HBSJWT4Z7H;
+				DEVELOPMENT_TEAM = 89ZNTTCP5L;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -371,6 +371,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CE881B432E54986B00ED9DCE /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.1;
+			};
+		};
 		CEC2F8722E33A6D600388BB6 /* XCRemoteSwiftPackageReference "GRDB" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/groue/GRDB.swift";
@@ -382,6 +390,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CE881B442E54986B00ED9DCE /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE881B432E54986B00ED9DCE /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
+			productName = MarkdownUI;
+		};
 		CEC2F8732E33A6D600388BB6 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CEC2F8722E33A6D600388BB6 /* XCRemoteSwiftPackageReference "GRDB" */;

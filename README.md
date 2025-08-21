@@ -1,6 +1,6 @@
 # Raven
 
-![Raven](Screenshots/Raven.png)
+![Raven](Images/Raven.png)
 
 ## Overview
 

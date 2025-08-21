@@ -5,6 +5,7 @@
 //  Created by Eldar Tutnjic on 24.07.25.
 //
 
+import MarkdownUI
 import SwiftUI
 
 struct MainContentView: View {
@@ -193,7 +194,7 @@ struct MainContentView: View {
             }
             
             ScrollView {
-                Text(feature.value(\.responseText))
+                Markdown(feature.value(\.responseText))
                     .textSelection(.enabled)
                     .padding()
                     .frame(
