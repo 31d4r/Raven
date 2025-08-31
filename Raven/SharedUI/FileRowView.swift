@@ -76,6 +76,9 @@ struct FileRowView: View {
         case "pdf":
             iconName = "doc.richtext"
             color = .red
+        case "mp4", "mov", "avi", "mkv", "m4v":
+            iconName = "film"
+            color = .purple
         default:
             iconName = "doc"
             color = .gray
