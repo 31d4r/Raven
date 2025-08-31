@@ -135,6 +135,11 @@ extension LeftSidebarView.LeftSidebarFeature {
             .tiff,
             .heic,
             .pdf,
+            .movie,
+            .video,
+            .mpeg4Movie,
+            .appleProtectedMPEG4Video,
+            .quickTimeMovie
         ]
         
         panel.begin { [weak self] result in

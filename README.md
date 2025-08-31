@@ -20,11 +20,12 @@ Raven is a powerful AI assistant app built for macOS that transforms your docume
 * **Image Text Extraction**: Uses Vision framework to read text from images (JPG, PNG, HEIC, TIFF)
 * **PDF Analysis**: Extracts and processes text from PDF documents
 * **Audio Transcription**: Converts speech to text from audio files (MP3, WAV, AIFF, M4A)
+* **Video Text Extraction**: Pulls text from video files so you can ask for summaries or questions about the content
 
 ### AI Features
 * **Smart Q&A**: Ask questions about your uploaded documents and get intelligent responses
 * **Content Analysis**: AI analyzes all your files and provides contextual answers
-* **Multi Format Support**: Works with images, PDFs, and audio files simultaneously
+* **Multi Format Support**: Works with images, PDFs, audio files and video files simultaneously
 * **100% Local Processing**: All AI processing happens on your device using Apple's Foundation Models
 
 ### Project Management
@@ -59,7 +60,7 @@ Raven is a powerful AI assistant app built for macOS that transforms your docume
 ### Adding Content
 1. Select a project from the sidebar
 2. Click "Add Sources" in the left sidebar
-3. Choose your files (images, PDFs, audio files)
+3. Choose your files (images, PDFs, audio files, video files)
 4. Files are automatically copied to your project's public folder
 
 ### Asking Questions
@@ -95,7 +96,7 @@ Raven uses GRDB.swift for local data storage with SQLite. All project metadata, 
 
 ### Current Features
 * Project creation and management
-* Multi format file processing (images, PDFs, audio)
+* Multi format file processing (images, PDFs, audio, video)
 * AI powered Q&A system
 * Notes system
 * Modern SwiftUI interface
@@ -173,3 +174,4 @@ Built with Apple's latest technologies including Foundation Models framework for
 ![Raven5](Screenshots/Raven5.png)  
 ![Raven6](Screenshots/Raven6.png)  
 ![Raven7](Screenshots/Raven7.png)
+![Raven8](Screenshots/Raven8.png)
