@@ -41,10 +41,10 @@ class DatabaseManager {
     private var migrator: DatabaseMigrator {
         var migrator = DatabaseMigrator()
         
-#if DEBUG
+        #if DEBUG
         // Speed up development by nuking the database when migrations change
         migrator.eraseDatabaseOnSchemaChange = true
-#endif
+        #endif
         
         migrator.registerMigration("0") { db in
             try db.create(table: "projects") { t in

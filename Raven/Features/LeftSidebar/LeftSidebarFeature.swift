@@ -25,7 +25,11 @@ extension LeftSidebarView {
     @Observable
     class LeftSidebarFeature {
         private(set) var state = LeftSidebarState()
-        private let databaseManager = DatabaseManager()
+        private let databaseManager: DatabaseManager
+        
+        init(databaseManager: DatabaseManager) {
+            self.databaseManager = databaseManager
+        }
     }
 }
 

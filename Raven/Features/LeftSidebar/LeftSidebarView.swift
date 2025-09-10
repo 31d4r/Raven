@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LeftSidebarView: View {
-    @State var feature = LeftSidebarFeature()
+    @Environment(LeftSidebarFeature.self) var feature
     let selectedProject: Project?
     
     init(selectedProject: Project?) {
@@ -63,6 +63,10 @@ struct LeftSidebarView: View {
             }
             .disabled(selectedProject == nil)
             .padding(.bottom)
+            .keyboardShortcut(
+                "o",
+                modifiers: [.command]
+            )
         }
     }
     

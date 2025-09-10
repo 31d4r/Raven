@@ -35,7 +35,13 @@ extension ProjectsView {
     @Observable
     class ProjectsFeature {
         private(set) var state = ProjectsState()
-        private let databaseManager = DatabaseManager()
+        private let databaseManager: DatabaseManager
+        
+        init(
+            databaseManager: DatabaseManager
+        ) {
+            self.databaseManager = databaseManager
+        }
     }
 }
 
