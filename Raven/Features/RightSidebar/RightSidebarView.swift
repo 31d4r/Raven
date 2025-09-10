@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RightSidebarView: View {
     let selectedProject: Project?
-    @State var feature = RightSidebarFeature()
+    @Environment(RightSidebarFeature.self) var feature
     
     var body: some View {
         content()

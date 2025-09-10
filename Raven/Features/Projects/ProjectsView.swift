@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectsView: View {
-    @State var feature = ProjectsFeature()
+    @Environment(ProjectsFeature.self) var feature
     @Binding var selectedProject: Project?
 
     init(selectedProject: Binding<Project?>) {

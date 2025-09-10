@@ -13,7 +13,7 @@ struct MainContentView: View {
     @Binding var showRightSidebar: Bool
     let selectedProject: Project?
     
-    @State var feature = MainContentFeature()
+    @Environment(MainContentFeature.self) var feature
     
     var body: some View {
         HStack(spacing: 0) {
