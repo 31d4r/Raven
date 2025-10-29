@@ -5,6 +5,7 @@
 //  Created by Eldar Tutnjic on 24.07.25.
 //
 
+import RDatabaseManager
 import SwiftUI
 
 struct NewNoteView: View {

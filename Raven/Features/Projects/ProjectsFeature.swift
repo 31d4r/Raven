@@ -5,6 +5,7 @@
 //  Created by Eldar Tutnjic on 24.07.25.
 //
 
+import RDatabaseManager
 import SwiftUI
 
 extension ProjectsView {
@@ -35,10 +36,10 @@ extension ProjectsView {
     @Observable
     class ProjectsFeature {
         private(set) var state = ProjectsState()
-        private let databaseManager: DatabaseManager
+        private let databaseManager: RDatabaseManager
         
         init(
-            databaseManager: DatabaseManager
+            databaseManager: RDatabaseManager
         ) {
             self.databaseManager = databaseManager
         }

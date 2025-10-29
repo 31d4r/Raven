@@ -1,5 +1,5 @@
 //
-//  PDFProcessingService.swift
+//  RPDFProcessingService.swift
 //  Raven
 //
 //  Created by Eldar Tutnjic on 16.08.25.
@@ -9,10 +9,12 @@ import PDFKit
 
 // MARK: - PDFKit for PDF Files
 
-class PDFProcessingService {
+public class RPDFProcessingService {
+    public init() {}
+
     // MARK: - PDF Text Extraction
 
-    func extractTextFromPDF(
+    public func extractTextFromPDF(
         _ pdfURL: URL
     ) -> String? {
         guard let pdfDocument = PDFDocument(url: pdfURL) else {

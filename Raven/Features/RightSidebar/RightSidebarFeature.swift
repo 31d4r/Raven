@@ -7,6 +7,8 @@
 
 import AVFoundation
 import FoundationModels
+import RDatabaseManager
+import RFoundationsManager
 import SwiftUI
 
 // MARK: - RightSidebarFeature
@@ -35,12 +37,12 @@ extension RightSidebarView {
     @Observable
     class RightSidebarFeature {
         private(set) var state = RightSidebarState()
-        private let foundationsManager: FoundationsManager
-        private let databaseManager: DatabaseManager
+        private let foundationsManager: RFoundationsManager
+        private let databaseManager: RDatabaseManager
         
         init(
-            foundationsManager: FoundationsManager,
-            databaseManager: DatabaseManager
+            foundationsManager: RFoundationsManager,
+            databaseManager: RDatabaseManager
         ) {
             self.foundationsManager = foundationsManager
             self.databaseManager = databaseManager
@@ -127,7 +129,7 @@ extension RightSidebarView.RightSidebarFeature {
         let title = value(\.newNoteTitle).trimmingCharacters(in: .whitespacesAndNewlines)
         let content = value(\.newNoteContent).trimmingCharacters(in: .whitespacesAndNewlines)
         
-        guard !title.isEmpty && !content.isEmpty else { return }
+        guard !title.isEmpty, !content.isEmpty else { return }
         
         do {
             let note = try databaseManager.createNote(

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE2D3CCD2EB2799700C4AB51 /* RFoundationsManager in Frameworks */ = {isa = PBXBuildFile; productRef = CE2D3CCC2EB2799700C4AB51 /* RFoundationsManager */; };
+		CE5962122EB2523A00E46633 /* RAudioTranscriptionService in Frameworks */ = {isa = PBXBuildFile; productRef = CE5962112EB2523A00E46633 /* RAudioTranscriptionService */; };
+		CE5962152EB252C200E46633 /* RImageTextService in Frameworks */ = {isa = PBXBuildFile; productRef = CE5962142EB252C200E46633 /* RImageTextService */; };
+		CE5962182EB2533500E46633 /* RPDFProcessingService in Frameworks */ = {isa = PBXBuildFile; productRef = CE5962172EB2533500E46633 /* RPDFProcessingService */; };
+		CE59621B2EB253AC00E46633 /* RVideoProcessingService in Frameworks */ = {isa = PBXBuildFile; productRef = CE59621A2EB253AC00E46633 /* RVideoProcessingService */; };
+		CE59621F2EB25C0D00E46633 /* RTextExtractionService in Frameworks */ = {isa = PBXBuildFile; productRef = CE59621E2EB25C0D00E46633 /* RTextExtractionService */; };
+		CE5962212EB25C1100E46633 /* RDatabaseManager in Frameworks */ = {isa = PBXBuildFile; productRef = CE5962202EB25C1100E46633 /* RDatabaseManager */; };
 		CE881B452E54986B00ED9DCE /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = CE881B442E54986B00ED9DCE /* MarkdownUI */; };
 		CEC2F8742E33A6D600388BB6 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = CEC2F8732E33A6D600388BB6 /* GRDB */; };
 		CEC2F8F42E33B41F00388BB6 /* CONTRIBUTING.md in Resources */ = {isa = PBXBuildFile; fileRef = CEC2F8F12E33B41F00388BB6 /* CONTRIBUTING.md */; };
@@ -22,6 +29,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CE59620F2EB2517E00E46633 /* Exceptions for "LocalPackages" folder in "Raven" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				RAudioTranscriptionService,
+				RDatabaseManager,
+				RFoundationsManager,
+				RImageTextService,
+				RPDFProcessingService,
+				RTextExtractionService,
+				RVideoProcessingService,
+			);
+			target = CEC2F8292E33A65400388BB6 /* Raven */;
+		};
 		CEC2F8712E33A6C400388BB6 /* Exceptions for "Raven" folder in "Raven" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -32,6 +52,14 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		CE5962082EB2503600E46633 /* LocalPackages */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CE59620F2EB2517E00E46633 /* Exceptions for "LocalPackages" folder in "Raven" target */,
+			);
+			path = LocalPackages;
+			sourceTree = "<group>";
+		};
 		CEC2F82C2E33A65400388BB6 /* Raven */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -47,19 +75,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE5962152EB252C200E46633 /* RImageTextService in Frameworks */,
 				CEC2F8742E33A6D600388BB6 /* GRDB in Frameworks */,
+				CE5962212EB25C1100E46633 /* RDatabaseManager in Frameworks */,
+				CE59621B2EB253AC00E46633 /* RVideoProcessingService in Frameworks */,
 				CE881B452E54986B00ED9DCE /* MarkdownUI in Frameworks */,
+				CE5962182EB2533500E46633 /* RPDFProcessingService in Frameworks */,
+				CE59621F2EB25C0D00E46633 /* RTextExtractionService in Frameworks */,
+				CE5962122EB2523A00E46633 /* RAudioTranscriptionService in Frameworks */,
+				CE2D3CCD2EB2799700C4AB51 /* RFoundationsManager in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE5962102EB2523A00E46633 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CEC2F8212E33A65400388BB6 = {
 			isa = PBXGroup;
 			children = (
 				CEC2F8F12E33B41F00388BB6 /* CONTRIBUTING.md */,
+				CE5962102EB2523A00E46633 /* Frameworks */,
 				CEC2F8F22E33B41F00388BB6 /* LICENSE.md */,
+				CE5962082EB2503600E46633 /* LocalPackages */,
 				CEC2F82C2E33A65400388BB6 /* Raven */,
 				CE73BBCB2E53D38400482581 /* Raven.app */,
 				CEC2F8F32E33B41F00388BB6 /* README.md */,
@@ -82,12 +126,20 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				CE5962082EB2503600E46633 /* LocalPackages */,
 				CEC2F82C2E33A65400388BB6 /* Raven */,
 			);
 			name = Raven;
 			packageProductDependencies = (
 				CEC2F8732E33A6D600388BB6 /* GRDB */,
 				CE881B442E54986B00ED9DCE /* MarkdownUI */,
+				CE5962112EB2523A00E46633 /* RAudioTranscriptionService */,
+				CE5962142EB252C200E46633 /* RImageTextService */,
+				CE5962172EB2533500E46633 /* RPDFProcessingService */,
+				CE59621A2EB253AC00E46633 /* RVideoProcessingService */,
+				CE59621E2EB25C0D00E46633 /* RTextExtractionService */,
+				CE5962202EB25C1100E46633 /* RDatabaseManager */,
+				CE2D3CCC2EB2799700C4AB51 /* RFoundationsManager */,
 			);
 			productName = Raven;
 			productReference = CE73BBCB2E53D38400482581 /* Raven.app */;
@@ -390,6 +442,34 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CE2D3CCC2EB2799700C4AB51 /* RFoundationsManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RFoundationsManager;
+		};
+		CE5962112EB2523A00E46633 /* RAudioTranscriptionService */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RAudioTranscriptionService;
+		};
+		CE5962142EB252C200E46633 /* RImageTextService */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RImageTextService;
+		};
+		CE5962172EB2533500E46633 /* RPDFProcessingService */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RPDFProcessingService;
+		};
+		CE59621A2EB253AC00E46633 /* RVideoProcessingService */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RVideoProcessingService;
+		};
+		CE59621E2EB25C0D00E46633 /* RTextExtractionService */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RTextExtractionService;
+		};
+		CE5962202EB25C1100E46633 /* RDatabaseManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RDatabaseManager;
+		};
 		CE881B442E54986B00ED9DCE /* MarkdownUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CE881B432E54986B00ED9DCE /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;

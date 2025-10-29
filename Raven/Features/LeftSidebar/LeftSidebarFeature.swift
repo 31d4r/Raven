@@ -5,6 +5,7 @@
 //  Created by Eldar Tutnjic on 24.07.25.
 //
 
+import RDatabaseManager
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -25,9 +26,9 @@ extension LeftSidebarView {
     @Observable
     class LeftSidebarFeature {
         private(set) var state = LeftSidebarState()
-        private let databaseManager: DatabaseManager
+        private let databaseManager: RDatabaseManager
         
-        init(databaseManager: DatabaseManager) {
+        init(databaseManager: RDatabaseManager) {
             self.databaseManager = databaseManager
         }
     }

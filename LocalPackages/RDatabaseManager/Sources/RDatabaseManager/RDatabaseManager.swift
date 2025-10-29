@@ -1,5 +1,5 @@
 //
-//  DatabaseManager.swift
+//  RDatabaseManager.swift
 //  Raven
 //
 //  Created by Eldar Tutnjic on 24.07.25.
@@ -9,10 +9,10 @@ import GRDB
 import SwiftUI
 
 @Observable
-class DatabaseManager {
+public class RDatabaseManager {
     private var dbQueue: DatabaseQueue!
     
-    init() {
+    public init() {
         setupDatabase()
     }
     
@@ -78,7 +78,7 @@ class DatabaseManager {
     
     // MARK: - Project Operations
     
-    func createProject(
+    public func createProject(
         name: String
     ) throws -> Project {
         let documentsURL = FileManager.default.urls(
@@ -106,13 +106,13 @@ class DatabaseManager {
         return project
     }
     
-    func fetchProjects() throws -> [Project] {
+    public func fetchProjects() throws -> [Project] {
         try dbQueue.read { db in
             try Project.order(Column("createdAt").desc).fetchAll(db)
         }
     }
     
-    func deleteProject(
+    public func deleteProject(
         _ project: Project
     ) throws {
         let projectURL = URL(fileURLWithPath: project.folderPath)
@@ -123,7 +123,7 @@ class DatabaseManager {
         }
     }
     
-    func renameProject(
+    public func renameProject(
         _ project: Project,
         newName: String
     ) throws -> Project {
@@ -139,7 +139,7 @@ class DatabaseManager {
     
     // MARK: - File Operations
     
-    func addFiles(
+    public func addFiles(
         _ urls: [URL],
         to project: Project
     ) throws -> [FileRecord] {
@@ -179,7 +179,7 @@ class DatabaseManager {
         return fileRecords
     }
     
-    func fetchFiles(
+    public func fetchFiles(
         for project: Project
     ) throws -> [FileRecord] {
         guard let projectId = project.id else {
@@ -194,7 +194,7 @@ class DatabaseManager {
         }
     }
     
-    func deleteFile(
+    public func deleteFile(
         _ fileRecord: FileRecord
     ) throws {
         let fileURL = URL(fileURLWithPath: fileRecord.publicPath)
@@ -207,7 +207,7 @@ class DatabaseManager {
     
     // MARK: - Note Operations
 
-    func createNote(
+    public func createNote(
         for project: Project,
         title: String,
         content: String
@@ -230,7 +230,7 @@ class DatabaseManager {
         return note
     }
 
-    func fetchNotes(
+    public func fetchNotes(
         for project: Project
     ) throws -> [Note] {
         guard let projectId = project.id else {
@@ -245,7 +245,7 @@ class DatabaseManager {
         }
     }
 
-    func deleteNote(
+    public func deleteNote(
         _ note: Note
     ) throws {
         _ = try dbQueue.write { db in
@@ -253,7 +253,7 @@ class DatabaseManager {
         }
     }
 
-    func updateNote(
+    public func updateNote(
         _ note: Note,
         title: String,
         content: String
@@ -271,7 +271,7 @@ class DatabaseManager {
     
     // MARK: - Additional Convenience Methods
     
-    func projectCount() -> Int {
+    public func projectCount() -> Int {
         do {
             return try dbQueue.read { db in
                 try Project.fetchCount(db)
@@ -295,7 +295,7 @@ class DatabaseManager {
         }
     }
     
-    func clearAllData() throws {
+    public func clearAllData() throws {
         try dbQueue.write { db in
             try Project.deleteAll(db)
             try FileRecord.deleteAll(db)
@@ -303,7 +303,7 @@ class DatabaseManager {
     }
 }
 
-enum DatabaseError: Error {
+public enum DatabaseError: Error {
     case notInitialized
     case projectNotFound
 }

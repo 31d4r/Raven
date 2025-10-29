@@ -1,5 +1,5 @@
 //
-//  ImageTextService.swift
+//  RImageTextService.swift
 //  Raven
 //
 //  Created by Eldar Tutnjic on 16.08.25.
@@ -11,10 +11,12 @@ import Vision
 // MARK: - Vision Framework for Images
 
 @Observable
-class ImageTextService {
+public class RImageTextService {
+    public init() {}
+    
     // MARK: - Image Text Extraction
     
-    func extractTextFromImage(
+    public func extractTextFromImage(
         _ imageURL: URL
     ) async -> String? {
         guard let image = NSImage(contentsOf: imageURL),

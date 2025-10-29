@@ -6,6 +6,7 @@
 //
 
 import QuickLook
+import RDatabaseManager
 import SwiftUI
 
 struct FileRowView: View {
