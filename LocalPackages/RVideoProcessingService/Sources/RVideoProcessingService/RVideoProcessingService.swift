@@ -1,5 +1,5 @@
 //
-//  VideoProcessingService.swift
+//  RVideoProcessingService.swift
 //  Raven
 //
 //  Created by Eldar Tutnjic on 31.08.25.
@@ -11,10 +11,13 @@ import Foundation
 // MARK: - Video Processing Service
 
 @Observable
-class VideoProcessingService {
+public class RVideoProcessingService {
+    
+    public init() { }
+    
     // MARK: - Video to Audio Extraction
 
-    func extractAudioFromVideo(
+    public func extractAudioFromVideo(
         _ videoURL: URL
     ) async -> URL? {
         let asset = AVURLAsset(url: videoURL)

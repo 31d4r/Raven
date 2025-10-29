@@ -1,28 +1,33 @@
 //
-//  TextExtractionService.swift
+//  RTextExtractionService.swift
 //  Raven
 //
 //  Created by Eldar Tutnjic on 16.08.25.
 //
 
 import Foundation
+import RAudioTranscriptionService
+import RDatabaseManager
+import RImageTextService
+import RPDFProcessingService
+import RVideoProcessingService
 
 // MARK: - Text Extraction Service
 
 @Observable
-class TextExtractionService {
-    private let audioTranscriptionService: AudioTranscriptionService
-    private let videoProcessingService: VideoProcessingService
-    private let pdfProcessingService: PDFProcessingService
-    private let imageTextService: ImageTextService
+public class RTextExtractionService {
+    private let audioTranscriptionService: RAudioTranscriptionService
+    private let videoProcessingService: RVideoProcessingService
+    private let pdfProcessingService: RPDFProcessingService
+    private let imageTextService: RImageTextService
     
     // MARK: - Initialization
     
-    init(
-        audioTranscriptionService: AudioTranscriptionService = AudioTranscriptionService(),
-        videoProcessingService: VideoProcessingService = VideoProcessingService(),
-        pdfProcessingService: PDFProcessingService = PDFProcessingService(),
-        imageTextService: ImageTextService = ImageTextService()
+    public init(
+        audioTranscriptionService: RAudioTranscriptionService = RAudioTranscriptionService(),
+        videoProcessingService: RVideoProcessingService = RVideoProcessingService(),
+        pdfProcessingService: RPDFProcessingService = RPDFProcessingService(),
+        imageTextService: RImageTextService = RImageTextService()
     ) {
         self.audioTranscriptionService = audioTranscriptionService
         self.videoProcessingService = videoProcessingService
@@ -32,7 +37,7 @@ class TextExtractionService {
     
     // MARK: - Main Text Extraction
     
-    func extractTextFromFiles(
+    public func extractTextFromFiles(
         _ files: [FileRecord]
     ) async -> String {
         var allText: [String] = []

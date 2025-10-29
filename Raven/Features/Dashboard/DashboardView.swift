@@ -5,6 +5,7 @@
 //  Created by Eldar Tutnjic on 18.07.25.
 //
 
+import RDatabaseManager
 import SwiftUI
 
 struct DashboardView: View {

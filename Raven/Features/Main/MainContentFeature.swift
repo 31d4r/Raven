@@ -5,6 +5,8 @@
 //  Created by Eldar Tutnjic on 25.07.25.
 //
 
+import RDatabaseManager
+import RFoundationsManager
 import SwiftUI
 
 extension MainContentView {
@@ -26,7 +28,7 @@ extension MainContentView {
     @Observable
     class MainContentFeature {
         private(set) var state = MainContentState()
-        private let foundationsManager = FoundationsManager()
+        private let foundationsManager = RFoundationsManager()
     }
 }
 

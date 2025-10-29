@@ -1,26 +1,28 @@
 //
-//  FoundationsManager.swift
+//  RFoundationsManager.swift
 //  Raven
 //
 //  Created by Eldar Tutnjic on 16.08.25.
 //
 
 import FoundationModels
+import RDatabaseManager
+import RTextExtractionService
 import SwiftUI
 
 // MARK: - FoundationsManager
 
 @Observable
-class FoundationsManager {
+public class RFoundationsManager {
     private let session = LanguageModelSession()
-    private let databaseManager: DatabaseManager
-    private let textExtractionService: TextExtractionService
+    private let databaseManager: RDatabaseManager
+    private let textExtractionService: RTextExtractionService
     
     // MARK: - Initialization
     
-    init(
-        databaseManager: DatabaseManager = DatabaseManager(),
-        textExtractionService: TextExtractionService = TextExtractionService()
+    public init(
+        databaseManager: RDatabaseManager = RDatabaseManager(),
+        textExtractionService: RTextExtractionService = RTextExtractionService()
     ) {
         self.databaseManager = databaseManager
         self.textExtractionService = textExtractionService
@@ -28,7 +30,7 @@ class FoundationsManager {
     
     // MARK: - Main Processing Function
     
-    func processQuestion(
+    public func processQuestion(
         _ question: String,
         for project: Project
     ) async throws -> String {

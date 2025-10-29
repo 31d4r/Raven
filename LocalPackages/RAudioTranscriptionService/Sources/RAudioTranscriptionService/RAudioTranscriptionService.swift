@@ -1,5 +1,5 @@
 //
-//  AudioTranscriptionService.swift
+//  RAudioTranscriptionService.swift
 //  Raven
 //
 //  Created by Eldar Tutnjic on 16.08.25.
@@ -11,10 +11,12 @@ import Speech
 // MARK: - Speech Framework for Audio Files
 
 @Observable
-class AudioTranscriptionService {
+public class RAudioTranscriptionService {
+    public init() {}
+    
     // MARK: - Audio Transcription
     
-    func transcribeAudio(
+    public func transcribeAudio(
         _ audioURL: URL
     ) async -> String? {
         let authStatus = SFSpeechRecognizer.authorizationStatus()

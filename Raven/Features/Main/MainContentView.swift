@@ -6,6 +6,7 @@
 //
 
 import MarkdownUI
+import RDatabaseManager
 import SwiftUI
 
 struct MainContentView: View {

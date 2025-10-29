@@ -5,12 +5,14 @@
 //  Created by Eldar Tutnjic on 10.09.25.
 //
 
+import RDatabaseManager
+import RFoundationsManager
 import SwiftUI
 
 @Observable
 class AppContainer {
-    let databaseManager = DatabaseManager()
-    let foundationsManager = FoundationsManager()
+    let databaseManager = RDatabaseManager()
+    let foundationsManager = RFoundationsManager()
 
     var projectsFeature: ProjectsView.ProjectsFeature
     var leftSidebarFeature: LeftSidebarView.LeftSidebarFeature
