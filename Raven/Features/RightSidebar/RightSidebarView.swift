@@ -55,7 +55,7 @@ struct RightSidebarView: View {
                         .font(.headline)
                     
                     if selectedProject == nil {
-                        Text("Select a project to view notes")
+                        Text("Select a chat to view notes")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     } else {

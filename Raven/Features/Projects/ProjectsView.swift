@@ -28,34 +28,14 @@ struct ProjectsView: View {
                     }
                 }
             }
-            .alert(
-                "New Project",
-                isPresented: feature.binding(
-                    for: \.showingNewProjectAlert
-                )
-            ) {
-                TextField("Project name", text: feature.binding(for: \.newProjectName))
-                
-                Button {
-                    feature.send(.hideNewProjectAlert)
-                } label: {
-                    Text("Cancel")
+            .sheet(
+                isPresented: feature.binding(for: \.showingNewProjectAlert),
+                content: {
+                    createNewProjectView()
                 }
-                
-                Button {
-                    feature.send(.createProject(feature.value(\.newProjectName)))
-                } label: {
-                    Text("Create")
-                }
-                .disabled(
-                    feature.value(\.newProjectName).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                )
-   
-            } message: {
-                Text("Enter a name for your new project")
-            }
+            )
             .alert("Rename Project", isPresented: feature.binding(for: \.showingRenameAlert)) {
-                TextField("Project name", text: feature.binding(for: \.renameProjectName))
+                TextField("Chat name", text: feature.binding(for: \.renameProjectName))
                 
                 Button {
                     feature.send(.hideRenameAlert)
@@ -139,5 +119,38 @@ struct ProjectsView: View {
                 .tag(project)
         }
         .listStyle(.sidebar)
+    }
+    
+    func createNewProjectView() -> some View {
+        VStack {
+            TextField(
+                "Chat name",
+                text: feature.binding(
+                    for: \.newProjectName
+                )
+            )
+            
+            .padding(.vertical)
+            
+            HStack {
+                Spacer()
+                
+                Button {
+                    feature.send(.hideNewProjectAlert)
+                } label: {
+                    Text("Cancel")
+                }
+                
+                Button {
+                    feature.send(.createProject(feature.value(\.newProjectName)))
+                } label: {
+                    Text("Create")
+                }
+                .disabled(
+                    feature.value(\.newProjectName).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                )
+            }
+        }
+        .padding()
     }
 }

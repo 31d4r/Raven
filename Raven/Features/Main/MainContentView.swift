@@ -10,41 +10,15 @@ import RDatabaseManager
 import SwiftUI
 
 struct MainContentView: View {
-    @Binding var showLeftSidebar: Bool
-    @Binding var showRightSidebar: Bool
     let selectedProject: Project?
     
     @Environment(MainContentFeature.self) var feature
     
     var body: some View {
         HStack(spacing: 0) {
-            if showLeftSidebar {
-                LeftSidebarView(selectedProject: selectedProject)
-                    .frame(width: 300)
-                    .transition(
-                        .move(edge: .leading).combined(with: .opacity)
-                    )
-            }
-            
             content()
                 .frame(maxWidth: .infinity)
-            
-            if showRightSidebar {
-                RightSidebarView(selectedProject: selectedProject)
-                    .frame(width: 300)
-                    .transition(
-                        .move(edge: .trailing).combined(with: .opacity)
-                    )
-            }
         }
-        .animation(
-            .easeInOut(duration: 0.2),
-            value: showLeftSidebar
-        )
-        .animation(
-            .easeInOut(duration: 0.2),
-            value: showRightSidebar
-        )
         .onChange(of: selectedProject?.id) { _, _ in
             feature.send(.clearResponse)
         }
@@ -52,47 +26,8 @@ struct MainContentView: View {
     
     func content() -> some View {
         VStack {
-            topToolbarView()
             mainView()
         }
-    }
-    
-    func topToolbarView() -> some View {
-        HStack {
-            Button {
-                showLeftSidebar.toggle()
-            } label: {
-                Image(systemName: "sidebar.leading")
-            }
-            .buttonStyle(.plain)
-            
-            Spacer()
-            
-            VStack {
-                Text("Chat")
-                    .font(.title2)
-                    .fontWeight(.medium)
-                
-                if let project = selectedProject {
-                    Text(project.name)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .id(project.id)
-                }
-            }
-            .id(selectedProject?.id)
-            
-            Spacer()
-            
-            Button {
-                showRightSidebar.toggle()
-            } label: {
-                Image(systemName: "sidebar.trailing")
-            }
-            .buttonStyle(.plain)
-        }
-        .padding()
-        .background(Color(NSColor.controlBackgroundColor))
     }
     
     func mainView() -> some View {
@@ -101,9 +36,8 @@ struct MainContentView: View {
                 noProjectSelectedView()
             } else {
                 chatView()
+                bottomInputView()
             }
-            
-            bottomInputView()
         }
         .frame(
             maxWidth: .infinity,
@@ -115,19 +49,12 @@ struct MainContentView: View {
     func noProjectSelectedView() -> some View {
         VStack(spacing: 20) {
             Spacer()
-            
-            Image(systemName: "folder.badge.questionmark")
-                .font(.system(size: 48))
-                .foregroundColor(.secondary)
-            
-            Text("No Project Selected")
+
+            Text("No Chat Selected")
                 .font(.title)
                 .fontWeight(.medium)
             
             Spacer()
-            
-            Text("Select a project from the sidebar to get started")
-                .foregroundColor(.secondary)
         }
     }
     
@@ -252,7 +179,7 @@ struct MainContentView: View {
         VStack {
             HStack {
                 TextField(
-                    selectedProject == nil ? "Select a project to get started" : "Ask me anything about your documents...",
+                    "Ask me anything about your documents...",
                     text: feature.binding(for: \.questionText),
                     axis: .vertical
                 )

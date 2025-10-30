@@ -54,11 +54,11 @@ Raven is a powerful AI assistant app built for macOS that transforms your docume
 
 ### Creating Your First Project
 1. Click the "+" button in the Projects sidebar
-2. Enter a project name and click "Create"
+2. Enter a chat name and click "Create"
 3. Your project folder structure will be automatically created in Documents/Raven Projects
 
 ### Adding Content
-1. Select a project from the sidebar
+1. Select a chat from the sidebar
 2. Click "Add Sources" in the left sidebar
 3. Choose your files (images, PDFs, audio files, video files)
 4. Files are automatically copied to your project's public folder
