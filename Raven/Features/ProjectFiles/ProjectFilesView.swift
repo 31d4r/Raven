@@ -8,8 +8,8 @@
 import RDatabaseManager
 import SwiftUI
 
-struct LeftSidebarView: View {
-    @Environment(LeftSidebarFeature.self) var feature
+struct ProjectFilesView: View {
+    @Environment(ProjectFilesFeature.self) var feature
     let selectedProject: Project?
     
     init(selectedProject: Project?) {

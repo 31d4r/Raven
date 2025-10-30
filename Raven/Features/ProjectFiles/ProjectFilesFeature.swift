@@ -1,5 +1,5 @@
 //
-//  LeftSidebarFeature.swift
+//  ProjectFilesView.swift
 //  Raven
 //
 //  Created by Eldar Tutnjic on 24.07.25.
@@ -9,7 +9,7 @@ import RDatabaseManager
 import SwiftUI
 import UniformTypeIdentifiers
 
-extension LeftSidebarView {
+extension ProjectFilesView {
     struct LeftSidebarState {
         var files: [FileRecord] = []
         var isLoading = false
@@ -24,7 +24,7 @@ extension LeftSidebarView {
     }
     
     @Observable
-    class LeftSidebarFeature {
+    class ProjectFilesFeature {
         private(set) var state = LeftSidebarState()
         private let databaseManager: RDatabaseManager
         
@@ -36,22 +36,22 @@ extension LeftSidebarView {
 
 // MARK: - Utils
 
-extension LeftSidebarView.LeftSidebarFeature {
-    func send(_ action: LeftSidebarView.Action) {
+extension ProjectFilesView.ProjectFilesFeature {
+    func send(_ action: ProjectFilesView.Action) {
         Task {
             await handle(action)
         }
     }
     
-    func value<T>(_ keyPath: KeyPath<LeftSidebarView.LeftSidebarState, T>) -> T {
+    func value<T>(_ keyPath: KeyPath<ProjectFilesView.LeftSidebarState, T>) -> T {
         state[keyPath: keyPath]
     }
 
-    func set<T>(_ keyPath: WritableKeyPath<LeftSidebarView.LeftSidebarState, T>, to value: T) {
+    func set<T>(_ keyPath: WritableKeyPath<ProjectFilesView.LeftSidebarState, T>, to value: T) {
         state[keyPath: keyPath] = value
     }
 
-    func binding<T>(for keyPath: WritableKeyPath<LeftSidebarView.LeftSidebarState, T>) -> Binding<T> {
+    func binding<T>(for keyPath: WritableKeyPath<ProjectFilesView.LeftSidebarState, T>) -> Binding<T> {
         Binding<T>(
             get: { self.state[keyPath: keyPath] },
             set: { newValue in
@@ -63,9 +63,9 @@ extension LeftSidebarView.LeftSidebarFeature {
 
 // MARK: - Actions
 
-extension LeftSidebarView.LeftSidebarFeature {
+extension ProjectFilesView.ProjectFilesFeature {
     @MainActor
-    private func handle(_ action: LeftSidebarView.Action) async {
+    private func handle(_ action: ProjectFilesView.Action) async {
         switch action {
         case .loadFiles(let project):
             await loadFiles(for: project)
@@ -119,7 +119,7 @@ extension LeftSidebarView.LeftSidebarFeature {
 
 // MARK: - Functions
 
-extension LeftSidebarView.LeftSidebarFeature {
+extension ProjectFilesView.ProjectFilesFeature {
     func openFilePicker() {
         let panel = NSOpenPanel()
         

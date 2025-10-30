@@ -15,8 +15,7 @@ struct RavenApp: App {
         WindowGroup {
             DashboardView()
                 .environment(appContainer.projectsFeature)
-                .environment(appContainer.leftSidebarFeature)
-                .environment(appContainer.rightSidebarFeature)
+                .environment(appContainer.projectFilesFeature)
                 .environment(appContainer.mainContentFeature)
         }
         .commands {
@@ -24,7 +23,7 @@ struct RavenApp: App {
                 Button {
                     appContainer.projectsFeature.send(.showNewProjectAlert)
                 } label: {
-                    Text("New Project")
+                    Text("New Chat")
                 }
                 .keyboardShortcut(
                     "n",

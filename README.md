@@ -31,7 +31,6 @@ Raven is a powerful AI assistant app built for macOS that transforms your docume
 ### Project Management
 * **Project Organization**: Create and manage multiple projects
 * **File Management**: Upload and organize files within projects
-* **Notes System**: Add personal notes to each project
 * **Easy Navigation**: Clean sidebar interface for project switching
 
 ## Privacy and Security
@@ -69,12 +68,6 @@ Raven is a powerful AI assistant app built for macOS that transforms your docume
 3. Get intelligent responses based on your content
 4. Copy responses for later use
 
-### Managing Notes
-1. Scroll to the bottom of the right sidebar
-2. Click "+" to add a new note
-3. Enter title and content
-4. Notes are automatically saved and organized by date
-
 ## Project Structure
 
 The app creates this folder structure for each project:
@@ -88,7 +81,7 @@ Documents/
 
 ## Database
 
-Raven uses GRDB.swift for local data storage with SQLite. All project metadata, file references, and notes are stored locally on your device.
+Raven uses GRDB.swift for local data storage with SQLite. All project metadata, file references are stored locally on your device.
 
 ## Development Status
 
@@ -98,7 +91,6 @@ Raven uses GRDB.swift for local data storage with SQLite. All project metadata, 
 * Project creation and management
 * Multi format file processing (images, PDFs, audio, video)
 * AI powered Q&A system
-* Notes system
 * Modern SwiftUI interface
 * Complete local processing with Apple Foundation Models
 

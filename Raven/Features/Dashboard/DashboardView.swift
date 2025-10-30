@@ -21,7 +21,7 @@ struct DashboardView: View {
             )
         }
         .inspector(isPresented: $showInspector) {
-            LeftSidebarView(selectedProject: selectedProject)
+            ProjectFilesView(selectedProject: selectedProject)
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {

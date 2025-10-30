@@ -15,19 +15,14 @@ class AppContainer {
     let foundationsManager = RFoundationsManager()
 
     var projectsFeature: ProjectsView.ProjectsFeature
-    var leftSidebarFeature: LeftSidebarView.LeftSidebarFeature
-    var rightSidebarFeature: RightSidebarView.RightSidebarFeature
+    var projectFilesFeature: ProjectFilesView.ProjectFilesFeature
     var mainContentFeature: MainContentView.MainContentFeature
 
     init() {
         self.projectsFeature = ProjectsView.ProjectsFeature(
             databaseManager: databaseManager
         )
-        self.leftSidebarFeature = LeftSidebarView.LeftSidebarFeature(
-            databaseManager: databaseManager
-        )
-        self.rightSidebarFeature = RightSidebarView.RightSidebarFeature(
-            foundationsManager: foundationsManager,
+        self.projectFilesFeature = ProjectFilesView.ProjectFilesFeature(
             databaseManager: databaseManager
         )
         self.mainContentFeature = MainContentView.MainContentFeature()
