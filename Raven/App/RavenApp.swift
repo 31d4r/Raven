@@ -7,8 +7,15 @@
 
 import SwiftUI
 
+final class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationShouldTerminateAfterLastWindowClosed(
+        _ sender: NSApplication
+    ) -> Bool { true }
+}
+
 @main
 struct RavenApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State private var appContainer = AppContainer()
 
     var body: some Scene {
@@ -17,6 +24,7 @@ struct RavenApp: App {
                 .environment(appContainer.projectsFeature)
                 .environment(appContainer.projectFilesFeature)
                 .environment(appContainer.mainContentFeature)
+                .background(WindowAccessor())
         }
         .commands {
             CommandGroup(replacing: .newItem) {
