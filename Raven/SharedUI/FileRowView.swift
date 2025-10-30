@@ -18,12 +18,20 @@ struct FileRowView: View {
         HStack(spacing: 12) {
             fileIcon(for: file.fileType)
             
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(
+                alignment: .leading,
+                spacing: 2
+            ) {
                 Text(file.name)
                     .font(.subheadline)
                     .lineLimit(1)
                 
-                Text(file.createdAt, style: .relative)
+                Text(
+                    file.createdAt.formatted(
+                        date: .numeric,
+                        time: .shortened
+                    )
+                )
                     .font(.caption)
                     .foregroundColor(.secondary)
             }

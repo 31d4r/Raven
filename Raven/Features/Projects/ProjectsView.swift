@@ -18,7 +18,6 @@ struct ProjectsView: View {
     
     var body: some View {
         content()
-            .navigationTitle("Projects")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
@@ -34,7 +33,7 @@ struct ProjectsView: View {
                     createNewProjectView()
                 }
             )
-            .alert("Rename Project", isPresented: feature.binding(for: \.showingRenameAlert)) {
+            .alert("Rename Chat", isPresented: feature.binding(for: \.showingRenameAlert)) {
                 TextField("Chat name", text: feature.binding(for: \.renameProjectName))
                 
                 Button {
@@ -53,7 +52,7 @@ struct ProjectsView: View {
                 )
    
             } message: {
-                Text("Enter a new name for the project")
+                Text("Enter a new name for the chat")
             }
             .task {
                 feature.send(.loadProjects)
@@ -66,7 +65,7 @@ struct ProjectsView: View {
     func content() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             if feature.value(\.isLoading) {
-                ProgressView("Loading projects...")
+                ProgressView("Loading chats...")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if feature.value(\.projects).isEmpty {
                 emptyStateView()
@@ -83,23 +82,23 @@ struct ProjectsView: View {
     
     func emptyStateView() -> some View {
         VStack(spacing: 20) {
-            Image(systemName: "folder.badge.plus")
+            Image(systemName: "message")
                 .font(.system(size: 48))
                 .foregroundColor(.secondary)
             
-            Text("No Projects Yet")
+            Text("No Chats Yet")
                 .font(.title2)
                 .fontWeight(.medium)
             
-            Text("Create your first project to get started")
+            Text("Create your first chat to get started")
                 .foregroundColor(.secondary)
             
             Button {
                 feature.send(.showNewProjectAlert)
             } label: {
-                Text("Create Project")
+                Text("Create Chat")
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.borderless)
         }
         .frame(
             maxWidth: .infinity,
@@ -123,12 +122,24 @@ struct ProjectsView: View {
     
     func createNewProjectView() -> some View {
         VStack {
-            TextField(
-                "Chat name",
-                text: feature.binding(
-                    for: \.newProjectName
+            HStack {
+                Text("New Chat")
+                
+                Spacer()
+            }
+            
+            Divider()
+            
+            HStack {
+                Text("Name")
+                
+                TextField(
+                    "Chat name",
+                    text: feature.binding(
+                        for: \.newProjectName
+                    )
                 )
-            )
+            }
             
             .padding(.vertical)
             
