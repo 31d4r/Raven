@@ -15,13 +15,18 @@ struct ProjectRowView: View {
 
     var body: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(
+                alignment: .leading,
+                spacing: 4
+            ) {
                 Text(project.name)
                     .font(.headline)
 
-                Text(project.createdAt, style: .date)
+                Text(
+                    project.createdAt,
+                    style: .date
+                )
                     .font(.caption)
-                    .foregroundColor(.secondary)
             }
 
             Spacer()
@@ -41,7 +46,6 @@ struct ProjectRowView: View {
 
             } label: {
                 Image(systemName: "ellipsis")
-                    .foregroundColor(.secondary)
             }
             .menuStyle(.borderlessButton)
         }

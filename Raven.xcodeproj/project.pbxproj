@@ -14,6 +14,7 @@
 		CE59621B2EB253AC00E46633 /* RVideoProcessingService in Frameworks */ = {isa = PBXBuildFile; productRef = CE59621A2EB253AC00E46633 /* RVideoProcessingService */; };
 		CE59621F2EB25C0D00E46633 /* RTextExtractionService in Frameworks */ = {isa = PBXBuildFile; productRef = CE59621E2EB25C0D00E46633 /* RTextExtractionService */; };
 		CE5962212EB25C1100E46633 /* RDatabaseManager in Frameworks */ = {isa = PBXBuildFile; productRef = CE5962202EB25C1100E46633 /* RDatabaseManager */; };
+		CE5E2B7E2EB36BFA00A4BEB3 /* SUPPORT.md in Resources */ = {isa = PBXBuildFile; fileRef = CE5E2B7D2EB36BFA00A4BEB3 /* SUPPORT.md */; };
 		CE881B452E54986B00ED9DCE /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = CE881B442E54986B00ED9DCE /* MarkdownUI */; };
 		CEC2F8742E33A6D600388BB6 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = CEC2F8732E33A6D600388BB6 /* GRDB */; };
 		CEC2F8F42E33B41F00388BB6 /* CONTRIBUTING.md in Resources */ = {isa = PBXBuildFile; fileRef = CEC2F8F12E33B41F00388BB6 /* CONTRIBUTING.md */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE5E2B7D2EB36BFA00A4BEB3 /* SUPPORT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SUPPORT.md; sourceTree = "<group>"; };
 		CE73BBCB2E53D38400482581 /* Raven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Raven.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC2F8F12E33B41F00388BB6 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		CEC2F8F22E33B41F00388BB6 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				CEC2F82C2E33A65400388BB6 /* Raven */,
 				CE73BBCB2E53D38400482581 /* Raven.app */,
 				CEC2F8F32E33B41F00388BB6 /* README.md */,
+				CE5E2B7D2EB36BFA00A4BEB3 /* SUPPORT.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -189,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEC2F8F42E33B41F00388BB6 /* CONTRIBUTING.md in Resources */,
+				CE5E2B7E2EB36BFA00A4BEB3 /* SUPPORT.md in Resources */,
 				CEC2F8F52E33B41F00388BB6 /* LICENSE.md in Resources */,
 				CEC2F8F62E33B41F00388BB6 /* README.md in Resources */,
 			);
@@ -335,7 +339,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 89ZNTTCP5L;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -343,6 +347,7 @@
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Raven/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs microphone access for speech recognition features.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This app uses speech recognition to transcribe audio files in your projects.";
@@ -371,7 +376,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 89ZNTTCP5L;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -379,6 +384,7 @@
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Raven/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs microphone access for speech recognition features.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This app uses speech recognition to transcribe audio files in your projects.";

@@ -4,80 +4,48 @@
 
 ## Overview
 
-Raven is a powerful AI assistant app built for macOS that transforms your documents into interactive content. Upload your files and get intelligent responses, summaries.
+Raven is an AI assistant app for macOS that transforms documents into interactive content. Upload files and get intelligent responses and summaries.
 
-**🔒 Privacy First**: All your documents stay completely local on your device. Raven uses Apple's on-device Foundation Models, so nothing gets sent to external servers or cloud services.
+**🔒 Privacy First**: All processing happens locally using Apple Foundation Models. Nothing is sent to servers or cloud services.
 
 ## System Requirements
 
-* macOS 26 Tahoe or later
-* Xcode 26
+* macOS 26 Tahoe or later  
+* Xcode 26  
 * Apple Foundations Model support
 
-## What Raven Can Do
+## Features
 
-### Document Processing
-* **Image Text Extraction**: Uses Vision framework to read text from images (JPG, PNG, HEIC, TIFF)
-* **PDF Analysis**: Extracts and processes text from PDF documents
-* **Audio Transcription**: Converts speech to text from audio files (MP3, WAV, AIFF, M4A)
-* **Video Text Extraction**: Pulls text from video files so you can ask for summaries or questions about the content
+* Text extraction from images PDFs audio files video files
+* Audio transcription and video text extraction
+* Smart Q&A and contextual content analysis
+* Local AI processing only
+* Project creation and file organization
 
-### AI Features
-* **Smart Q&A**: Ask questions about your uploaded documents and get intelligent responses
-* **Content Analysis**: AI analyzes all your files and provides contextual answers
-* **Multi Format Support**: Works with images, PDFs, audio files and video files simultaneously
-* **100% Local Processing**: All AI processing happens on your device using Apple's Foundation Models
+## Privacy
 
-### Project Management
-* **Project Organization**: Create and manage multiple projects
-* **File Management**: Upload and organize files within projects
-* **Notes System**: Add personal notes to each project
-* **Easy Navigation**: Clean sidebar interface for project switching
+* All data stays on device
+* No internet required for AI features
+* Complete control over documents
 
-## Privacy and Security
+## Quick Start
 
-🛡️ **Your Data Never Leaves Your Device**
+1. Download the latest release as a dmg or app from GitHub Releases or clone the repository
+2. Open in Xcode 26 if building manually
+3. Run on macOS 26 Tahoe
 
-* All document processing happens locally using Apple's on-device AI
-* No internet connection required for AI features
-* No data sent to external servers or cloud services
-* Complete privacy and control over your sensitive documents
-* Uses Apple's Foundation Models framework for local LLM processing
+### Add Content
 
-## How to Use
+1. Create a project in the sidebar
+2. Add files, they are copied to Documents/Raven Projects
 
-### Getting Started
-1. Clone this repository
-2. Open the project in Xcode 26
-3. Build and run on macOS 26 Tahoe
-4. Grant necessary permissions for Speech Recognition and Microphone access
+### Ask Questions
 
-### Creating Your First Project
-1. Click the "+" button in the Projects sidebar
-2. Enter a project name and click "Create"
-3. Your project folder structure will be automatically created in Documents/Raven Projects
-
-### Adding Content
-1. Select a project from the sidebar
-2. Click "Add Sources" in the left sidebar
-3. Choose your files (images, PDFs, audio files, video files)
-4. Files are automatically copied to your project's public folder
-
-### Asking Questions
-1. Type your question in the chat input field
-2. Raven will analyze all files in your project
-3. Get intelligent responses based on your content
-4. Copy responses for later use
-
-### Managing Notes
-1. Scroll to the bottom of the right sidebar
-2. Click "+" to add a new note
-3. Enter title and content
-4. Notes are automatically saved and organized by date
+1. Select a project
+2. Type a question and get responses based on the content
 
 ## Project Structure
 
-The app creates this folder structure for each project:
 ```
 Documents/
   Raven Projects/
@@ -86,61 +54,24 @@ Documents/
         [uploaded files]
 ```
 
-## Database
-
-Raven uses GRDB.swift for local data storage with SQLite. All project metadata, file references, and notes are stored locally on your device.
-
 ## Development Status
 
-🚧 **This project is currently in active development**
-
-### Current Features
-* Project creation and management
-* Multi format file processing (images, PDFs, audio, video)
-* AI powered Q&A system
-* Notes system
-* Modern SwiftUI interface
-* Complete local processing with Apple Foundation Models
-
-### Planned Features
-* Export capabilities
-* Advanced search functionality
-* More customization options
-* Performance improvements
-* Additional AI model options
+🚧 This project is currently in active development
 
 ## Contributing
 
-We welcome contributions! Here's how you can help:
-
-### Ways to Contribute
-* Report bugs and issues
-* Suggest new features
+* Report issues
+* Suggest features
 * Submit pull requests
-* Improve documentation
-* Test on different macOS configurations
-
-### Getting Started with Development
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly on macOS 26 Tahoe
-5. Submit a pull request with clear description
-
-### Code Style
-* Follow Swift best practices
-* Use meaningful variable names
-* Add comments for complex logic
-* Maintain clean architecture patterns
 
 ## Dependencies
 
-* **GRDB.swift**: Database management
-* **Apple Foundations Model**: Local AI processing
-* **Vision**: Text recognition from images
-* **Speech**: Audio transcription
-* **PDFKit**: PDF text extraction
-* **AVFoundation**: Audio playback and synthesis
+* GRDB.swift  
+* Apple Foundations Model  
+* Vision  
+* Speech  
+* PDFKit  
+* AVFoundation
 
 ## License
 
@@ -148,30 +79,17 @@ This project is open source. Please check the LICENSE file for details.
 
 ## Support
 
-If you encounter issues or have questions:
-* Check existing issues on GitHub
-* Create a new issue with detailed description
-* Include your macOS version and steps to reproduce
+Open an issue with macOS version and steps to reproduce
 
 ## Author
 
 Created by [Eldar Tutnjic](https://github.com/31d4r)
 
-## Acknowledgments
-
-Built with Apple's latest technologies including Foundation Models framework for on-device AI, Vision framework, and SwiftUI for macOS 26 Tahoe.
-
----
-
-**Note**: This app requires macOS 26 Tahoe and uses Apple's Foundation Models which run completely on-device without requiring internet connectivity for AI features.
-
 ## Screenshots
 
-![Raven1](Screenshots/Raven1.png)  
-![Raven2](Screenshots/Raven2.png)  
-![Raven3](Screenshots/Raven3.png)  
-![Raven4](Screenshots/Raven4.png)  
-![Raven5](Screenshots/Raven5.png)  
-![Raven6](Screenshots/Raven6.png)  
-![Raven7](Screenshots/Raven7.png)
-![Raven8](Screenshots/Raven8.png)
+![Raven1](Screenshots/Raven1.jpg)  
+![Raven2](Screenshots/Raven2.jpg)  
+![Raven3](Screenshots/Raven3.jpg)  
+![Raven4](Screenshots/Raven4.jpg)  
+![Raven5](Screenshots/Raven5.jpg)  
+![Raven6](Screenshots/Raven6.jpg)  

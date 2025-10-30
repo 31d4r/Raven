@@ -8,8 +8,8 @@
 import RDatabaseManager
 import SwiftUI
 
-struct LeftSidebarView: View {
-    @Environment(LeftSidebarFeature.self) var feature
+struct ProjectFilesView: View {
+    @Environment(ProjectFilesFeature.self) var feature
     let selectedProject: Project?
     
     init(selectedProject: Project?) {
@@ -42,10 +42,9 @@ struct LeftSidebarView: View {
             alignment: .leading,
             spacing: 0
         ) {
-            headerView()
-            
             if selectedProject != nil {
                 filesListView()
+                headerView()
             } else {
                 noProjectSelectedView()
             }
@@ -58,9 +57,7 @@ struct LeftSidebarView: View {
                 systemImageName: "plus",
                 buttonText: "Add Sources"
             ) {
-                if selectedProject != nil {
-                    feature.openFilePicker()
-                }
+                feature.openFilePicker()
             }
             .disabled(selectedProject == nil)
             .padding(.bottom)
@@ -77,7 +74,7 @@ struct LeftSidebarView: View {
                 .font(.system(size: 32))
                 .foregroundColor(.secondary)
             
-            Text("Select a project to add sources")
+            Text("Select a chat to add sources")
                 .foregroundColor(.secondary)
         }
         .frame(
