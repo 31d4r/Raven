@@ -19,6 +19,13 @@ public class RImageTextService {
     public func extractTextFromImage(
         _ imageURL: URL
     ) async -> String? {
+        #if os(iOS)
+        guard let image = UIImage(contentsOfFile: imageURL.path),
+              let cgImage = image.cgImage
+        else {
+            return nil
+        }
+        #elseif os(macOS)
         guard let image = NSImage(contentsOf: imageURL),
               let cgImage = image.cgImage(
                   forProposedRect: nil,
@@ -28,6 +35,7 @@ public class RImageTextService {
         else {
             return nil
         }
+        #endif
         
         return await withCheckedContinuation { continuation in
             let request = VNRecognizeTextRequest { request, error in

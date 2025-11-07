@@ -120,6 +120,7 @@ extension ProjectFilesView.ProjectFilesFeature {
 // MARK: - Functions
 
 extension ProjectFilesView.ProjectFilesFeature {
+    #if os(macOS)
     func openFilePicker() {
         let panel = NSOpenPanel()
         
@@ -154,4 +155,5 @@ extension ProjectFilesView.ProjectFilesFeature {
             }
         }
     }
+    #endif
 }

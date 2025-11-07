@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#if os(macOS)
 struct WindowAccessor: NSViewRepresentable {
     func makeCoordinator() -> Coordinator { Coordinator() }
 
@@ -55,3 +56,4 @@ final class AttachableView: NSView {
         }
     }
 }
+#endif

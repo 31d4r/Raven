@@ -108,9 +108,11 @@ extension MainContentView.MainContentFeature {
         
         let formattedText = formatResponseForCopy(responseText)
         
+        #if os(macOS)
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
         pasteboard.setString(formattedText, forType: .string)
+        #endif
     }
 
     private func formatResponseForCopy(

@@ -13,6 +13,7 @@ struct MainContentView: View {
     let selectedProject: Project?
     
     @Environment(MainContentFeature.self) var feature
+    @State private var isAddProjectFilesPresented = false
     
     var body: some View {
         HStack(spacing: 0) {
@@ -22,12 +23,33 @@ struct MainContentView: View {
         .onChange(of: selectedProject?.id) { _, _ in
             feature.send(.clearResponse)
         }
+        #if os(iOS)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    isAddProjectFilesPresented = true
+                } label: {
+                    Image(systemName: "folder")
+                }
+            }
+        }
+        .sheet(isPresented: $isAddProjectFilesPresented) {
+            NavigationStack {
+                ProjectFilesView(selectedProject: selectedProject)
+                    .toolbar {
+                        Button {
+                            isAddProjectFilesPresented = false
+                        } label: {
+                            Text("Dismiss")
+                        }
+                    }
+            }
+        }
+        #endif
     }
     
     func content() -> some View {
-        VStack {
-            mainView()
-        }
+        mainView()
     }
     
     func mainView() -> some View {
@@ -43,7 +65,9 @@ struct MainContentView: View {
             maxWidth: .infinity,
             maxHeight: .infinity
         )
+        #if os(macOS)
         .background(Color(NSColor.textBackgroundColor))
+        #endif
     }
     
     func noProjectSelectedView() -> some View {

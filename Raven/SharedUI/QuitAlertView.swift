@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#if os(macOS)
 enum QuitAlert {
     static let title = "Quit Raven?"
     static let message = "Are you sure you want to quit Raven?"
@@ -23,3 +24,4 @@ enum QuitAlert {
         return alert
     }
 }
+#endif

@@ -7,9 +7,11 @@
 
 import RDatabaseManager
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct ProjectFilesView: View {
     @Environment(ProjectFilesFeature.self) var feature
+    @State private var isFileImporterPresented = false
     let selectedProject: Project?
     
     init(selectedProject: Project?) {
@@ -24,7 +26,37 @@ struct ProjectFilesView: View {
                 alignment: .topLeading
             )
             .padding(.top)
+        #if os(macOS)
             .background(Color(NSColor.controlBackgroundColor))
+        #endif
+            .fileImporter(
+                isPresented: $isFileImporterPresented,
+                allowedContentTypes: [
+                    .audio,
+                    .mp3,
+                    .mpeg4Audio,
+                    .aiff,
+                    .wav,
+                    .image,
+                    .jpeg,
+                    .png,
+                    .tiff,
+                    .heic,
+                    .pdf,
+                    .movie,
+                    .video,
+                    .mpeg4Movie,
+                    .appleProtectedMPEG4Video,
+                    .quickTimeMovie
+                ]
+            ) { result in
+                switch result {
+                case .success(let url):
+                    feature.send(.selectFiles([url]))
+                case .failure(let error):
+                    feature.set(\.errorMessage, to: error.localizedDescription)
+                }
+            }
             .onChange(of: selectedProject) { _, newProject in
                 if let project = newProject {
                     feature.send(.loadFiles(project))
@@ -57,7 +89,11 @@ struct ProjectFilesView: View {
                 systemImageName: "plus",
                 buttonText: "Add Sources"
             ) {
-                feature.openFilePicker()
+                #if os(macOS)
+                    feature.openFilePicker()
+                #elseif os(iOS)
+                    isFileImporterPresented = true
+                #endif
             }
             .disabled(selectedProject == nil)
             .padding(.bottom)
