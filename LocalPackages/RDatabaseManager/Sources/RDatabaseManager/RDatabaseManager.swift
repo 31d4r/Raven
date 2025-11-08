@@ -146,39 +146,60 @@ public class RDatabaseManager {
         guard let projectId = project.id else {
             throw DatabaseError.notInitialized
         }
-        
-        let publicFolderURL = URL(
-            fileURLWithPath: project.folderPath
-        ).appendingPathComponent("public")
+
+        let publicFolderURL = URL(fileURLWithPath: project.folderPath, isDirectory: true)
+            .appendingPathComponent("public", isDirectory: true)
+
+        try FileManager.default.createDirectory(
+            at: publicFolderURL,
+            withIntermediateDirectories: true
+        )
+
         var fileRecords: [FileRecord] = []
-        
+
         try dbQueue.write { db in
             for url in urls {
-                let fileName = url.lastPathComponent
-                let destinationURL = publicFolderURL.appendingPathComponent(fileName)
-                
-                try FileManager.default.copyItem(
-                    at: url,
-                    to: destinationURL
-                )
-                
+                let accessing = url.startAccessingSecurityScopedResource()
+                defer {
+                    if accessing {
+                        url.stopAccessingSecurityScopedResource()
+                    }
+                }
+
+                let originalName = url.lastPathComponent
+                var destinationURL = publicFolderURL.appendingPathComponent(originalName)
+
+                let baseName = destinationURL.deletingPathExtension().lastPathComponent
+                let ext = destinationURL.pathExtension
+                var index = 1
+
+                while FileManager.default.fileExists(atPath: destinationURL.path) {
+                    let newName = ext.isEmpty
+                        ? "\(baseName)-\(index)"
+                        : "\(baseName)-\(index).\(ext)"
+                    destinationURL = publicFolderURL.appendingPathComponent(newName)
+                    index += 1
+                }
+
+                try FileManager.default.copyItem(at: url, to: destinationURL)
+
                 var fileRecord = FileRecord(
                     projectId: projectId,
-                    name: fileName,
+                    name: destinationURL.lastPathComponent,
                     originalPath: url.path,
                     publicPath: destinationURL.path,
-                    fileType: url.pathExtension.lowercased(),
+                    fileType: destinationURL.pathExtension.lowercased(),
                     createdAt: Date()
                 )
-                
+
                 try fileRecord.insert(db)
                 fileRecords.append(fileRecord)
             }
         }
-        
+
         return fileRecords
     }
-    
+
     public func fetchFiles(
         for project: Project
     ) throws -> [FileRecord] {

@@ -5,13 +5,13 @@
 //  Created by Eldar Tutnjic on 24.07.25.
 //
 
+import PhotosUI
 import RDatabaseManager
 import SwiftUI
 import UniformTypeIdentifiers
 
 struct ProjectFilesView: View {
     @Environment(ProjectFilesFeature.self) var feature
-    @State private var isFileImporterPresented = false
     let selectedProject: Project?
     
     init(selectedProject: Project?) {
@@ -28,9 +28,16 @@ struct ProjectFilesView: View {
             .padding(.top)
         #if os(macOS)
             .background(Color(NSColor.controlBackgroundColor))
-        #endif
+        #elseif os(iOS)
+            .photosPicker(
+                isPresented: feature.binding(for: \.isPhotoPickerPresented),
+                selection: feature.binding(for: \.selectedPhotoItems)
+            )
+            .onChange(of: feature.value(\.selectedPhotoItems)) { _, _ in
+                feature.send(.loadImagesFromGallery(feature.value(\.selectedPhotoItems)))
+            }
             .fileImporter(
-                isPresented: $isFileImporterPresented,
+                isPresented: feature.binding(for: \.isFileImporterPresented),
                 allowedContentTypes: [
                     .audio,
                     .mp3,
@@ -47,7 +54,8 @@ struct ProjectFilesView: View {
                     .video,
                     .mpeg4Movie,
                     .appleProtectedMPEG4Video,
-                    .quickTimeMovie
+                    .quickTimeMovie,
+                    .pdf
                 ]
             ) { result in
                 switch result {
@@ -57,6 +65,7 @@ struct ProjectFilesView: View {
                     feature.set(\.errorMessage, to: error.localizedDescription)
                 }
             }
+        #endif
             .onChange(of: selectedProject) { _, newProject in
                 if let project = newProject {
                     feature.send(.loadFiles(project))
@@ -85,22 +94,44 @@ struct ProjectFilesView: View {
     
     func headerView() -> some View {
         VStack(spacing: 10) {
-            ButtonView(
-                systemImageName: "plus",
-                buttonText: "Add Sources"
-            ) {
-                #if os(macOS)
+            #if os(macOS)
+                ButtonView(
+                    systemImageName: "plus",
+                    buttonText: "Add Sources"
+                ) {
                     feature.openFilePicker()
-                #elseif os(iOS)
-                    isFileImporterPresented = true
-                #endif
-            }
-            .disabled(selectedProject == nil)
-            .padding(.bottom)
-            .keyboardShortcut(
-                "o",
-                modifiers: [.command]
-            )
+                }
+                .disabled(selectedProject == nil)
+                .padding(.bottom)
+                .keyboardShortcut(
+                    "o",
+                    modifiers: [.command]
+                )
+            #elseif os(iOS)
+                Menu {
+                    ButtonView(
+                        systemImageName: "folder.badge.plus",
+                        buttonText: "Add Files"
+                    ) {
+                        feature.set(\.isFileImporterPresented, to: true)
+                    }
+                    
+                    ButtonView(
+                        systemImageName: "photo.stack",
+                        buttonText: "Add Images"
+                    ) {
+                        feature.set(\.isPhotoPickerPresented, to: true)
+                    }
+                } label: {
+                    ButtonView(
+                        systemImageName: "plus",
+                        buttonText: "Add Sources"
+                    ) {}
+                }
+                .disabled(selectedProject == nil)
+                .padding(.bottom)
+                .buttonStyle(.plain)
+            #endif
         }
     }
     

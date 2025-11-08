@@ -5,6 +5,7 @@
 //  Created by Eldar Tutnjic on 24.07.25.
 //
 
+import PhotosUI
 import RDatabaseManager
 import SwiftUI
 import UniformTypeIdentifiers
@@ -12,15 +13,25 @@ import UniformTypeIdentifiers
 extension ProjectFilesView {
     struct LeftSidebarState {
         var files: [FileRecord] = []
+        var images: [ImageWrapper] = []
+        var selectedPhotoItems: [PhotosPickerItem] = []
         var isLoading = false
         var errorMessage: String?
         var currentProject: Project?
+        var isFileImporterPresented = false
+        var isPhotoPickerPresented = false
     }
     
     enum Action {
         case loadFiles(Project)
         case selectFiles([URL])
         case deleteFile(FileRecord)
+        case loadImagesFromGallery([PhotosPickerItem])
+    }
+    
+    struct ImageWrapper {
+        let image: SwiftUI.Image
+        let data: Data
     }
     
     @Observable
@@ -75,6 +86,9 @@ extension ProjectFilesView.ProjectFilesFeature {
             
         case .deleteFile(let fileRecord):
             await deleteFile(fileRecord)
+
+        case .loadImagesFromGallery(let photos):
+            await loadImagesFromGallery(photos: photos)
         }
     }
     
@@ -113,6 +127,23 @@ extension ProjectFilesView.ProjectFilesFeature {
             set(\.files, to: updatedFiles)
         } catch {
             set(\.errorMessage, to: error.localizedDescription)
+        }
+    }
+    
+    private func loadImagesFromGallery(photos: [PhotosPickerItem]) async {
+        for photo in photos {
+            guard let data = try? await photo.loadTransferable(type: Data.self),
+                  let uiImage = UIImage(data: data)
+            else {
+                continue
+            }
+            
+            let image = Image(uiImage: uiImage)
+            
+            if !state.images.contains(where: { $0.data == data }) {
+                let imageWrapper = ProjectFilesView.ImageWrapper(image: image, data: data)
+                state.images.append(imageWrapper)
+            }
         }
     }
 }
