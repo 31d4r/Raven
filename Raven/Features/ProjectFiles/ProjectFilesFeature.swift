@@ -13,7 +13,6 @@ import UniformTypeIdentifiers
 extension ProjectFilesView {
     struct LeftSidebarState {
         var files: [FileRecord] = []
-        var images: [ImageWrapper] = []
         var selectedPhotoItems: [PhotosPickerItem] = []
         var isLoading = false
         var errorMessage: String?
@@ -27,11 +26,6 @@ extension ProjectFilesView {
         case selectFiles([URL])
         case deleteFile(FileRecord)
         case loadImagesFromGallery([PhotosPickerItem])
-    }
-    
-    struct ImageWrapper {
-        let image: SwiftUI.Image
-        let data: Data
     }
     
     @Observable
@@ -131,18 +125,45 @@ extension ProjectFilesView.ProjectFilesFeature {
     }
     
     private func loadImagesFromGallery(photos: [PhotosPickerItem]) async {
+        guard let currentProject = value(\.currentProject) else { return }
+        
+        var temporaryURLs: [URL] = []
+        let fileManager = FileManager.default
+        let tempDirectory = fileManager.temporaryDirectory
+        
         for photo in photos {
-            guard let data = try? await photo.loadTransferable(type: Data.self),
-                  let uiImage = UIImage(data: data)
-            else {
+            guard let data = try? await photo.loadTransferable(type: Data.self) else {
                 continue
             }
             
-            let image = Image(uiImage: uiImage)
+            let fileName = "\(UUID().uuidString).jpg"
+            let tempURL = tempDirectory.appendingPathComponent(fileName)
             
-            if !state.images.contains(where: { $0.data == data }) {
-                let imageWrapper = ProjectFilesView.ImageWrapper(image: image, data: data)
-                state.images.append(imageWrapper)
+            do {
+                try data.write(to: tempURL)
+                temporaryURLs.append(tempURL)
+            } catch {
+                set(\.errorMessage, to: "Failed to save image: \(error.localizedDescription)")
+                continue
+            }
+        }
+        
+        if !temporaryURLs.isEmpty {
+            do {
+                let newFiles = try databaseManager.addFiles(temporaryURLs, to: currentProject)
+                var updatedFiles = value(\.files)
+                updatedFiles.insert(contentsOf: newFiles, at: 0)
+                set(\.files, to: updatedFiles)
+                
+                for tempURL in temporaryURLs {
+                    try? fileManager.removeItem(at: tempURL)
+                }
+            } catch {
+                set(\.errorMessage, to: error.localizedDescription)
+                
+                for tempURL in temporaryURLs {
+                    try? fileManager.removeItem(at: tempURL)
+                }
             }
         }
     }
