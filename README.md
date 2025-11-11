@@ -4,10 +4,14 @@
 
 ## Overview
 
+<div>
 <a href="https://apps.apple.com/us/app/raven-documents/id6752484174?mt=12">
   <img src="Images/mac-app-store-badge.svg" alt="Clickable logo">
 </a>
-
+<a href="https://apps.apple.com/us/app/raven-documents/id6752484174?mt=12">
+  <img src="Images/app-store-badge.svg" alt="Clickable logo">
+</a>
+</div>
 
 Raven is an AI assistant app for macOS / iOS that transforms documents into interactive content. Upload files and get intelligent responses and summaries.
 
