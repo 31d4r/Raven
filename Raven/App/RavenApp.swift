@@ -7,15 +7,19 @@
 
 import SwiftUI
 
+#if os(macOS)
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationShouldTerminateAfterLastWindowClosed(
         _ sender: NSApplication
     ) -> Bool { true }
 }
+#endif
 
 @main
 struct RavenApp: App {
+    #if os(macOS)
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    #endif
     @State private var appContainer = AppContainer()
 
     var body: some Scene {
@@ -24,8 +28,11 @@ struct RavenApp: App {
                 .environment(appContainer.projectsFeature)
                 .environment(appContainer.projectFilesFeature)
                 .environment(appContainer.mainContentFeature)
+            #if os(macOS)
                 .background(WindowAccessor())
+            #endif
         }
+        #if os(macOS)
         .commands {
             CommandGroup(replacing: .newItem) {
                 Button {
@@ -39,5 +46,6 @@ struct RavenApp: App {
                 )
             }
         }
+        #endif
     }
 }

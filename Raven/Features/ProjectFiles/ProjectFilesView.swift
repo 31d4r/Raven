@@ -5,8 +5,10 @@
 //  Created by Eldar Tutnjic on 24.07.25.
 //
 
+import PhotosUI
 import RDatabaseManager
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct ProjectFilesView: View {
     @Environment(ProjectFilesFeature.self) var feature
@@ -24,7 +26,46 @@ struct ProjectFilesView: View {
                 alignment: .topLeading
             )
             .padding(.top)
+        #if os(macOS)
             .background(Color(NSColor.controlBackgroundColor))
+        #elseif os(iOS)
+            .photosPicker(
+                isPresented: feature.binding(for: \.isPhotoPickerPresented),
+                selection: feature.binding(for: \.selectedPhotoItems)
+            )
+            .onChange(of: feature.value(\.selectedPhotoItems)) { _, _ in
+                feature.send(.loadImagesFromGallery(feature.value(\.selectedPhotoItems)))
+            }
+            .fileImporter(
+                isPresented: feature.binding(for: \.isFileImporterPresented),
+                allowedContentTypes: [
+                    .audio,
+                    .mp3,
+                    .mpeg4Audio,
+                    .aiff,
+                    .wav,
+                    .image,
+                    .jpeg,
+                    .png,
+                    .tiff,
+                    .heic,
+                    .pdf,
+                    .movie,
+                    .video,
+                    .mpeg4Movie,
+                    .appleProtectedMPEG4Video,
+                    .quickTimeMovie,
+                    .pdf
+                ]
+            ) { result in
+                switch result {
+                case .success(let url):
+                    feature.send(.selectFiles([url]))
+                case .failure(let error):
+                    feature.set(\.errorMessage, to: error.localizedDescription)
+                }
+            }
+        #endif
             .onChange(of: selectedProject) { _, newProject in
                 if let project = newProject {
                     feature.send(.loadFiles(project))
@@ -53,18 +94,44 @@ struct ProjectFilesView: View {
     
     func headerView() -> some View {
         VStack(spacing: 10) {
-            ButtonView(
-                systemImageName: "plus",
-                buttonText: "Add Sources"
-            ) {
-                feature.openFilePicker()
-            }
-            .disabled(selectedProject == nil)
-            .padding(.bottom)
-            .keyboardShortcut(
-                "o",
-                modifiers: [.command]
-            )
+            #if os(macOS)
+                ButtonView(
+                    systemImageName: "plus",
+                    buttonText: "Add Sources"
+                ) {
+                    feature.openFilePicker()
+                }
+                .disabled(selectedProject == nil)
+                .padding(.bottom)
+                .keyboardShortcut(
+                    "o",
+                    modifiers: [.command]
+                )
+            #elseif os(iOS)
+                Menu {
+                    ButtonView(
+                        systemImageName: "folder.badge.plus",
+                        buttonText: "Add Files"
+                    ) {
+                        feature.set(\.isFileImporterPresented, to: true)
+                    }
+                    
+                    ButtonView(
+                        systemImageName: "photo.stack",
+                        buttonText: "Add Images"
+                    ) {
+                        feature.set(\.isPhotoPickerPresented, to: true)
+                    }
+                } label: {
+                    ButtonView(
+                        systemImageName: "plus",
+                        buttonText: "Add Sources"
+                    ) {}
+                }
+                .disabled(selectedProject == nil)
+                .padding(.bottom)
+                .buttonStyle(.plain)
+            #endif
         }
     }
     

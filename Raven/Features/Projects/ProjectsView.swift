@@ -31,6 +31,7 @@ struct ProjectsView: View {
                 isPresented: feature.binding(for: \.showingNewProjectAlert),
                 content: {
                     createNewProjectView()
+                        .presentationDetents([.fraction(0.25)])
                 }
             )
             .alert("Rename Chat", isPresented: feature.binding(for: \.showingRenameAlert)) {

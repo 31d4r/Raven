@@ -4,7 +4,16 @@
 
 ## Overview
 
-Raven is an AI assistant app for macOS that transforms documents into interactive content. Upload files and get intelligent responses and summaries.
+<div>
+<a href="https://apps.apple.com/us/app/raven-documents/id6752484174?mt=12">
+  <img src="Images/mac-app-store-badge.svg" alt="Clickable logo">
+</a>
+<a href="https://apps.apple.com/us/app/raven-documents/id6752484174?mt=12">
+  <img src="Images/app-store-badge.svg" alt="Clickable logo">
+</a>
+</div>
+
+Raven is an AI assistant app for macOS / iOS that transforms documents into interactive content. Upload files and get intelligent responses and summaries.
 
 **🔒 Privacy First**: All processing happens locally using Apple Foundation Models. Nothing is sent to servers or cloud services.
 
@@ -79,7 +88,7 @@ This project is open source. Please check the LICENSE file for details.
 
 ## Support
 
-Open an issue with macOS version and steps to reproduce
+Open an issue with macOS or iOS version and steps to reproduce
 
 ## Author
 
@@ -87,9 +96,27 @@ Created by [Eldar Tutnjic](https://github.com/31d4r)
 
 ## Screenshots
 
-![Raven1](Screenshots/Raven1.jpg)  
-![Raven2](Screenshots/Raven2.jpg)  
-![Raven3](Screenshots/Raven3.jpg)  
-![Raven4](Screenshots/Raven4.jpg)  
-![Raven5](Screenshots/Raven5.jpg)  
-![Raven6](Screenshots/Raven6.jpg)  
+### macOS
+
+![Raven1](Screenshots/macOS/Raven1.jpg)  
+![Raven2](Screenshots/macOS/Raven2.jpg)  
+![Raven3](Screenshots/macOS/Raven3.jpg)  
+![Raven4](Screenshots/macOS/Raven4.jpg)  
+![Raven5](Screenshots/macOS/Raven5.jpg)  
+![Raven6](Screenshots/macOS/Raven6.jpg)  
+
+### iOS
+<div align="center">
+  <img src="Screenshots/iOS/Raven1.png" alt="Screenshot 1" width="300"/>
+  <img src="Screenshots/iOS/Raven2.png" alt="Screenshot 2" width="300"/>
+</div>
+
+<div align="center">
+  <img src="Screenshots/iOS/Raven3.png" alt="Screenshot 3" width="300"/>
+  <img src="Screenshots/iOS/Raven4.png" alt="Screenshot 4" width="300"/>
+</div>
+
+<div align="center">
+  <img src="Screenshots/iOS/Raven5.png" alt="Screenshot 5" width="300"/>
+  <img src="Screenshots/iOS/Raven6.png" alt="Screenshot 6" width="300"/>
+</div>

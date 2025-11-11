@@ -20,9 +20,11 @@ struct DashboardView: View {
                 selectedProject: selectedProject
             )
         }
+        #if os(macOS)
         .inspector(isPresented: $showInspector) {
             ProjectFilesView(selectedProject: selectedProject)
         }
+        #endif
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
