@@ -55,7 +55,9 @@ struct ProjectFilesView: View {
                     .mpeg4Movie,
                     .appleProtectedMPEG4Video,
                     .quickTimeMovie,
-                    .pdf
+                    .pdf,
+                    .plainText,
+                    .text
                 ]
             ) { result in
                 switch result {

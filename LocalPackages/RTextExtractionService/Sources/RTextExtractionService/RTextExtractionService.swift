@@ -55,6 +55,11 @@ public class RTextExtractionService {
                 if let pdfText = pdfProcessingService.extractTextFromPDF(fileURL) {
                     allText.append("=== \(file.name) ===\n\(pdfText)")
                 }
+            
+            case "md", "markdown", "txt", "text":
+                if let textContent = try? String(contentsOf: fileURL, encoding: .utf8) {
+                    allText.append("=== \(file.name) ===\n\(textContent)")
+                }
                 
             case "mp3", "wav", "aiff", "m4a":
                 if let audioText = await audioTranscriptionService.transcribeAudio(fileURL) {

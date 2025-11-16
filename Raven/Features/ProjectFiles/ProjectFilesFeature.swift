@@ -197,7 +197,9 @@ extension ProjectFilesView.ProjectFilesFeature {
             .video,
             .mpeg4Movie,
             .appleProtectedMPEG4Video,
-            .quickTimeMovie
+            .quickTimeMovie,
+            .plainText,
+            .text
         ]
         
         panel.begin { [weak self] result in
