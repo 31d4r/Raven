@@ -17,6 +17,7 @@ public class RFoundationsManager {
     private let session = LanguageModelSession()
     private let databaseManager: RDatabaseManager
     private let textExtractionService: RTextExtractionService
+    private let afModel = SystemLanguageModel.default
     
     // MARK: - Initialization
     
@@ -63,5 +64,23 @@ public class RFoundationsManager {
         
         Please provide a response based on the context above.
         """
+    }
+    
+    public func isAFModelAvailable() -> (
+        Bool,
+        String
+    ) {
+        switch afModel.availability {
+        case .available:
+            return (true, "Present model")
+        case .unavailable(.appleIntelligenceNotEnabled):
+            return (false, "You do not have access to Apple Intelligence")
+        case .unavailable(.deviceNotEligible):
+            return (false, "The device does not meet the requirements for Apple Intelligence")
+        case .unavailable(.modelNotReady):
+            return (false, "Apple Intelligence is not available. Please ensure Apple Intelligence is enabled in System Settings.")
+        case .unavailable:
+            return (false, "Something went wrong")
+        }
     }
 }

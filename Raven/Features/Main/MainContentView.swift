@@ -84,23 +84,40 @@ struct MainContentView: View {
     
     func chatView() -> some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                if !feature.value(\.responseText).isEmpty {
-                    promptView()
-                    responseView()
+            let (isAvailable, message) = feature.checkModelAvailability()
+            
+            if isAvailable {
+                VStack(
+                    alignment: .leading,
+                    spacing: 20
+                ) {
+                    if !feature.value(\.responseText).isEmpty {
+                        promptView()
+                        responseView()
+                    }
+                    
+                    if feature.value(\.isProcessing) {
+                        processingView()
+                    }
+                    
+                    if let errorMessage = feature.value(\.errorMessage) {
+                        errorView(errorMessage)
+                    }
+                    
+                    Spacer()
                 }
-                
-                if feature.value(\.isProcessing) {
-                    processingView()
+                .padding()
+            } else {
+                VStack(
+                    alignment: .leading,
+                    spacing: 20
+                ) {
+                    Spacer()
+                    errorView(message)
+                    Spacer()
                 }
-                
-                if let errorMessage = feature.value(\.errorMessage) {
-                    errorView(errorMessage)
-                }
-                
-                Spacer()
+                .padding()
             }
-            .padding()
         }
     }
     
