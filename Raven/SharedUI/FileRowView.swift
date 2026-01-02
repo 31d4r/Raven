@@ -26,7 +26,6 @@ struct FileRowView: View {
                 Text(file.name)
                     .font(.subheadline)
                     .lineLimit(1)
-                    .accessibilityLabel("File: \(file.name)")
                 
                 Text(
                     file.createdAt.formatted(
@@ -36,7 +35,6 @@ struct FileRowView: View {
                 )
                     .font(.caption)
                     .foregroundColor(.secondary)
-                    .accessibilityLabel("Added \(file.createdAt.formatted(date: .numeric, time: .shortened))")
             }
             
             Spacer()
@@ -63,8 +61,8 @@ struct FileRowView: View {
                     .foregroundColor(.secondary)
             }
             .menuStyle(.borderlessButton)
-            .accessibilityLabel("File Actions")
-            .accessibilityHint("Opens menu with actions for \(file.name)")
+            .accessibilityLabel("File Actions for \(file.name)")
+            .accessibilityHint("Opens menu with preview and delete options")
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
@@ -73,8 +71,7 @@ struct FileRowView: View {
             8,
             corners: .allCorners
         )
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(file.name), \(file.fileType) file, added \(file.createdAt.formatted(date: .numeric, time: .shortened))")
+        .accessibilityElement(children: .contain)
         .accessibilityIdentifier("fileRow_\(String(describing: file.id))")
         .quickLookPreview(
             $selectedURL,
@@ -109,6 +106,6 @@ struct FileRowView: View {
         return Image(systemName: iconName)
             .foregroundColor(color)
             .font(.title3)
-            .accessibilityLabel("\(fileType) file icon")
+            .accessibilityHidden(true)
     }
 }

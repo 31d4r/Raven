@@ -13,6 +13,8 @@ import UniformTypeIdentifiers
 struct ProjectFilesView: View {
     @Environment(ProjectFilesFeature.self) var feature
     let selectedProject: Project?
+    @ScaledMetric(relativeTo: .title) private var noProjectIconSize: CGFloat = 32
+    @ScaledMetric(relativeTo: .title3) private var emptyFilesIconSize: CGFloat = 24
     
     init(selectedProject: Project?) {
         self.selectedProject = selectedProject
@@ -150,7 +152,7 @@ struct ProjectFilesView: View {
     func noProjectSelectedView() -> some View {
         VStack(spacing: 20) {
             Image(systemName: "doc.badge.plus")
-                .font(.system(size: 32))
+                .font(.system(size: noProjectIconSize))
                 .foregroundColor(.secondary)
                 .accessibilityHidden(true)
             
@@ -188,7 +190,7 @@ struct ProjectFilesView: View {
     func emptyFilesView() -> some View {
         VStack(spacing: 15) {
             Image(systemName: "doc.plaintext")
-                .font(.system(size: 24))
+                .font(.system(size: emptyFilesIconSize))
                 .foregroundColor(.secondary)
                 .accessibilityHidden(true)
             

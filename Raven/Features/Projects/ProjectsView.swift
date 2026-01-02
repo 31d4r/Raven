@@ -11,6 +11,7 @@ import SwiftUI
 struct ProjectsView: View {
     @Environment(ProjectsFeature.self) var feature
     @Binding var selectedProject: Project?
+    @ScaledMetric(relativeTo: .largeTitle) private var emptyStateIconSize: CGFloat = 48
 
     init(selectedProject: Binding<Project?>) {
         self._selectedProject = selectedProject
@@ -94,7 +95,7 @@ struct ProjectsView: View {
     func emptyStateView() -> some View {
         VStack(spacing: 20) {
             Image(systemName: "message")
-                .font(.system(size: 48))
+                .font(.system(size: emptyStateIconSize))
                 .foregroundColor(.secondary)
                 .accessibilityHidden(true)
             
@@ -135,11 +136,8 @@ struct ProjectsView: View {
                            onDelete: { feature.send(.deleteProject(project)) },
                            onRename: { feature.send(.showRenameAlert(project)) })
                 .tag(project)
-                .accessibilityLabel("Chat: \(project.name)")
-                .accessibilityHint("Double tap to select this chat")
         }
         .listStyle(.sidebar)
-        .accessibilityLabel("Chats List")
         .accessibilityIdentifier("chatsList")
     }
     

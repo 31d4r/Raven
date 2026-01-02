@@ -28,8 +28,10 @@ struct ProjectRowView: View {
                     style: .date
                 )
                     .font(.caption)
-                    .accessibilityLabel("Created \(project.createdAt.formatted(date: .abbreviated, time: .omitted))")
             }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Chat: \(project.name), created \(project.createdAt.formatted(date: .abbreviated, time: .omitted))")
+            .accessibilityHint("Double tap to select this chat")
 
             Spacer()
 
@@ -54,12 +56,10 @@ struct ProjectRowView: View {
                 Image(systemName: "ellipsis")
             }
             .menuStyle(.borderlessButton)
-            .accessibilityLabel("Chat Actions")
-            .accessibilityHint("Opens menu with actions for \(project.name)")
+            .accessibilityLabel("Chat Actions for \(project.name)")
+            .accessibilityHint("Opens menu with rename and delete options")
         }
         .padding(.vertical, 4)
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("Chat: \(project.name), created \(project.createdAt.formatted(date: .abbreviated, time: .omitted))")
         .accessibilityIdentifier("projectRow_\(String(describing: project.id))")
     }
 }

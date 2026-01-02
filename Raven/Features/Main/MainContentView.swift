@@ -14,6 +14,7 @@ struct MainContentView: View {
     
     @Environment(MainContentFeature.self) var feature
     @State private var isAddProjectFilesPresented = false
+    @FocusState private var isQuestionFieldFocused: Bool
     
     var body: some View {
         HStack(spacing: 0) {
@@ -261,6 +262,7 @@ struct MainContentView: View {
                     axis: .vertical
                 )
                 .textFieldStyle(.roundedBorder)
+                .focused($isQuestionFieldFocused)
                 .disabled(selectedProject == nil || feature.value(\.isProcessing))
                 .accessibilityLabel("Question Input")
                 .accessibilityHint("Enter your question about the documents")
