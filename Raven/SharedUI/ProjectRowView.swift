@@ -21,12 +21,14 @@ struct ProjectRowView: View {
             ) {
                 Text(project.name)
                     .font(.headline)
+                    .accessibilityAddTraits(.isHeader)
 
                 Text(
                     project.createdAt,
                     style: .date
                 )
                     .font(.caption)
+                    .accessibilityLabel("Created \(project.createdAt.formatted(date: .abbreviated, time: .omitted))")
             }
 
             Spacer()
@@ -37,18 +39,27 @@ struct ProjectRowView: View {
                 } label: {
                     Text("Rename")
                 }
+                .accessibilityLabel("Rename \(project.name)")
+                .accessibilityHint("Renames this chat")
 
                 Button(role: .destructive) {
                     onDelete()
                 } label: {
                     Text("Delete")
                 }
+                .accessibilityLabel("Delete \(project.name)")
+                .accessibilityHint("Deletes this chat")
 
             } label: {
                 Image(systemName: "ellipsis")
             }
             .menuStyle(.borderlessButton)
+            .accessibilityLabel("Chat Actions")
+            .accessibilityHint("Opens menu with actions for \(project.name)")
         }
         .padding(.vertical, 4)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Chat: \(project.name), created \(project.createdAt.formatted(date: .abbreviated, time: .omitted))")
+        .accessibilityIdentifier("projectRow_\(String(describing: project.id))")
     }
 }

@@ -17,6 +17,7 @@ struct FileRowView: View {
     var body: some View {
         HStack(spacing: 12) {
             fileIcon(for: file.fileType)
+                .accessibilityHidden(true)
             
             VStack(
                 alignment: .leading,
@@ -25,6 +26,7 @@ struct FileRowView: View {
                 Text(file.name)
                     .font(.subheadline)
                     .lineLimit(1)
+                    .accessibilityLabel("File: \(file.name)")
                 
                 Text(
                     file.createdAt.formatted(
@@ -34,6 +36,7 @@ struct FileRowView: View {
                 )
                     .font(.caption)
                     .foregroundColor(.secondary)
+                    .accessibilityLabel("Added \(file.createdAt.formatted(date: .numeric, time: .shortened))")
             }
             
             Spacer()
@@ -44,18 +47,24 @@ struct FileRowView: View {
                 } label: {
                     Text("Preview")
                 }
+                .accessibilityLabel("Preview \(file.name)")
+                .accessibilityHint("Opens preview of the file")
                 
                 Button {
                     onDelete()
                 } label: {
                     Text("Delete")
                 }
+                .accessibilityLabel("Delete \(file.name)")
+                .accessibilityHint("Deletes this file from the chat")
      
             } label: {
                 Image(systemName: "ellipsis")
                     .foregroundColor(.secondary)
             }
             .menuStyle(.borderlessButton)
+            .accessibilityLabel("File Actions")
+            .accessibilityHint("Opens menu with actions for \(file.name)")
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
@@ -63,7 +72,11 @@ struct FileRowView: View {
         .cornerRadius(
             8,
             corners: .allCorners
-        ).quickLookPreview(
+        )
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(file.name), \(file.fileType) file, added \(file.createdAt.formatted(date: .numeric, time: .shortened))")
+        .accessibilityIdentifier("fileRow_\(String(describing: file.id))")
+        .quickLookPreview(
             $selectedURL,
             in: [URL(
                 fileURLWithPath: file.publicPath
@@ -96,5 +109,6 @@ struct FileRowView: View {
         return Image(systemName: iconName)
             .foregroundColor(color)
             .font(.title3)
+            .accessibilityLabel("\(fileType) file icon")
     }
 }

@@ -32,6 +32,9 @@ struct DashboardView: View {
                 } label: {
                     Image(systemName: "sidebar.trailing")
                 }
+                .accessibilityLabel(showInspector ? "Hide Inspector" : "Show Inspector")
+                .accessibilityHint("Toggles the file inspector sidebar")
+                .accessibilityIdentifier("toggleInspectorButton")
             }
         }
         .navigationSplitViewStyle(.balanced)

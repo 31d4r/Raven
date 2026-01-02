@@ -109,6 +109,9 @@ struct ProjectFilesView: View {
                     "o",
                     modifiers: [.command]
                 )
+                .accessibilityLabel("Add Sources")
+                .accessibilityHint("Opens file picker to add documents, images, audio, or video files")
+                .accessibilityIdentifier("addSourcesButton")
             #elseif os(iOS)
                 Menu {
                     ButtonView(
@@ -117,6 +120,8 @@ struct ProjectFilesView: View {
                     ) {
                         feature.set(\.isFileImporterPresented, to: true)
                     }
+                    .accessibilityLabel("Add Files")
+                    .accessibilityHint("Opens file picker to add documents")
                     
                     ButtonView(
                         systemImageName: "photo.stack",
@@ -124,6 +129,8 @@ struct ProjectFilesView: View {
                     ) {
                         feature.set(\.isPhotoPickerPresented, to: true)
                     }
+                    .accessibilityLabel("Add Images")
+                    .accessibilityHint("Opens photo picker to add images")
                 } label: {
                     ButtonView(
                         systemImageName: "plus",
@@ -133,6 +140,9 @@ struct ProjectFilesView: View {
                 .disabled(selectedProject == nil)
                 .padding(.bottom)
                 .buttonStyle(.plain)
+                .accessibilityLabel("Add Sources")
+                .accessibilityHint("Opens menu to add files or images")
+                .accessibilityIdentifier("addSourcesButton")
             #endif
         }
     }
@@ -142,14 +152,17 @@ struct ProjectFilesView: View {
             Image(systemName: "doc.badge.plus")
                 .font(.system(size: 32))
                 .foregroundColor(.secondary)
+                .accessibilityHidden(true)
             
             Text("Select a chat to add sources")
                 .foregroundColor(.secondary)
+                .accessibilityLabel("Select a chat to add sources")
         }
         .frame(
             maxWidth: .infinity,
             maxHeight: .infinity
         )
+        .accessibilityElement(children: .combine)
     }
     
     func filesListView() -> some View {
@@ -163,6 +176,7 @@ struct ProjectFilesView: View {
                         maxWidth: .infinity,
                         maxHeight: .infinity
                     )
+                    .accessibilityLabel("Loading files")
             } else if feature.value(\.files).isEmpty {
                 emptyFilesView()
             } else {
@@ -176,19 +190,24 @@ struct ProjectFilesView: View {
             Image(systemName: "doc.plaintext")
                 .font(.system(size: 24))
                 .foregroundColor(.secondary)
+                .accessibilityHidden(true)
             
             Text("No sources added yet")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
+                .accessibilityAddTraits(.isHeader)
+                .supportsDynamicType()
             
             Text("Click 'Add Sources' to get started")
                 .font(.caption)
                 .foregroundColor(.secondary)
+                .accessibilityLabel("Click 'Add Sources' to get started")
         }
         .frame(
             maxWidth: .infinity,
             maxHeight: .infinity
         )
+        .accessibilityElement(children: .combine)
     }
     
     func filesList() -> some View {
@@ -202,5 +221,7 @@ struct ProjectFilesView: View {
             }
             .padding(.horizontal)
         }
+        .accessibilityLabel("Files List")
+        .accessibilityIdentifier("filesList")
     }
 }
