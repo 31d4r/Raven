@@ -37,6 +37,7 @@ struct MainContentView: View {
                 }
                 .accessibilityLabel("Add Files")
                 .accessibilityHint("Opens the file picker to add documents to the current chat")
+                .accessibilityInputLabels(["Add Files", "Files", "Folder", "Import", "Documents"])
             }
         }
         .sheet(isPresented: $isAddProjectFilesPresented) {
@@ -50,6 +51,7 @@ struct MainContentView: View {
                         }
                         .accessibilityLabel("Dismiss")
                         .accessibilityHint("Closes the file picker")
+                        .accessibilityInputLabels(["Dismiss", "Close", "Cancel", "Done"])
                     }
             }
         }
@@ -175,6 +177,7 @@ struct MainContentView: View {
                 .buttonStyle(.bordered)
                 .accessibilityLabel("Copy Response")
                 .accessibilityHint("Copies the AI response to the clipboard")
+                .accessibilityInputLabels(["Copy Response", "Copy", "Copy Text"])
                 .accessibilityIdentifier("copyResponseButton")
                 
                 Button {
@@ -185,6 +188,7 @@ struct MainContentView: View {
                 .buttonStyle(.bordered)
                 .accessibilityLabel("Clear Response")
                 .accessibilityHint("Clears the current AI response")
+                .accessibilityInputLabels(["Clear Response", "Clear", "Delete", "Remove"])
                 .accessibilityIdentifier("clearResponseButton")
             }
             
@@ -291,6 +295,7 @@ struct MainContentView: View {
                 )
                 .accessibilityLabel(feature.value(\.isProcessing) ? "Stop Processing" : "Send Question")
                 .accessibilityHint(feature.value(\.isProcessing) ? "Stops processing the current question" : "Sends your question to the AI")
+                .accessibilityInputLabels(feature.value(\.isProcessing) ? ["Stop Processing", "Stop", "Cancel"] : ["Send Question", "Send", "Submit", "Ask"])
                 .accessibilityIdentifier("sendQuestionButton")
             }
             .padding()

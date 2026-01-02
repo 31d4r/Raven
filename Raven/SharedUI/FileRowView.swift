@@ -47,6 +47,7 @@ struct FileRowView: View {
                 }
                 .accessibilityLabel("Preview \(file.name)")
                 .accessibilityHint("Opens preview of the file")
+                .accessibilityInputLabels(["Preview", "View", "Open", "Show"])
                 
                 Button {
                     onDelete()
@@ -55,6 +56,7 @@ struct FileRowView: View {
                 }
                 .accessibilityLabel("Delete \(file.name)")
                 .accessibilityHint("Deletes this file from the chat")
+                .accessibilityInputLabels(["Delete", "Remove", "Trash"])
      
             } label: {
                 Image(systemName: "ellipsis")
@@ -63,6 +65,7 @@ struct FileRowView: View {
             .menuStyle(.borderlessButton)
             .accessibilityLabel("File Actions for \(file.name)")
             .accessibilityHint("Opens menu with preview and delete options")
+            .accessibilityInputLabels(["File Actions", "Options", "More", "Menu"])
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)

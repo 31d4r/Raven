@@ -43,6 +43,7 @@ struct ProjectRowView: View {
                 }
                 .accessibilityLabel("Rename \(project.name)")
                 .accessibilityHint("Renames this chat")
+                .accessibilityInputLabels(["Rename", "Edit Name", "Change Name"])
 
                 Button(role: .destructive) {
                     onDelete()
@@ -51,6 +52,7 @@ struct ProjectRowView: View {
                 }
                 .accessibilityLabel("Delete \(project.name)")
                 .accessibilityHint("Deletes this chat")
+                .accessibilityInputLabels(["Delete", "Remove", "Trash"])
 
             } label: {
                 Image(systemName: "ellipsis")
@@ -58,6 +60,7 @@ struct ProjectRowView: View {
             .menuStyle(.borderlessButton)
             .accessibilityLabel("Chat Actions for \(project.name)")
             .accessibilityHint("Opens menu with rename and delete options")
+            .accessibilityInputLabels(["Chat Actions", "Options", "More", "Menu"])
         }
         .padding(.vertical, 4)
         .accessibilityIdentifier("projectRow_\(String(describing: project.id))")

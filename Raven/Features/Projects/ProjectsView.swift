@@ -28,6 +28,7 @@ struct ProjectsView: View {
                     }
                     .accessibilityLabel("New Chat")
                     .accessibilityHint("Creates a new chat")
+                    .accessibilityInputLabels(["New Chat", "Add Chat", "Create Chat", "Plus", "New"])
                     .accessibilityIdentifier("newChatButton")
                 }
             }
@@ -50,6 +51,7 @@ struct ProjectsView: View {
                     Text("Cancel")
                 }
                 .accessibilityLabel("Cancel")
+                .accessibilityInputLabels(["Cancel", "Close", "Dismiss", "Back"])
 
                 Button {
                     feature.send(.renameProject(feature.value(\.renameProjectName)))
@@ -61,6 +63,7 @@ struct ProjectsView: View {
                 )
                 .accessibilityLabel("Rename")
                 .accessibilityHint("Renames the chat to the entered name")
+                .accessibilityInputLabels(["Rename", "Change Name", "Edit Name", "Save"])
    
             } message: {
                 Text("Enter a new name for the chat")
@@ -117,6 +120,7 @@ struct ProjectsView: View {
             .buttonStyle(.borderless)
             .accessibilityLabel("Create Chat")
             .accessibilityHint("Opens a dialog to create a new chat")
+            .accessibilityInputLabels(["Create Chat", "New Chat", "Add Chat", "Create"])
             .accessibilityIdentifier("createChatButton")
         }
         .frame(
@@ -183,6 +187,7 @@ struct ProjectsView: View {
                 }
                 .accessibilityLabel("Cancel")
                 .accessibilityHint("Cancels creating a new chat")
+                .accessibilityInputLabels(["Cancel", "Close", "Dismiss", "Back"])
                 .accessibilityIdentifier("cancelNewChatButton")
                 
                 Button {
@@ -195,6 +200,7 @@ struct ProjectsView: View {
                 )
                 .accessibilityLabel("Create Chat")
                 .accessibilityHint("Creates a new chat with the entered name")
+                .accessibilityInputLabels(["Create Chat", "Create", "Add", "Make"])
                 .accessibilityIdentifier("createNewChatButton")
             }
         }

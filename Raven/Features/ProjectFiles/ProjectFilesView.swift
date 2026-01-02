@@ -113,6 +113,7 @@ struct ProjectFilesView: View {
                 )
                 .accessibilityLabel("Add Sources")
                 .accessibilityHint("Opens file picker to add documents, images, audio, or video files")
+                .accessibilityInputLabels(["Add Sources", "Add Files", "Import", "Upload", "Plus"])
                 .accessibilityIdentifier("addSourcesButton")
             #elseif os(iOS)
                 Menu {
@@ -124,6 +125,7 @@ struct ProjectFilesView: View {
                     }
                     .accessibilityLabel("Add Files")
                     .accessibilityHint("Opens file picker to add documents")
+                    .accessibilityInputLabels(["Add Files", "Import Files", "Upload Files", "Files"])
                     
                     ButtonView(
                         systemImageName: "photo.stack",
@@ -133,6 +135,7 @@ struct ProjectFilesView: View {
                     }
                     .accessibilityLabel("Add Images")
                     .accessibilityHint("Opens photo picker to add images")
+                    .accessibilityInputLabels(["Add Images", "Add Photos", "Import Images", "Photos"])
                 } label: {
                     ButtonView(
                         systemImageName: "plus",
@@ -144,6 +147,7 @@ struct ProjectFilesView: View {
                 .buttonStyle(.plain)
                 .accessibilityLabel("Add Sources")
                 .accessibilityHint("Opens menu to add files or images")
+                .accessibilityInputLabels(["Add Sources", "Add Files", "Import", "Upload", "Plus"])
                 .accessibilityIdentifier("addSourcesButton")
             #endif
         }
