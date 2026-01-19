@@ -21,17 +21,15 @@ struct ProjectRowView: View {
             ) {
                 Text(project.name)
                     .font(.headline)
-                    .accessibilityAddTraits(.isHeader)
+                    .supportsDynamicType()
 
                 Text(
                     project.createdAt,
                     style: .date
                 )
                     .font(.caption)
+                    .supportsDynamicType()
             }
-            .accessibilityElement(children: .ignore)
-            .accessibilityLabel("Chat: \(project.name), created \(project.createdAt.formatted(date: .abbreviated, time: .omitted))")
-            .accessibilityHint("Double tap to select this chat")
 
             Spacer()
 
@@ -56,6 +54,7 @@ struct ProjectRowView: View {
 
             } label: {
                 Image(systemName: "ellipsis")
+                    .accessibilityHidden(true)
             }
             .menuStyle(.borderlessButton)
             .accessibilityLabel("Chat Actions for \(project.name)")
@@ -63,6 +62,8 @@ struct ProjectRowView: View {
             .accessibilityInputLabels(["Chat Actions", "Options", "More", "Menu"])
         }
         .padding(.vertical, 4)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("Chat: \(project.name), created \(project.createdAt.formatted(date: .abbreviated, time: .omitted))")
         .accessibilityIdentifier("projectRow_\(String(describing: project.id))")
     }
 }

@@ -37,7 +37,6 @@ struct AccessibilityHelper {
 struct DynamicTypeModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .dynamicTypeSize(...DynamicTypeSize.accessibility5)
     }
 }
 

@@ -110,7 +110,7 @@ struct ProjectsView: View {
             
             Text("Create your first chat to get started")
                 .foregroundColor(.secondary)
-                .accessibilityLabel("Create your first chat to get started")
+                .supportsDynamicType()
             
             Button {
                 feature.send(.showNewProjectAlert)
@@ -143,6 +143,11 @@ struct ProjectsView: View {
         }
         .listStyle(.sidebar)
         .accessibilityIdentifier("chatsList")
+        .onChange(of: feature.value(\.selectedProject)) { _, newProject in
+            if let project = newProject {
+                AccessibilityHelper.announce("Selected chat: \(project.name)")
+            }
+        }
     }
     
     func createNewProjectView() -> some View {
@@ -161,7 +166,6 @@ struct ProjectsView: View {
             
             HStack {
                 Text("Name")
-                    .accessibilityLabel("Chat Name Label")
                 
                 TextField(
                     "Chat name",

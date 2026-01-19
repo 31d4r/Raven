@@ -88,8 +88,11 @@ struct MainContentView: View {
                 .font(.title)
                 .fontWeight(.medium)
                 .accessibilityAddTraits(.isHeader)
-                .accessibilityLabel("No Chat Selected")
-                .accessibilityHint("Select a chat from the sidebar to begin")
+                .supportsDynamicType()
+            
+            Text("Select a chat from the sidebar to begin")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
                 .supportsDynamicType()
             
             Spacer()
@@ -117,6 +120,9 @@ struct MainContentView: View {
                     
                     if let errorMessage = feature.value(\.errorMessage) {
                         errorView(errorMessage)
+                            .onAppear {
+                                AccessibilityHelper.announce("Error: \(errorMessage)")
+                            }
                     }
                     
                     Spacer()
@@ -145,7 +151,7 @@ struct MainContentView: View {
                 .accessibilityLabel("User Question")
                 .accessibilityValue(feature.value(\.promptText))
         }
-        .background(Color.gray.opacity(0.1))
+        .background(Color.gray.opacity(0.15))
         .cornerRadius(
             12,
             corners: .allCorners
@@ -203,7 +209,7 @@ struct MainContentView: View {
                     .accessibilityLabel("AI Response Content")
                     .accessibilityValue(feature.value(\.responseText))
             }
-            .background(Color.blue.opacity(0.1))
+            .background(Color.blue.opacity(0.15))
             .cornerRadius(
                 12,
                 corners: .allCorners
@@ -222,12 +228,11 @@ struct MainContentView: View {
             
             Text("Processing documents and generating response...")
                 .foregroundColor(.secondary)
-                .accessibilityLabel("Processing documents and generating response")
             
             Spacer()
         }
         .padding()
-        .background(Color.gray.opacity(0.1))
+        .background(Color.gray.opacity(0.15))
         .cornerRadius(
             8,
             corners: .allCorners
@@ -248,13 +253,12 @@ struct MainContentView: View {
                 .accessibilityLabel("Error: \(message)")
         }
         .padding()
-        .background(Color.red.opacity(0.1))
+        .background(Color.red.opacity(0.15))
         .cornerRadius(
             8,
             corners: .allCorners
         )
         .accessibilityElement(children: .combine)
-        .accessibilityAddTraits(.isStaticText)
     }
     
     func bottomInputView() -> some View {
@@ -299,6 +303,16 @@ struct MainContentView: View {
                 .accessibilityIdentifier("sendQuestionButton")
             }
             .padding()
+        }
+        .onChange(of: feature.value(\.isProcessing)) { wasProcessing, isProcessing in
+            if wasProcessing && !isProcessing {
+                isQuestionFieldFocused = true
+            }
+        }
+        .onChange(of: feature.value(\.errorMessage)) { _, error in
+            if error != nil {
+                isQuestionFieldFocused = true
+            }
         }
     }
 }

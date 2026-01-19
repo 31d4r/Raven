@@ -162,7 +162,7 @@ struct ProjectFilesView: View {
             
             Text("Select a chat to add sources")
                 .foregroundColor(.secondary)
-                .accessibilityLabel("Select a chat to add sources")
+                .supportsDynamicType()
         }
         .frame(
             maxWidth: .infinity,
@@ -207,7 +207,7 @@ struct ProjectFilesView: View {
             Text("Click 'Add Sources' to get started")
                 .font(.caption)
                 .foregroundColor(.secondary)
-                .accessibilityLabel("Click 'Add Sources' to get started")
+                .supportsDynamicType()
         }
         .frame(
             maxWidth: .infinity,
@@ -227,7 +227,7 @@ struct ProjectFilesView: View {
             }
             .padding(.horizontal)
         }
-        .accessibilityLabel("Files List")
+        .accessibilityElement(children: .contain)
         .accessibilityIdentifier("filesList")
     }
 }

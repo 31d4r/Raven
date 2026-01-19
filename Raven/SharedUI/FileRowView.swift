@@ -17,7 +17,6 @@ struct FileRowView: View {
     var body: some View {
         HStack(spacing: 12) {
             fileIcon(for: file.fileType)
-                .accessibilityHidden(true)
             
             VStack(
                 alignment: .leading,
@@ -26,6 +25,7 @@ struct FileRowView: View {
                 Text(file.name)
                     .font(.subheadline)
                     .lineLimit(1)
+                    .supportsDynamicType()
                 
                 Text(
                     file.createdAt.formatted(
@@ -35,6 +35,7 @@ struct FileRowView: View {
                 )
                     .font(.caption)
                     .foregroundColor(.secondary)
+                    .supportsDynamicType()
             }
             
             Spacer()
@@ -69,7 +70,7 @@ struct FileRowView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(Color.gray.opacity(0.1))
+        .background(Color.gray.opacity(0.15))
         .cornerRadius(
             8,
             corners: .allCorners

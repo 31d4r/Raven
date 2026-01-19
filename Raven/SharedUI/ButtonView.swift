@@ -30,9 +30,9 @@ struct ButtonView: View {
                 .padding(.horizontal)
                 .padding(.vertical, 8)
                 #if os(iOS)
-                .frame(minHeight: 44)
+                .frame(minWidth: 44, minHeight: 44)
                 #endif
-                .background(.gray.opacity(0.1))
+                .background(.gray.opacity(0.15))
                 .cornerRadius(
                     8,
                     corners: .allCorners
