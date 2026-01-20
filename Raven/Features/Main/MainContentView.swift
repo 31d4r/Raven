@@ -14,14 +14,18 @@ struct MainContentView: View {
     
     @Environment(MainContentFeature.self) var feature
     @State private var isAddProjectFilesPresented = false
+    @FocusState private var isQuestionFieldFocused: Bool
     
     var body: some View {
         HStack(spacing: 0) {
             content()
                 .frame(maxWidth: .infinity)
         }
-        .onChange(of: selectedProject?.id) { _, _ in
+        .onChange(of: selectedProject?.id) { _, newId in
             feature.send(.clearResponse)
+            if let projectName = selectedProject?.name {
+                AccessibilityHelper.announce("Switched to chat: \(projectName)")
+            }
         }
         #if os(iOS)
         .toolbar {
@@ -31,6 +35,9 @@ struct MainContentView: View {
                 } label: {
                     Image(systemName: "folder")
                 }
+                .accessibilityLabel("Add Files")
+                .accessibilityHint("Opens the file picker to add documents to the current chat")
+                .accessibilityInputLabels(["Add Files", "Files", "Folder", "Import", "Documents"])
             }
         }
         .sheet(isPresented: $isAddProjectFilesPresented) {
@@ -42,6 +49,9 @@ struct MainContentView: View {
                         } label: {
                             Text("Dismiss")
                         }
+                        .accessibilityLabel("Dismiss")
+                        .accessibilityHint("Closes the file picker")
+                        .accessibilityInputLabels(["Dismiss", "Close", "Cancel", "Done"])
                     }
             }
         }
@@ -77,9 +87,17 @@ struct MainContentView: View {
             Text("No Chat Selected")
                 .font(.title)
                 .fontWeight(.medium)
+                .accessibilityAddTraits(.isHeader)
+                .supportsDynamicType()
+            
+            Text("Select a chat from the sidebar to begin")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .supportsDynamicType()
             
             Spacer()
         }
+        .accessibilityElement(children: .combine)
     }
     
     func chatView() -> some View {
@@ -102,6 +120,9 @@ struct MainContentView: View {
                     
                     if let errorMessage = feature.value(\.errorMessage) {
                         errorView(errorMessage)
+                            .onAppear {
+                                AccessibilityHelper.announce("Error: \(errorMessage)")
+                            }
                     }
                     
                     Spacer()
@@ -127,12 +148,15 @@ struct MainContentView: View {
             
             Text(feature.value(\.promptText))
                 .padding()
+                .accessibilityLabel("User Question")
+                .accessibilityValue(feature.value(\.promptText))
         }
-        .background(Color.gray.opacity(0.1))
+        .background(Color.gray.opacity(0.15))
         .cornerRadius(
             12,
             corners: .allCorners
         )
+        .accessibilityElement(children: .combine)
     }
     
     func responseView() -> some View {
@@ -143,16 +167,24 @@ struct MainContentView: View {
             HStack {
                 Image(systemName: "brain.head.profile")
                     .foregroundColor(.blue)
+                    .accessibilityHidden(true)
                 Text("AI Response")
                     .font(.headline)
+                    .accessibilityAddTraits(.isHeader)
+                    .supportsDynamicType()
                 Spacer()
                 
                 Button {
                     feature.send(.copyResponse)
+                    AccessibilityHelper.announce("Response copied to clipboard")
                 } label: {
                     Text("Copy")
                 }
                 .buttonStyle(.bordered)
+                .accessibilityLabel("Copy Response")
+                .accessibilityHint("Copies the AI response to the clipboard")
+                .accessibilityInputLabels(["Copy Response", "Copy", "Copy Text"])
+                .accessibilityIdentifier("copyResponseButton")
                 
                 Button {
                     feature.send(.clearResponse)
@@ -160,6 +192,10 @@ struct MainContentView: View {
                     Text("Clear")
                 }
                 .buttonStyle(.bordered)
+                .accessibilityLabel("Clear Response")
+                .accessibilityHint("Clears the current AI response")
+                .accessibilityInputLabels(["Clear Response", "Clear", "Delete", "Remove"])
+                .accessibilityIdentifier("clearResponseButton")
             }
             
             ScrollView {
@@ -170,13 +206,16 @@ struct MainContentView: View {
                         maxWidth: .infinity,
                         alignment: .leading
                     )
+                    .accessibilityLabel("AI Response Content")
+                    .accessibilityValue(feature.value(\.responseText))
             }
-            .background(Color.blue.opacity(0.1))
+            .background(Color.blue.opacity(0.15))
             .cornerRadius(
                 12,
                 corners: .allCorners
             )
         }
+        .accessibilityElement(children: .contain)
     }
     
     func processingView() -> some View {
@@ -185,6 +224,7 @@ struct MainContentView: View {
             
             ProgressView()
                 .scaleEffect(0.8)
+                .accessibilityLabel("Processing")
             
             Text("Processing documents and generating response...")
                 .foregroundColor(.secondary)
@@ -192,11 +232,13 @@ struct MainContentView: View {
             Spacer()
         }
         .padding()
-        .background(Color.gray.opacity(0.1))
+        .background(Color.gray.opacity(0.15))
         .cornerRadius(
             8,
             corners: .allCorners
         )
+        .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.updatesFrequently)
     }
     
     func errorView(
@@ -205,15 +247,18 @@ struct MainContentView: View {
         HStack {
             Image(systemName: "exclamationmark.triangle")
                 .foregroundColor(.red)
+                .accessibilityHidden(true)
             Text(message)
                 .foregroundColor(.red)
+                .accessibilityLabel("Error: \(message)")
         }
         .padding()
-        .background(Color.red.opacity(0.1))
+        .background(Color.red.opacity(0.15))
         .cornerRadius(
             8,
             corners: .allCorners
         )
+        .accessibilityElement(children: .combine)
     }
     
     func bottomInputView() -> some View {
@@ -225,7 +270,12 @@ struct MainContentView: View {
                     axis: .vertical
                 )
                 .textFieldStyle(.roundedBorder)
+                .focused($isQuestionFieldFocused)
                 .disabled(selectedProject == nil || feature.value(\.isProcessing))
+                .accessibilityLabel("Question Input")
+                .accessibilityHint("Enter your question about the documents")
+                .accessibilityValue(feature.value(\.questionText))
+                .accessibilityIdentifier("questionTextField")
                 .onSubmit {
                     if let project = selectedProject {
                         feature.send(.processQuestion(feature.value(\.questionText), project))
@@ -235,6 +285,7 @@ struct MainContentView: View {
                 Button {
                     if let project = selectedProject {
                         feature.send(.processQuestion(feature.value(\.questionText), project))
+                        AccessibilityHelper.announce("Processing question")
                     }
                 } label: {
                     Image(systemName: feature.value(\.isProcessing) ? "stop.circle.fill" : "paperplane.fill")
@@ -246,8 +297,22 @@ struct MainContentView: View {
                         \.questionText
                     ).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                 )
+                .accessibilityLabel(feature.value(\.isProcessing) ? "Stop Processing" : "Send Question")
+                .accessibilityHint(feature.value(\.isProcessing) ? "Stops processing the current question" : "Sends your question to the AI")
+                .accessibilityInputLabels(feature.value(\.isProcessing) ? ["Stop Processing", "Stop", "Cancel"] : ["Send Question", "Send", "Submit", "Ask"])
+                .accessibilityIdentifier("sendQuestionButton")
             }
             .padding()
+        }
+        .onChange(of: feature.value(\.isProcessing)) { wasProcessing, isProcessing in
+            if wasProcessing && !isProcessing {
+                isQuestionFieldFocused = true
+            }
+        }
+        .onChange(of: feature.value(\.errorMessage)) { _, error in
+            if error != nil {
+                isQuestionFieldFocused = true
+            }
         }
     }
 }

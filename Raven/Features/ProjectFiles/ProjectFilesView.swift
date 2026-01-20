@@ -13,6 +13,8 @@ import UniformTypeIdentifiers
 struct ProjectFilesView: View {
     @Environment(ProjectFilesFeature.self) var feature
     let selectedProject: Project?
+    @ScaledMetric(relativeTo: .title) private var noProjectIconSize: CGFloat = 32
+    @ScaledMetric(relativeTo: .title3) private var emptyFilesIconSize: CGFloat = 24
     
     init(selectedProject: Project?) {
         self.selectedProject = selectedProject
@@ -109,6 +111,10 @@ struct ProjectFilesView: View {
                     "o",
                     modifiers: [.command]
                 )
+                .accessibilityLabel("Add Sources")
+                .accessibilityHint("Opens file picker to add documents, images, audio, or video files")
+                .accessibilityInputLabels(["Add Sources", "Add Files", "Import", "Upload", "Plus"])
+                .accessibilityIdentifier("addSourcesButton")
             #elseif os(iOS)
                 Menu {
                     ButtonView(
@@ -117,6 +123,9 @@ struct ProjectFilesView: View {
                     ) {
                         feature.set(\.isFileImporterPresented, to: true)
                     }
+                    .accessibilityLabel("Add Files")
+                    .accessibilityHint("Opens file picker to add documents")
+                    .accessibilityInputLabels(["Add Files", "Import Files", "Upload Files", "Files"])
                     
                     ButtonView(
                         systemImageName: "photo.stack",
@@ -124,6 +133,9 @@ struct ProjectFilesView: View {
                     ) {
                         feature.set(\.isPhotoPickerPresented, to: true)
                     }
+                    .accessibilityLabel("Add Images")
+                    .accessibilityHint("Opens photo picker to add images")
+                    .accessibilityInputLabels(["Add Images", "Add Photos", "Import Images", "Photos"])
                 } label: {
                     ButtonView(
                         systemImageName: "plus",
@@ -133,6 +145,10 @@ struct ProjectFilesView: View {
                 .disabled(selectedProject == nil)
                 .padding(.bottom)
                 .buttonStyle(.plain)
+                .accessibilityLabel("Add Sources")
+                .accessibilityHint("Opens menu to add files or images")
+                .accessibilityInputLabels(["Add Sources", "Add Files", "Import", "Upload", "Plus"])
+                .accessibilityIdentifier("addSourcesButton")
             #endif
         }
     }
@@ -140,16 +156,19 @@ struct ProjectFilesView: View {
     func noProjectSelectedView() -> some View {
         VStack(spacing: 20) {
             Image(systemName: "doc.badge.plus")
-                .font(.system(size: 32))
+                .font(.system(size: noProjectIconSize))
                 .foregroundColor(.secondary)
+                .accessibilityHidden(true)
             
             Text("Select a chat to add sources")
                 .foregroundColor(.secondary)
+                .supportsDynamicType()
         }
         .frame(
             maxWidth: .infinity,
             maxHeight: .infinity
         )
+        .accessibilityElement(children: .combine)
     }
     
     func filesListView() -> some View {
@@ -163,6 +182,7 @@ struct ProjectFilesView: View {
                         maxWidth: .infinity,
                         maxHeight: .infinity
                     )
+                    .accessibilityLabel("Loading files")
             } else if feature.value(\.files).isEmpty {
                 emptyFilesView()
             } else {
@@ -174,21 +194,26 @@ struct ProjectFilesView: View {
     func emptyFilesView() -> some View {
         VStack(spacing: 15) {
             Image(systemName: "doc.plaintext")
-                .font(.system(size: 24))
+                .font(.system(size: emptyFilesIconSize))
                 .foregroundColor(.secondary)
+                .accessibilityHidden(true)
             
             Text("No sources added yet")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
+                .accessibilityAddTraits(.isHeader)
+                .supportsDynamicType()
             
             Text("Click 'Add Sources' to get started")
                 .font(.caption)
                 .foregroundColor(.secondary)
+                .supportsDynamicType()
         }
         .frame(
             maxWidth: .infinity,
             maxHeight: .infinity
         )
+        .accessibilityElement(children: .combine)
     }
     
     func filesList() -> some View {
@@ -202,5 +227,7 @@ struct ProjectFilesView: View {
             }
             .padding(.horizontal)
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("filesList")
     }
 }

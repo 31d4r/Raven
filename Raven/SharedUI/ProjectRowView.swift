@@ -21,12 +21,14 @@ struct ProjectRowView: View {
             ) {
                 Text(project.name)
                     .font(.headline)
+                    .supportsDynamicType()
 
                 Text(
                     project.createdAt,
                     style: .date
                 )
                     .font(.caption)
+                    .supportsDynamicType()
             }
 
             Spacer()
@@ -37,18 +39,31 @@ struct ProjectRowView: View {
                 } label: {
                     Text("Rename")
                 }
+                .accessibilityLabel("Rename \(project.name)")
+                .accessibilityHint("Renames this chat")
+                .accessibilityInputLabels(["Rename", "Edit Name", "Change Name"])
 
                 Button(role: .destructive) {
                     onDelete()
                 } label: {
                     Text("Delete")
                 }
+                .accessibilityLabel("Delete \(project.name)")
+                .accessibilityHint("Deletes this chat")
+                .accessibilityInputLabels(["Delete", "Remove", "Trash"])
 
             } label: {
                 Image(systemName: "ellipsis")
+                    .accessibilityHidden(true)
             }
             .menuStyle(.borderlessButton)
+            .accessibilityLabel("Chat Actions for \(project.name)")
+            .accessibilityHint("Opens menu with rename and delete options")
+            .accessibilityInputLabels(["Chat Actions", "Options", "More", "Menu"])
         }
         .padding(.vertical, 4)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("Chat: \(project.name), created \(project.createdAt.formatted(date: .abbreviated, time: .omitted))")
+        .accessibilityIdentifier("projectRow_\(String(describing: project.id))")
     }
 }

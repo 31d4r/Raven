@@ -11,6 +11,7 @@ import SwiftUI
 struct ProjectsView: View {
     @Environment(ProjectsFeature.self) var feature
     @Binding var selectedProject: Project?
+    @ScaledMetric(relativeTo: .largeTitle) private var emptyStateIconSize: CGFloat = 48
 
     init(selectedProject: Binding<Project?>) {
         self._selectedProject = selectedProject
@@ -25,6 +26,10 @@ struct ProjectsView: View {
                     } label: {
                         Image(systemName: "plus")
                     }
+                    .accessibilityLabel("New Chat")
+                    .accessibilityHint("Creates a new chat")
+                    .accessibilityInputLabels(["New Chat", "Add Chat", "Create Chat", "Plus", "New"])
+                    .accessibilityIdentifier("newChatButton")
                 }
             }
             .sheet(
@@ -36,12 +41,17 @@ struct ProjectsView: View {
             )
             .alert("Rename Chat", isPresented: feature.binding(for: \.showingRenameAlert)) {
                 TextField("Chat name", text: feature.binding(for: \.renameProjectName))
+                    .accessibilityLabel("Chat Name")
+                    .accessibilityHint("Enter a new name for the chat")
+                    .accessibilityIdentifier("renameChatTextField")
                 
                 Button {
                     feature.send(.hideRenameAlert)
                 } label: {
                     Text("Cancel")
                 }
+                .accessibilityLabel("Cancel")
+                .accessibilityInputLabels(["Cancel", "Close", "Dismiss", "Back"])
 
                 Button {
                     feature.send(.renameProject(feature.value(\.renameProjectName)))
@@ -51,6 +61,9 @@ struct ProjectsView: View {
                 .disabled(
                     feature.value(\.renameProjectName).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                 )
+                .accessibilityLabel("Rename")
+                .accessibilityHint("Renames the chat to the entered name")
+                .accessibilityInputLabels(["Rename", "Change Name", "Edit Name", "Save"])
    
             } message: {
                 Text("Enter a new name for the chat")
@@ -68,6 +81,7 @@ struct ProjectsView: View {
             if feature.value(\.isLoading) {
                 ProgressView("Loading chats...")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .accessibilityLabel("Loading chats")
             } else if feature.value(\.projects).isEmpty {
                 emptyStateView()
             } else {
@@ -84,15 +98,19 @@ struct ProjectsView: View {
     func emptyStateView() -> some View {
         VStack(spacing: 20) {
             Image(systemName: "message")
-                .font(.system(size: 48))
+                .font(.system(size: emptyStateIconSize))
                 .foregroundColor(.secondary)
+                .accessibilityHidden(true)
             
             Text("No Chats Yet")
                 .font(.title2)
                 .fontWeight(.medium)
+                .accessibilityAddTraits(.isHeader)
+                .supportsDynamicType()
             
             Text("Create your first chat to get started")
                 .foregroundColor(.secondary)
+                .supportsDynamicType()
             
             Button {
                 feature.send(.showNewProjectAlert)
@@ -100,11 +118,16 @@ struct ProjectsView: View {
                 Text("Create Chat")
             }
             .buttonStyle(.borderless)
+            .accessibilityLabel("Create Chat")
+            .accessibilityHint("Opens a dialog to create a new chat")
+            .accessibilityInputLabels(["Create Chat", "New Chat", "Add Chat", "Create"])
+            .accessibilityIdentifier("createChatButton")
         }
         .frame(
             maxWidth: .infinity,
             maxHeight: .infinity
         )
+        .accessibilityElement(children: .combine)
     }
     
     func projectsList() -> some View {
@@ -119,17 +142,27 @@ struct ProjectsView: View {
                 .tag(project)
         }
         .listStyle(.sidebar)
+        .accessibilityIdentifier("chatsList")
+        .onChange(of: feature.value(\.selectedProject)) { _, newProject in
+            if let project = newProject {
+                AccessibilityHelper.announce("Selected chat: \(project.name)")
+            }
+        }
     }
     
     func createNewProjectView() -> some View {
         VStack {
             HStack {
                 Text("New Chat")
+                    .font(.headline)
+                    .accessibilityAddTraits(.isHeader)
+                    .supportsDynamicType()
                 
                 Spacer()
             }
             
             Divider()
+                .accessibilityHidden(true)
             
             HStack {
                 Text("Name")
@@ -140,6 +173,10 @@ struct ProjectsView: View {
                         for: \.newProjectName
                     )
                 )
+                .accessibilityLabel("Chat Name")
+                .accessibilityHint("Enter a name for the new chat")
+                .accessibilityValue(feature.value(\.newProjectName))
+                .accessibilityIdentifier("newChatNameTextField")
             }
             
             .padding(.vertical)
@@ -152,6 +189,10 @@ struct ProjectsView: View {
                 } label: {
                     Text("Cancel")
                 }
+                .accessibilityLabel("Cancel")
+                .accessibilityHint("Cancels creating a new chat")
+                .accessibilityInputLabels(["Cancel", "Close", "Dismiss", "Back"])
+                .accessibilityIdentifier("cancelNewChatButton")
                 
                 Button {
                     feature.send(.createProject(feature.value(\.newProjectName)))
@@ -161,8 +202,13 @@ struct ProjectsView: View {
                 .disabled(
                     feature.value(\.newProjectName).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                 )
+                .accessibilityLabel("Create Chat")
+                .accessibilityHint("Creates a new chat with the entered name")
+                .accessibilityInputLabels(["Create Chat", "Create", "Add", "Make"])
+                .accessibilityIdentifier("createNewChatButton")
             }
         }
         .padding()
+        .accessibilityElement(children: .contain)
     }
 }

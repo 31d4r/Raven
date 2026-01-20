@@ -25,6 +25,7 @@ struct FileRowView: View {
                 Text(file.name)
                     .font(.subheadline)
                     .lineLimit(1)
+                    .supportsDynamicType()
                 
                 Text(
                     file.createdAt.formatted(
@@ -34,6 +35,7 @@ struct FileRowView: View {
                 )
                     .font(.caption)
                     .foregroundColor(.secondary)
+                    .supportsDynamicType()
             }
             
             Spacer()
@@ -44,26 +46,38 @@ struct FileRowView: View {
                 } label: {
                     Text("Preview")
                 }
+                .accessibilityLabel("Preview \(file.name)")
+                .accessibilityHint("Opens preview of the file")
+                .accessibilityInputLabels(["Preview", "View", "Open", "Show"])
                 
                 Button {
                     onDelete()
                 } label: {
                     Text("Delete")
                 }
+                .accessibilityLabel("Delete \(file.name)")
+                .accessibilityHint("Deletes this file from the chat")
+                .accessibilityInputLabels(["Delete", "Remove", "Trash"])
      
             } label: {
                 Image(systemName: "ellipsis")
                     .foregroundColor(.secondary)
             }
             .menuStyle(.borderlessButton)
+            .accessibilityLabel("File Actions for \(file.name)")
+            .accessibilityHint("Opens menu with preview and delete options")
+            .accessibilityInputLabels(["File Actions", "Options", "More", "Menu"])
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(Color.gray.opacity(0.1))
+        .background(Color.gray.opacity(0.15))
         .cornerRadius(
             8,
             corners: .allCorners
-        ).quickLookPreview(
+        )
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("fileRow_\(String(describing: file.id))")
+        .quickLookPreview(
             $selectedURL,
             in: [URL(
                 fileURLWithPath: file.publicPath
@@ -96,5 +110,6 @@ struct FileRowView: View {
         return Image(systemName: iconName)
             .foregroundColor(color)
             .font(.title3)
+            .accessibilityHidden(true)
     }
 }

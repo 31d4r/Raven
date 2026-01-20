@@ -31,6 +31,7 @@ struct RavenApp: App {
             #if os(macOS)
                 .background(WindowAccessor())
             #endif
+                .accessibilityElement(children: .contain)
         }
         #if os(macOS)
         .commands {
