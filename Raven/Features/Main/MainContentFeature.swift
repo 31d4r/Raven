@@ -12,23 +12,33 @@ import SwiftUI
 extension MainContentView {
     struct MainContentState {
         var questionText = ""
-        var promptText = ""
-        var responseText = ""
+        var messages: [ChatMessage] = []
         var isProcessing = false
         var errorMessage: String?
+        var activeProjectID: Int64?
     }
     
     enum Action {
         case updateQuestion(String)
+        case loadChat(Project?)
         case processQuestion(String, Project)
-        case clearResponse
+        case clearHistory(Project)
         case copyResponse
     }
     
     @Observable
     class MainContentFeature {
         private(set) var state = MainContentState()
-        private let foundationsManager = RFoundationsManager()
+        private let databaseManager: RDatabaseManager
+        private let foundationsManager: RFoundationsManager
+
+        init(
+            databaseManager: RDatabaseManager,
+            foundationsManager: RFoundationsManager
+        ) {
+            self.databaseManager = databaseManager
+            self.foundationsManager = foundationsManager
+        }
     }
 }
 
@@ -67,16 +77,41 @@ extension MainContentView.MainContentFeature {
         switch action {
         case .updateQuestion(let text):
             set(\.questionText, to: text)
-            
+
+        case .loadChat(let project):
+            await loadChat(for: project)
+
         case .processQuestion(let question, let project):
             await processQuestion(question, for: project)
-            
-        case .clearResponse:
-            set(\.responseText, to: "")
-            set(\.errorMessage, to: nil)
+
+        case .clearHistory(let project):
+            await clearHistory(for: project)
 
         case .copyResponse:
             copyResponseToClipboard()
+        }
+    }
+
+    private func loadChat(
+        for project: Project?
+    ) async {
+        set(\.errorMessage, to: nil)
+        set(\.questionText, to: "")
+
+        guard let project else {
+            set(\.messages, to: [])
+            set(\.activeProjectID, to: nil)
+            return
+        }
+
+        do {
+            let messages = try databaseManager.fetchChatMessages(for: project)
+            set(\.messages, to: messages)
+            set(\.activeProjectID, to: project.id)
+        } catch {
+            set(\.messages, to: [])
+            set(\.activeProjectID, to: project.id)
+            set(\.errorMessage, to: error.localizedDescription)
         }
     }
     
@@ -84,26 +119,65 @@ extension MainContentView.MainContentFeature {
         _ question: String,
         for project: Project
     ) async {
-        guard !question.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
-        
+        let trimmedQuestion = question.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedQuestion.isEmpty, let projectID = project.id else { return }
+
         set(\.isProcessing, to: true)
         set(\.errorMessage, to: nil)
-        set(\.promptText, to: state.questionText)
-        
+
         do {
-            let response = try await foundationsManager.processQuestion(question, for: project)
-            set(\.responseText, to: response)
+            let userMessage = try databaseManager.createChatMessage(
+                for: project,
+                role: .user,
+                content: trimmedQuestion
+            )
+            var updatedMessages = value(\.messages)
+            if value(\.activeProjectID) == projectID {
+                updatedMessages.append(userMessage)
+                set(\.messages, to: updatedMessages)
+            } else {
+                updatedMessages = try databaseManager.fetchChatMessages(for: project)
+            }
             set(\.questionText, to: "")
+
+            let response = try await foundationsManager.processQuestion(
+                trimmedQuestion,
+                for: project,
+                history: updatedMessages
+            )
+
+            let assistantMessage = try databaseManager.createChatMessage(
+                for: project,
+                role: .assistant,
+                content: response
+            )
+            if value(\.activeProjectID) == projectID {
+                updatedMessages.append(assistantMessage)
+                set(\.messages, to: updatedMessages)
+            }
         } catch {
             set(\.errorMessage, to: error.localizedDescription)
-            set(\.responseText, to: "")
         }
-        
+
         set(\.isProcessing, to: false)
     }
-    
+
+    private func clearHistory(
+        for project: Project
+    ) async {
+        do {
+            try databaseManager.deleteChatMessages(for: project)
+            set(\.messages, to: [])
+            set(\.errorMessage, to: nil)
+        } catch {
+            set(\.errorMessage, to: error.localizedDescription)
+        }
+    }
+
     private func copyResponseToClipboard() {
-        let responseText = value(\.responseText)
+        let responseText = value(\.messages)
+            .last(where: { $0.role == .assistant })?
+            .content ?? ""
         guard !responseText.isEmpty else { return }
         
         let formattedText = formatResponseForCopy(responseText)

@@ -21,8 +21,10 @@ struct MainContentView: View {
             content()
                 .frame(maxWidth: .infinity)
         }
+        .task(id: selectedProject?.id) {
+            feature.send(.loadChat(selectedProject))
+        }
         .onChange(of: selectedProject?.id) { _, newId in
-            feature.send(.clearResponse)
             if let projectName = selectedProject?.name {
                 AccessibilityHelper.announce("Switched to chat: \(projectName)")
             }
@@ -109,9 +111,10 @@ struct MainContentView: View {
                     alignment: .leading,
                     spacing: 20
                 ) {
-                    if !feature.value(\.responseText).isEmpty {
-                        promptView()
-                        responseView()
+                    if feature.value(\.messages).isEmpty && !feature.value(\.isProcessing) {
+                        emptyConversationView()
+                    } else {
+                        conversationView()
                     }
                     
                     if feature.value(\.isProcessing) {
@@ -142,36 +145,99 @@ struct MainContentView: View {
         }
     }
     
-    func promptView() -> some View {
-        HStack {
-            Spacer()
-            
-            Text(feature.value(\.promptText))
-                .padding()
-                .accessibilityLabel("User Question")
-                .accessibilityValue(feature.value(\.promptText))
+    func conversationView() -> some View {
+        LazyVStack(
+            alignment: .leading,
+            spacing: 16
+        ) {
+            ForEach(feature.value(\.messages)) { message in
+                messageBubble(message)
+            }
         }
-        .background(Color.gray.opacity(0.15))
+    }
+
+    func messageBubble(
+        _ message: ChatMessage
+    ) -> some View {
+        VStack(
+            alignment: message.role == .user ? .trailing : .leading,
+            spacing: 8
+        ) {
+            HStack {
+                if message.role == .assistant {
+                    Label("Raven", systemImage: "brain.head.profile")
+                        .foregroundColor(.blue)
+                        .font(.headline)
+                        .accessibilityAddTraits(.isHeader)
+                } else {
+                    Spacer()
+                    Text("You")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                        .accessibilityAddTraits(.isHeader)
+                }
+            }
+
+            Group {
+                if message.role == .assistant {
+                    Markdown(message.content)
+                        .textSelection(.enabled)
+                } else {
+                    Text(message.content)
+                }
+            }
+            .padding()
+            .frame(
+                maxWidth: .infinity,
+                alignment: message.role == .user ? .trailing : .leading
+            )
+            .background(
+                message.role == .user
+                    ? Color.gray.opacity(0.15)
+                    : Color.blue.opacity(0.15)
+            )
+            .cornerRadius(
+                12,
+                corners: .allCorners
+            )
+            .accessibilityLabel(message.role == .user ? "User Message" : "AI Response")
+            .accessibilityValue(message.content)
+        }
+        .frame(
+            maxWidth: .infinity,
+            alignment: message.role == .user ? .trailing : .leading
+        )
+    }
+
+    func emptyConversationView() -> some View {
+        VStack(
+            alignment: .leading,
+            spacing: 12
+        ) {
+            Text("No Messages Yet")
+                .font(.title3)
+                .fontWeight(.semibold)
+                .accessibilityAddTraits(.isHeader)
+
+            Text("Ask a question to start a chat that will be saved in this conversation.")
+                .foregroundColor(.secondary)
+                .supportsDynamicType()
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+        .background(Color.gray.opacity(0.08))
         .cornerRadius(
             12,
             corners: .allCorners
         )
-        .accessibilityElement(children: .combine)
     }
-    
-    func responseView() -> some View {
+
+    func latestAssistantResponseControls() -> some View {
         VStack(
             alignment: .leading,
             spacing: 10
         ) {
             HStack {
-                Image(systemName: "brain.head.profile")
-                    .foregroundColor(.blue)
-                    .accessibilityHidden(true)
-                Text("AI Response")
-                    .font(.headline)
-                    .accessibilityAddTraits(.isHeader)
-                    .supportsDynamicType()
                 Spacer()
                 
                 Button {
@@ -181,39 +247,26 @@ struct MainContentView: View {
                     Text("Copy")
                 }
                 .buttonStyle(.bordered)
+                .disabled(feature.value(\.messages).last(where: { $0.role == .assistant }) == nil)
                 .accessibilityLabel("Copy Response")
                 .accessibilityHint("Copies the AI response to the clipboard")
                 .accessibilityInputLabels(["Copy Response", "Copy", "Copy Text"])
                 .accessibilityIdentifier("copyResponseButton")
                 
                 Button {
-                    feature.send(.clearResponse)
+                    if let selectedProject {
+                        feature.send(.clearHistory(selectedProject))
+                    }
                 } label: {
-                    Text("Clear")
+                    Text("Clear History")
                 }
                 .buttonStyle(.bordered)
-                .accessibilityLabel("Clear Response")
-                .accessibilityHint("Clears the current AI response")
-                .accessibilityInputLabels(["Clear Response", "Clear", "Delete", "Remove"])
+                .disabled(selectedProject == nil || feature.value(\.messages).isEmpty)
+                .accessibilityLabel("Clear Chat History")
+                .accessibilityHint("Clears the saved messages in this chat")
+                .accessibilityInputLabels(["Clear History", "Clear Chat", "Delete History", "Remove Messages"])
                 .accessibilityIdentifier("clearResponseButton")
             }
-            
-            ScrollView {
-                Markdown(feature.value(\.responseText))
-                    .textSelection(.enabled)
-                    .padding()
-                    .frame(
-                        maxWidth: .infinity,
-                        alignment: .leading
-                    )
-                    .accessibilityLabel("AI Response Content")
-                    .accessibilityValue(feature.value(\.responseText))
-            }
-            .background(Color.blue.opacity(0.15))
-            .cornerRadius(
-                12,
-                corners: .allCorners
-            )
         }
         .accessibilityElement(children: .contain)
     }
@@ -263,6 +316,9 @@ struct MainContentView: View {
     
     func bottomInputView() -> some View {
         VStack {
+            latestAssistantResponseControls()
+                .padding(.horizontal)
+
             HStack {
                 TextField(
                     "Ask me anything about your documents...",

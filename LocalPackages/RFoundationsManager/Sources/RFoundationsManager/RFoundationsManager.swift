@@ -14,7 +14,6 @@ import SwiftUI
 
 @Observable
 public class RFoundationsManager {
-    private let session = LanguageModelSession()
     private let databaseManager: RDatabaseManager
     private let textExtractionService: RTextExtractionService
     private let afModel = SystemLanguageModel.default
@@ -33,16 +32,19 @@ public class RFoundationsManager {
     
     public func processQuestion(
         _ question: String,
-        for project: Project
+        for project: Project,
+        history: [ChatMessage] = []
     ) async throws -> String {
         let files = try databaseManager.fetchFiles(for: project)
-        
         let extractedText = await textExtractionService.extractTextFromFiles(files)
-        
-        let enhancedPrompt = createPrompt(question: question, context: extractedText)
-        
+        let enhancedPrompt = createPrompt(
+            question: question,
+            context: extractedText,
+            history: history
+        )
+        let session = LanguageModelSession()
         let response = try await session.respond(to: enhancedPrompt).content
-        
+
         return response
     }
     
@@ -50,19 +52,28 @@ public class RFoundationsManager {
     
     private func createPrompt(
         question: String,
-        context: String
+        context: String,
+        history: [ChatMessage]
     ) -> String {
-        if context.isEmpty {
-            return question
-        }
-        
+        let conversationHistory = history
+            .map { message in
+                "\(message.role.rawValue.capitalized): \(message.content)"
+            }
+            .joined(separator: "\n\n")
+
         return """
+        You are Raven, a document-focused assistant.
+
+        Conversation so far:
+        \(conversationHistory.isEmpty ? "No previous messages." : conversationHistory)
+
         Context from uploaded documents:
-        \(context)
-        
-        Question: \(question)
-        
-        Please provide a response based on the context above.
+        \(context.isEmpty ? "No uploaded document context is available yet." : context)
+
+        Latest user question:
+        \(question)
+
+        Respond to the latest user question. Use the uploaded document context when it is relevant, and keep the answer consistent with the prior conversation for this chat only.
         """
     }
     
