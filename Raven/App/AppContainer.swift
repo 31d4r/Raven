@@ -12,19 +12,25 @@ import SwiftUI
 @Observable
 class AppContainer {
     let databaseManager = RDatabaseManager()
-    let foundationsManager = RFoundationsManager()
+    let foundationsManager: RFoundationsManager
 
     var projectsFeature: ProjectsView.ProjectsFeature
     var projectFilesFeature: ProjectFilesView.ProjectFilesFeature
     var mainContentFeature: MainContentView.MainContentFeature
 
     init() {
+        self.foundationsManager = RFoundationsManager(
+            databaseManager: databaseManager
+        )
         self.projectsFeature = ProjectsView.ProjectsFeature(
             databaseManager: databaseManager
         )
         self.projectFilesFeature = ProjectFilesView.ProjectFilesFeature(
             databaseManager: databaseManager
         )
-        self.mainContentFeature = MainContentView.MainContentFeature()
+        self.mainContentFeature = MainContentView.MainContentFeature(
+            databaseManager: databaseManager,
+            foundationsManager: foundationsManager
+        )
     }
 }

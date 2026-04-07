@@ -72,6 +72,18 @@ public class RDatabaseManager {
                 t.column("createdAt", .datetime).notNull()
             }
         }
+
+        migrator.registerMigration("1") { db in
+            try db.create(table: "chatMessages") { t in
+                t.autoIncrementedPrimaryKey("id")
+                t.column("projectId", .integer)
+                    .notNull()
+                    .references("projects", onDelete: .cascade)
+                t.column("role", .text).notNull()
+                t.column("content", .text).notNull()
+                t.column("createdAt", .datetime).notNull()
+            }
+        }
         
         return migrator
     }
@@ -289,6 +301,60 @@ public class RDatabaseManager {
         
         return updatedNote
     }
+
+    // MARK: - Chat Message Operations
+
+    public func createChatMessage(
+        for project: Project,
+        role: ChatMessage.Role,
+        content: String
+    ) throws -> ChatMessage {
+        guard let projectId = project.id else {
+            throw DatabaseError.notInitialized
+        }
+
+        var chatMessage = ChatMessage(
+            projectId: projectId,
+            role: role,
+            content: content,
+            createdAt: Date()
+        )
+
+        try dbQueue.write { db in
+            try chatMessage.insert(db)
+        }
+
+        return chatMessage
+    }
+
+    public func fetchChatMessages(
+        for project: Project
+    ) throws -> [ChatMessage] {
+        guard let projectId = project.id else {
+            throw DatabaseError.notInitialized
+        }
+
+        return try dbQueue.read { db in
+            try ChatMessage
+                .filter(ChatMessage.Columns.projectId == projectId)
+                .order(ChatMessage.Columns.createdAt.asc)
+                .fetchAll(db)
+        }
+    }
+
+    public func deleteChatMessages(
+        for project: Project
+    ) throws {
+        guard let projectId = project.id else {
+            throw DatabaseError.notInitialized
+        }
+
+        _ = try dbQueue.write { db in
+            try ChatMessage
+                .filter(ChatMessage.Columns.projectId == projectId)
+                .deleteAll(db)
+        }
+    }
     
     // MARK: - Additional Convenience Methods
     
@@ -320,6 +386,7 @@ public class RDatabaseManager {
         try dbQueue.write { db in
             try Project.deleteAll(db)
             try FileRecord.deleteAll(db)
+            try ChatMessage.deleteAll(db)
         }
     }
 }
