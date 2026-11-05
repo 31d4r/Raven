@@ -149,3 +149,6 @@ xcuserdata
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,swiftpackagemanager,macos,xcode,swiftpm,cocoapods
+
+# Local Xcode build output (-derivedDataPath .derivedData)
+.derivedData/
