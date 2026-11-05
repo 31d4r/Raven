@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Native bordered button with an SF Symbol. Prefer a plain `Button` with a
+/// system style; this wrapper stays for call sites that want the shorthand.
 struct ButtonView: View {
     var systemImageName: String
     var buttonText: String
@@ -16,37 +18,20 @@ struct ButtonView: View {
     var accessibilityIdentifier: String? = nil
 
     var body: some View {
-        VStack(spacing: 10) {
-            Button {
-                action?()
-            } label: {
-                HStack {
-                    Image(systemName: systemImageName)
-                        .accessibilityHidden(true)
-                    Text(buttonText)
-
-                    Spacer()
-                }
-                .padding(.horizontal)
-                .padding(.vertical, 8)
-                #if os(iOS)
-                .frame(minWidth: 44, minHeight: 44)
-                #endif
-                .background(.gray.opacity(0.15))
-                .cornerRadius(
-                    8,
-                    corners: .allCorners
-                )
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel(accessibilityLabel ?? buttonText)
-            .if(accessibilityHint != nil) { view in
-                view.accessibilityHint(accessibilityHint ?? "")
-            }
-            .if(accessibilityIdentifier != nil) { view in
-                view.accessibilityIdentifier(accessibilityIdentifier ?? "")
-            }
+        Button {
+            action?()
+        } label: {
+            Label(buttonText, systemImage: systemImageName)
+                .frame(maxWidth: .infinity)
         }
-        .padding(.horizontal)
+        .buttonStyle(.bordered)
+        .controlSize(.large)
+        .accessibilityLabel(accessibilityLabel ?? buttonText)
+        .if(accessibilityHint != nil) { view in
+            view.accessibilityHint(accessibilityHint ?? "")
+        }
+        .if(accessibilityIdentifier != nil) { view in
+            view.accessibilityIdentifier(accessibilityIdentifier ?? "")
+        }
     }
 }
