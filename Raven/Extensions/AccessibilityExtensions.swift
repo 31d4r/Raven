@@ -7,30 +7,12 @@
 
 import SwiftUI
 
-#if os(iOS)
-import UIKit
-#elseif os(macOS)
-import AppKit
-#endif
 
 @MainActor
 struct AccessibilityHelper {
+    /// Speaks a short status update with VoiceOver on every platform.
     static func announce(_ message: String) {
-        #if os(iOS)
-        UIAccessibility.post(notification: .announcement, argument: message)
-        #elseif os(macOS)
-        if let window = NSApplication.shared.mainWindow {
-            let userInfo: [NSAccessibility.NotificationUserInfoKey: Any] = [
-                .announcement: message,
-                .priority: NSAccessibilityPriorityLevel.high.rawValue
-            ]
-            NSAccessibility.post(
-                element: window,
-                notification: .announcementRequested,
-                userInfo: userInfo
-            )
-        }
-        #endif
+        AccessibilityNotification.Announcement(message).post()
     }
 }
 
