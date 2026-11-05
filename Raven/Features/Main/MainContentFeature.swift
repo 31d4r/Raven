@@ -5,9 +5,13 @@
 //  Created by Eldar Tutnjic on 25.07.25.
 //
 
+import FoundationModels
 import RDatabaseManager
 import RFoundationsManager
 import SwiftUI
+#if os(iOS)
+import UIKit
+#endif
 
 extension MainContentView {
     struct MainContentState {
@@ -16,6 +20,12 @@ extension MainContentView {
         var isProcessing = false
         var errorMessage: String?
         var activeProjectID: Int64?
+        var isConfirmingClearHistory = false
+    }
+
+    enum ModelAvailability: Equatable {
+        case available
+        case unavailable(reason: String)
     }
     
     enum Action {
@@ -24,6 +34,8 @@ extension MainContentView {
         case processQuestion(String, Project)
         case clearHistory(Project)
         case copyResponse
+        case copyMessage(ChatMessage)
+        case cancelProcessing
     }
     
     @Observable
@@ -31,6 +43,7 @@ extension MainContentView {
         private(set) var state = MainContentState()
         private let databaseManager: RDatabaseManager
         private let foundationsManager: RFoundationsManager
+        @ObservationIgnored private var processingTask: Task<Void, Never>?
 
         init(
             databaseManager: RDatabaseManager,
@@ -46,8 +59,15 @@ extension MainContentView {
 
 extension MainContentView.MainContentFeature {
     func send(_ action: MainContentView.Action) {
-        Task {
-            await handle(action)
+        switch action {
+        case .processQuestion:
+            processingTask = Task {
+                await handle(action)
+            }
+        default:
+            Task {
+                await handle(action)
+            }
         }
     }
     
@@ -89,6 +109,12 @@ extension MainContentView.MainContentFeature {
 
         case .copyResponse:
             copyResponseToClipboard()
+
+        case .copyMessage(let message):
+            copyToClipboard(message.role == .assistant ? formatResponseForCopy(message.content) : message.content)
+
+        case .cancelProcessing:
+            cancelProcessing()
         }
     }
 
@@ -111,7 +137,7 @@ extension MainContentView.MainContentFeature {
         } catch {
             set(\.messages, to: [])
             set(\.activeProjectID, to: project.id)
-            set(\.errorMessage, to: error.localizedDescription)
+            set(\.errorMessage, to: DesignSystem.Errors.loadChatFailed)
         }
     }
     
@@ -146,6 +172,8 @@ extension MainContentView.MainContentFeature {
                 history: updatedMessages
             )
 
+            guard !Task.isCancelled else { return }
+
             let assistantMessage = try databaseManager.createChatMessage(
                 for: project,
                 role: .assistant,
@@ -155,11 +183,33 @@ extension MainContentView.MainContentFeature {
                 updatedMessages.append(assistantMessage)
                 set(\.messages, to: updatedMessages)
             }
+            AccessibilityHelper.announce(DesignSystem.Chat.answerReady)
         } catch {
-            set(\.errorMessage, to: error.localizedDescription)
+            guard !Task.isCancelled else { return }
+            set(\.errorMessage, to: Self.userFacingMessage(for: error))
         }
 
         set(\.isProcessing, to: false)
+    }
+
+    private func cancelProcessing() {
+        processingTask?.cancel()
+        processingTask = nil
+        set(\.isProcessing, to: false)
+    }
+
+    private static func userFacingMessage(for error: Error) -> String {
+        if let generationError = error as? LanguageModelSession.GenerationError {
+            switch generationError {
+            case .exceededContextWindowSize:
+                return DesignSystem.Errors.contextTooLong
+            case .guardrailViolation:
+                return DesignSystem.Errors.guardrail
+            default:
+                break
+            }
+        }
+        return DesignSystem.Errors.answerFailed
     }
 
     private func clearHistory(
@@ -170,7 +220,7 @@ extension MainContentView.MainContentFeature {
             set(\.messages, to: [])
             set(\.errorMessage, to: nil)
         } catch {
-            set(\.errorMessage, to: error.localizedDescription)
+            set(\.errorMessage, to: DesignSystem.Errors.clearFailed)
         }
     }
 
@@ -180,12 +230,17 @@ extension MainContentView.MainContentFeature {
             .content ?? ""
         guard !responseText.isEmpty else { return }
         
-        let formattedText = formatResponseForCopy(responseText)
-        
+        copyToClipboard(formatResponseForCopy(responseText))
+        AccessibilityHelper.announce(DesignSystem.Chat.copied)
+    }
+
+    private func copyToClipboard(_ text: String) {
         #if os(macOS)
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
-        pasteboard.setString(formattedText, forType: .string)
+        pasteboard.setString(text, forType: .string)
+        #else
+        UIPasteboard.general.string = text
         #endif
     }
 
@@ -210,5 +265,59 @@ extension MainContentView.MainContentFeature {
     
     func checkModelAvailability() -> (Bool, String) {
         foundationsManager.isAFModelAvailable()
+    }
+}
+
+// MARK: - Availability
+
+extension MainContentView.MainContentFeature {
+    /// Apple Intelligence status with copy that tells people how to fix it.
+    var modelAvailability: MainContentView.ModelAvailability {
+        switch SystemLanguageModel.default.availability {
+        case .available:
+            .available
+        case .unavailable(.appleIntelligenceNotEnabled):
+            .unavailable(reason: DesignSystem.Chat.unavailableNotEnabled)
+        case .unavailable(.deviceNotEligible):
+            .unavailable(reason: DesignSystem.Chat.unavailableNotEligible)
+        case .unavailable(.modelNotReady):
+            .unavailable(reason: DesignSystem.Chat.unavailableNotReady)
+        case .unavailable:
+            .unavailable(reason: DesignSystem.Chat.unavailableOther)
+        }
+    }
+
+    var lastResponse: ChatMessage? {
+        value(\.messages).last(where: { $0.role == .assistant })
+    }
+
+    func sendUnavailableReason(for project: Project?) -> String? {
+        guard project != nil else { return DesignSystem.Chats.noChatReason }
+        if case .unavailable(let reason) = modelAvailability { return reason }
+        if value(\.isProcessing) { return DesignSystem.Chat.busyReason }
+        if value(\.questionText).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return DesignSystem.Chat.emptyQuestionReason
+        }
+        return nil
+    }
+
+    func copyResponseUnavailableReason(for project: Project?) -> String? {
+        guard project != nil else { return DesignSystem.Chats.noChatReason }
+        return lastResponse == nil ? DesignSystem.Chat.noResponseReason : nil
+    }
+
+    func clearHistoryUnavailableReason(for project: Project?) -> String? {
+        guard project != nil else { return DesignSystem.Chats.noChatReason }
+        if value(\.isProcessing) { return DesignSystem.Chat.busyReason }
+        return value(\.messages).isEmpty ? DesignSystem.Chat.noMessagesReason : nil
+    }
+
+    var cancelUnavailableReason: String? {
+        value(\.isProcessing) ? nil : DesignSystem.Chat.notAnsweringReason
+    }
+
+    func submitQuestion(for project: Project?) {
+        guard let project, sendUnavailableReason(for: project) == nil else { return }
+        send(.processQuestion(value(\.questionText), project))
     }
 }
