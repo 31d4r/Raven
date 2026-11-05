@@ -349,8 +349,9 @@
 				INFOPLIST_FILE = Raven/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs microphone access for speech recognition features.";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This app uses speech recognition to transcribe audio files in your projects.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Raven uses the camera only when you choose Take Photo, to add the photo to a chat as a source.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Raven uses the microphone only for speech recognition features you start.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Raven uses speech recognition to turn the audio and video you add into text it can answer from.";
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -393,8 +394,9 @@
 				INFOPLIST_FILE = Raven/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs microphone access for speech recognition features.";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This app uses speech recognition to transcribe audio files in your projects.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Raven uses the camera only when you choose Take Photo, to add the photo to a chat as a source.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Raven uses the microphone only for speech recognition features you start.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Raven uses speech recognition to turn the audio and video you add into text it can answer from.";
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
