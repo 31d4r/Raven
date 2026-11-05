@@ -11,7 +11,10 @@ import SwiftUI
 struct ProjectsView: View {
     @Environment(ProjectsFeature.self) var feature
     @Binding var selectedProject: Project?
-    @ScaledMetric(relativeTo: .largeTitle) private var emptyStateIconSize: CGFloat = 48
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @FocusState private var isSearchFocused: Bool
+    #endif
 
     init(selectedProject: Binding<Project?>) {
         self._selectedProject = selectedProject
@@ -19,54 +22,33 @@ struct ProjectsView: View {
     
     var body: some View {
         content()
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        feature.send(.showNewProjectAlert)
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                    .accessibilityLabel("New Chat")
-                    .accessibilityHint("Creates a new chat")
-                    .accessibilityInputLabels(["New Chat", "Add Chat", "Create Chat", "Plus", "New"])
-                    .accessibilityIdentifier("newChatButton")
+            .navigationTitle(DesignSystem.Chats.sidebarTitle)
+            #if os(iOS)
+            .toolbar(isCompact ? .hidden : .automatic, for: .navigationBar)
+            .safeAreaInset(edge: .top, spacing: 0) {
+                if isCompact {
+                    listHeader()
                 }
             }
-            .sheet(
-                isPresented: feature.binding(for: \.showingNewProjectAlert),
-                content: {
-                    createNewProjectView()
-                        .presentationDetents([.fraction(0.25)])
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                if !feature.value(\.projects).isEmpty {
+                    searchBar()
                 }
-            )
-            .alert("Rename Chat", isPresented: feature.binding(for: \.showingRenameAlert)) {
-                TextField("Chat name", text: feature.binding(for: \.renameProjectName))
-                    .accessibilityLabel("Chat Name")
-                    .accessibilityHint("Enter a new name for the chat")
-                    .accessibilityIdentifier("renameChatTextField")
-                
-                Button {
-                    feature.send(.hideRenameAlert)
-                } label: {
-                    Text("Cancel")
+            }
+            #endif
+            .toolbar {
+                #if os(macOS)
+                ToolbarItemGroup(placement: .primaryAction) {
+                    searchButton()
+                    newChatButton(showsTitle: false)
                 }
-                .accessibilityLabel("Cancel")
-                .accessibilityInputLabels(["Cancel", "Close", "Dismiss", "Back"])
-
-                Button {
-                    feature.send(.renameProject(feature.value(\.renameProjectName)))
-                } label: {
-                    Text("Rename")
+                #else
+                if !isCompact && !feature.value(\.projects).isEmpty {
+                    ToolbarItem(placement: .primaryAction) {
+                        newChatButton(showsTitle: false)
+                    }
                 }
-                .disabled(
-                    feature.value(\.renameProjectName).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                )
-                .accessibilityLabel("Rename")
-                .accessibilityHint("Renames the chat to the entered name")
-                .accessibilityInputLabels(["Rename", "Change Name", "Edit Name", "Save"])
-   
-            } message: {
-                Text("Enter a new name for the chat")
+                #endif
             }
             .task {
                 feature.send(.loadProjects)
@@ -76,139 +58,423 @@ struct ProjectsView: View {
             }
     }
     
+    @ViewBuilder
     func content() -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            if feature.value(\.isLoading) {
-                ProgressView("Loading chats...")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .accessibilityLabel("Loading chats")
-            } else if feature.value(\.projects).isEmpty {
-                emptyStateView()
+        if feature.value(\.isLoading) {
+            ProgressView(DesignSystem.Chats.loading)
+                .accessibilityLabel(DesignSystem.Chats.loadingLabel)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else if feature.value(\.projects).isEmpty {
+            emptyStateView()
+        } else {
+            projectsList()
+        }
+    }
+
+    #if os(macOS)
+    func searchButton() -> some View {
+        Button {
+            feature.set(\.isSearchPresented, to: true)
+        } label: {
+            Label(DesignSystem.Conversation.searchChats, systemImage: DesignSystem.Icons.search)
+                .labelStyle(.iconOnly)
+        }
+        .disabled(feature.value(\.projects).isEmpty)
+        .help(DesignSystem.Help.tooltip(
+            DesignSystem.Conversation.searchChats,
+            shortcut: DesignSystem.Shortcuts.searchChats
+        ))
+        .accessibilityHint(DesignSystem.Conversation.searchHint)
+        .accessibilityIdentifier("searchChatsButton")
+    }
+    #endif
+
+    func newChatButton(showsTitle: Bool) -> some View {
+        Button {
+            feature.send(.showNewProjectAlert)
+        } label: {
+            if showsTitle {
+                Label(DesignSystem.Chats.newChat, systemImage: DesignSystem.Icons.newChat)
+                    .labelStyle(.titleAndIcon)
             } else {
-                projectsList()
+                Label(DesignSystem.Chats.newChat, systemImage: DesignSystem.Icons.newChat)
+                    .labelStyle(.iconOnly)
             }
         }
-        .frame(
-            maxWidth: .infinity,
-            maxHeight: .infinity,
-            alignment: .topLeading
-        )
+        .help(DesignSystem.Help.tooltip(
+            DesignSystem.Chats.newChat,
+            shortcut: DesignSystem.Shortcuts.newChat,
+            detail: DesignSystem.Chats.newChatHelp
+        ))
+        .accessibilityHint(DesignSystem.Chats.newChatHelp)
+        .accessibilityInputLabels(DesignSystem.VoiceControl.newChat)
+        .accessibilityIdentifier("newChatButton")
     }
     
+    @ViewBuilder
     func emptyStateView() -> some View {
-        VStack(spacing: 20) {
-            Image(systemName: "message")
-                .font(.system(size: emptyStateIconSize))
-                .foregroundColor(.secondary)
-                .accessibilityHidden(true)
-            
-            Text("No Chats Yet")
-                .font(.title2)
-                .fontWeight(.medium)
+        #if os(macOS)
+        // The detail column carries the New Chat button on Mac.
+        ContentUnavailableView(
+            DesignSystem.Chats.emptyTitle,
+            systemImage: DesignSystem.Icons.chats,
+            description: Text(DesignSystem.Chats.emptyMessage)
+        )
+        #else
+        EmptyStateView(
+            artwork: .brand,
+            title: DesignSystem.Chat.firstChatTitle,
+            message: DesignSystem.Chat.firstChatMessage
+        ) {
+            Button(DesignSystem.Chats.newChatEllipsis) {
+                feature.send(.showNewProjectAlert)
+            }
+            .buttonStyle(.borderedProminent)
+            .accessibilityLabel(DesignSystem.Chats.newChat)
+            .accessibilityHint(DesignSystem.Chats.newChatHelp)
+            .accessibilityInputLabels(DesignSystem.VoiceControl.newChat)
+            .accessibilityIdentifier("createChatButton")
+        }
+        #endif
+    }
+    
+    #if os(macOS)
+    /// Chat-app sidebar: avatar, bold name and last-message preview, with a
+    /// soft rounded highlight on the open chat.
+    func projectsList() -> some View {
+        ScrollView {
+            LazyVStack(spacing: DesignSystem.Conversation.sidebarRowSpacing) {
+                ForEach(feature.value(\.projects), id: \.self) { project in
+                    sidebarRow(project)
+                }
+            }
+            .padding(.horizontal, DesignSystem.Spacing.small + DesignSystem.Spacing.xSmall)
+            .padding(.vertical, DesignSystem.Spacing.xSmall)
+        }
+        .focusable()
+        .focusEffectDisabled()
+        .onKeyPress(.upArrow) { moveSelection(by: -1) }
+        .onKeyPress(.downArrow) { moveSelection(by: 1) }
+        .onDeleteCommand {
+            if let selected = feature.value(\.selectedProject) {
+                feature.set(\.projectToDelete, to: selected)
+            }
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(DesignSystem.Chats.sidebarTitle)
+        .accessibilityIdentifier("chatsList")
+    }
+
+    func sidebarRow(_ project: Project) -> some View {
+        ChatSidebarRow(
+            project: project,
+            preview: project.id.flatMap { feature.value(\.previews)[$0] },
+            isSelected: feature.value(\.selectedProject)?.id == project.id
+        ) {
+            feature.send(.selectProject(project))
+        }
+        .contextMenu {
+            RowActionsMenu(actions: rowActions(for: project))
+        }
+        .rowAccessibilityActions(rowActions(for: project))
+    }
+
+    func moveSelection(by offset: Int) -> KeyPress.Result {
+        let projects = feature.value(\.projects)
+        guard !projects.isEmpty else { return .ignored }
+        let current = projects.firstIndex { $0.id == feature.value(\.selectedProject)?.id }
+        let next = current.map { min(max($0 + offset, 0), projects.count - 1) } ?? 0
+        feature.send(.selectProject(projects[next]))
+        return .handled
+    }
+    #else
+    var isCompact: Bool {
+        #if os(iOS)
+        horizontalSizeClass == .compact
+        #else
+        false
+        #endif
+    }
+
+    var isSearching: Bool {
+        #if os(iOS)
+        isSearchFocused || !feature.value(\.searchText).isEmpty
+        #else
+        !feature.value(\.searchText).isEmpty
+        #endif
+    }
+
+    /// Plain list of chat rows; swipe for Rename and Delete, or long-press.
+    func projectsList() -> some View {
+        let projects = feature.searchResults
+        let query = feature.value(\.searchText)
+        return List(selection: feature.binding(for: \.selectedProject)) {
+            ForEach(projects, id: \.self) { project in
+                ChatListRow(
+                    project: project,
+                    preview: feature.searchSnippet(for: project) ?? project.id.flatMap { feature.value(\.previews)[$0] },
+                    lastMessageDate: project.id.flatMap { feature.value(\.previewDates)[$0] }
+                )
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets(
+                    top: 0,
+                    leading: DesignSystem.Conversation.floatingBarPadding,
+                    bottom: 0,
+                    trailing: DesignSystem.Conversation.floatingBarPadding
+                ))
+                .rowAccessibilityActions(rowActions(for: project))
+                #if os(iOS)
+                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                    Button(DesignSystem.Chats.delete, systemImage: DesignSystem.Icons.delete, role: .destructive) {
+                        feature.set(\.projectToDelete, to: project)
+                    }
+                    Button(DesignSystem.Chats.rename, systemImage: DesignSystem.Icons.rename) {
+                        feature.send(.showRenameAlert(project))
+                    }
+                }
+                #endif
+            }
+        }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .scrollDismissesKeyboard(.immediately)
+        .contextMenu(forSelectionType: Project.self) { projects in
+            if let project = projects.first, projects.count == 1 {
+                RowActionsMenu(actions: rowActions(for: project))
+            }
+        }
+        .overlay {
+            if projects.isEmpty {
+                ContentUnavailableView.search(text: query)
+            }
+        }
+        .accessibilityIdentifier("chatsList")
+    }
+
+    /// Large title with a round New Chat button; content scrolls under a fade.
+    func listHeader() -> some View {
+        HStack(alignment: .center) {
+            Text(DesignSystem.Chats.sidebarTitle)
+                .font(.largeTitle.bold())
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
                 .accessibilityAddTraits(.isHeader)
-                .supportsDynamicType()
-            
-            Text("Create your first chat to get started")
-                .foregroundColor(.secondary)
-                .supportsDynamicType()
-            
+            Spacer()
             Button {
                 feature.send(.showNewProjectAlert)
             } label: {
-                Text("Create Chat")
+                FloatingIcon(systemImage: DesignSystem.Icons.add)
             }
-            .buttonStyle(.borderless)
-            .accessibilityLabel("Create Chat")
-            .accessibilityHint("Opens a dialog to create a new chat")
-            .accessibilityInputLabels(["Create Chat", "New Chat", "Add Chat", "Create"])
-            .accessibilityIdentifier("createChatButton")
+            .buttonStyle(.plain)
+            .accessibilityLabel(DesignSystem.Chats.newChat)
+            .accessibilityHint(DesignSystem.Chats.newChatHelp)
+            .accessibilityInputLabels(DesignSystem.VoiceControl.newChat)
+            .accessibilityIdentifier("newChatButton")
         }
-        .frame(
-            maxWidth: .infinity,
-            maxHeight: .infinity
-        )
-        .accessibilityElement(children: .combine)
-    }
-    
-    func projectsList() -> some View {
-        List(
-            feature.value(\.projects),
-            id: \.id,
-            selection: feature.binding(for: \.selectedProject)
-        ) { project in
-            ProjectRowView(project: project,
-                           onDelete: { feature.send(.deleteProject(project)) },
-                           onRename: { feature.send(.showRenameAlert(project)) })
-                .tag(project)
-        }
-        .listStyle(.sidebar)
-        .accessibilityIdentifier("chatsList")
-        .onChange(of: feature.value(\.selectedProject)) { _, newProject in
-            if let project = newProject {
-                AccessibilityHelper.announce("Selected chat: \(project.name)")
-            }
+        .padding(.horizontal, DesignSystem.Conversation.floatingBarPadding)
+        .padding(.top, DesignSystem.Spacing.small)
+        .padding(.bottom, DesignSystem.Spacing.small)
+        .background(alignment: .top) {
+            EdgeFade(edge: .top)
         }
     }
-    
-    func createNewProjectView() -> some View {
-        VStack {
-            HStack {
-                Text("New Chat")
-                    .font(.headline)
-                    .accessibilityAddTraits(.isHeader)
-                    .supportsDynamicType()
-                
-                Spacer()
+
+    /// Floating glass search capsule at the bottom, with a round clear button.
+    func searchBar() -> some View {
+        HStack(spacing: DesignSystem.Spacing.small + DesignSystem.Spacing.xSmall) {
+            if isSearching {
+                Button {
+                    feature.set(\.searchText, to: "")
+                    #if os(iOS)
+                    isSearchFocused = false
+                    #endif
+                } label: {
+                    FloatingIcon(systemImage: DesignSystem.Icons.close)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(DesignSystem.Conversation.clearSearch)
+                .accessibilityInputLabels(DesignSystem.VoiceControl.cancel)
+                .accessibilityIdentifier("clearChatSearchButton")
+                .transition(.scale.combined(with: .opacity))
             }
-            
-            Divider()
-                .accessibilityHidden(true)
-            
-            HStack {
-                Text("Name")
-                
+
+            HStack(spacing: DesignSystem.Spacing.small) {
+                Image(systemName: DesignSystem.Icons.search)
+                    .foregroundStyle(DesignSystem.Colors.supporting)
+                    .accessibilityHidden(true)
                 TextField(
-                    "Chat name",
-                    text: feature.binding(
-                        for: \.newProjectName
-                    )
+                    DesignSystem.Conversation.searchField,
+                    text: feature.binding(for: \.searchText),
+                    prompt: Text(DesignSystem.Conversation.searchField)
                 )
-                .accessibilityLabel("Chat Name")
-                .accessibilityHint("Enter a name for the new chat")
-                .accessibilityValue(feature.value(\.newProjectName))
-                .accessibilityIdentifier("newChatNameTextField")
+                .textFieldStyle(.plain)
+                .autocorrectionDisabled()
+                #if os(iOS)
+                .focused($isSearchFocused)
+                .submitLabel(.search)
+                #endif
+                .accessibilityHint(DesignSystem.Conversation.searchFieldHint)
+                .accessibilityIdentifier("chatSearchField")
             }
-            
-            .padding(.vertical)
-            
+            .padding(.horizontal, DesignSystem.Conversation.floatingBarPadding)
+            .frame(minHeight: DesignSystem.Conversation.floatingButtonSize)
+            .floatingSurface(in: Capsule())
+        }
+        .padding(.horizontal, DesignSystem.Conversation.floatingBarPadding)
+        .padding(.top, DesignSystem.Spacing.small)
+        .padding(.bottom, DesignSystem.Spacing.small)
+        .background(alignment: .bottom) {
+            EdgeFade(edge: .bottom)
+        }
+        .animation(.snappy(duration: 0.2), value: isSearching)
+    }
+    #endif
+
+    func rowActions(for project: Project) -> [RowAction] {
+        [
+            RowAction(
+                id: "rename",
+                title: DesignSystem.Chats.renameChat,
+                spokenTitle: DesignSystem.Chats.renameChatLabel,
+                systemImage: DesignSystem.Icons.rename
+            ) {
+                feature.send(.showRenameAlert(project))
+            },
+            RowAction(
+                id: "delete",
+                title: DesignSystem.Chats.deleteChat,
+                spokenTitle: DesignSystem.Chats.deleteChatLabel,
+                systemImage: DesignSystem.Icons.delete,
+                role: .destructive,
+                startsGroup: true
+            ) {
+                feature.set(\.projectToDelete, to: project)
+            }
+        ]
+    }
+}
+
+// MARK: - New Chat sheet
+
+#if !os(macOS)
+/// “Create New Chat” card: close button, avatar preview, name field, icon
+/// grid and colors, and a full-width Create button.
+struct NewChatSheet: View {
+    @Environment(ProjectsView.ProjectsFeature.self) private var feature
+    @Environment(\.colorSchemeContrast) private var contrast
+    @FocusState private var isNameFocused: Bool
+    @State private var appearance = ChatAppearance.random()
+
+    private var trimmedName: String {
+        feature.value(\.newProjectName).trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private var createUnavailableReason: String? {
+        trimmedName.isEmpty ? DesignSystem.Chats.nameRequiredReason : nil
+    }
+
+    var body: some View {
+        VStack(spacing: 0) {
+            header
+            ScrollView {
+                VStack(spacing: DesignSystem.Spacing.large) {
+                    ChatAvatar(appearance: appearance, size: DesignSystem.Conversation.newChatAvatarSize)
+                        .animation(.snappy(duration: 0.2), value: appearance)
+
+                    nameField
+
+                    ChatAppearancePicker(
+                        appearance: $appearance,
+                        columns: nil,
+                        cellSize: DesignSystem.Conversation.newChatPickerCellSize,
+                        swatchSize: DesignSystem.Conversation.newChatSwatchSize
+                    )
+                }
+                .padding(.horizontal, DesignSystem.Spacing.large)
+                .padding(.vertical, DesignSystem.Spacing.small)
+            }
+            .scrollBounceBehavior(.basedOnSize)
+            .scrollDismissesKeyboard(.interactively)
+
+            createButton
+        }
+        .presentationDetents([.large])
+        .presentationCornerRadius(DesignSystem.Conversation.newChatSheetRadius)
+        .onAppear { isNameFocused = true }
+        .accessibilityIdentifier("newChatCard")
+    }
+
+    private var header: some View {
+        ZStack {
+            Text(DesignSystem.Conversation.createTitle)
+                .font(.headline)
+                .accessibilityAddTraits(.isHeader)
             HStack {
-                Spacer()
-                
                 Button {
                     feature.send(.hideNewProjectAlert)
                 } label: {
-                    Text("Cancel")
+                    FloatingIcon(systemImage: DesignSystem.Icons.close)
                 }
-                .accessibilityLabel("Cancel")
-                .accessibilityHint("Cancels creating a new chat")
-                .accessibilityInputLabels(["Cancel", "Close", "Dismiss", "Back"])
+                .buttonStyle(.plain)
+                .accessibilityLabel(DesignSystem.Common.cancel)
+                .accessibilityInputLabels(DesignSystem.VoiceControl.cancel)
                 .accessibilityIdentifier("cancelNewChatButton")
-                
-                Button {
-                    feature.send(.createProject(feature.value(\.newProjectName)))
-                } label: {
-                    Text("Create")
-                }
-                .disabled(
-                    feature.value(\.newProjectName).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                )
-                .accessibilityLabel("Create Chat")
-                .accessibilityHint("Creates a new chat with the entered name")
-                .accessibilityInputLabels(["Create Chat", "Create", "Add", "Make"])
-                .accessibilityIdentifier("createNewChatButton")
+                Spacer()
             }
         }
-        .padding()
-        .accessibilityElement(children: .contain)
+        .padding(.horizontal, DesignSystem.Conversation.floatingBarPadding)
+        .padding(.top, DesignSystem.Conversation.floatingBarPadding)
+        .padding(.bottom, DesignSystem.Spacing.small)
+    }
+
+    private var nameField: some View {
+        let shape = RoundedRectangle(cornerRadius: DesignSystem.Conversation.newChatFieldRadius, style: .continuous)
+        return TextField(
+            DesignSystem.Chats.nameField,
+            text: feature.binding(for: \.newProjectName),
+            prompt: Text(DesignSystem.Conversation.namePrompt)
+        )
+        .font(.title3.weight(.semibold))
+        .multilineTextAlignment(.center)
+        .textFieldStyle(.plain)
+        .padding(.vertical, DesignSystem.Spacing.medium)
+        .padding(.horizontal, DesignSystem.Spacing.medium)
+        .background(shape.fill(DesignSystem.ConversationColors.assistantBubble))
+        .overlay {
+            if contrast == .increased {
+                shape.strokeBorder(Color.primary, lineWidth: 1)
+            }
+        }
+        .focused($isNameFocused)
+        .submitLabel(.done)
+        .onSubmit(create)
+        .accessibilityHint(DesignSystem.Chats.nameFieldHint)
+        .accessibilityIdentifier("newChatNameTextField")
+    }
+
+    private var createButton: some View {
+        Button(action: create) {
+            Text(DesignSystem.Chats.create)
+                .font(.headline)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, DesignSystem.Spacing.xSmall)
+        }
+        .buttonStyle(.borderedProminent)
+        .buttonBorderShape(.capsule)
+        .controlSize(.large)
+        .tint(appearance.color.bubbleFill(increasedContrast: contrast == .increased))
+        .disabled(createUnavailableReason != nil)
+        .accessibilityHint(createUnavailableReason ?? DesignSystem.Chats.newChatHelp)
+        .accessibilityInputLabels(DesignSystem.VoiceControl.create)
+        .accessibilityIdentifier("createNewChatButton")
+        .padding(.horizontal, DesignSystem.Spacing.large)
+        .padding(.vertical, DesignSystem.Conversation.floatingBarPadding)
+    }
+
+    private func create() {
+        guard createUnavailableReason == nil else { return }
+        ChatAppearanceStore.shared.setPendingAppearance(appearance)
+        feature.send(.createProject(trimmedName))
     }
 }
+#endif
