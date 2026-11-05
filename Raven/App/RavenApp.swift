@@ -34,19 +34,27 @@ struct RavenApp: App {
                 .accessibilityElement(children: .contain)
         }
         #if os(macOS)
+        .defaultSize(
+            width: DesignSystem.Layout.windowDefaultSize.width,
+            height: DesignSystem.Layout.windowDefaultSize.height
+        )
+        .windowResizability(.contentMinSize)
+        .windowToolbarStyle(.unified(showsTitle: false))
+        #endif
         .commands {
-            CommandGroup(replacing: .newItem) {
-                Button {
-                    appContainer.projectsFeature.send(.showNewProjectAlert)
-                } label: {
-                    Text("New Chat")
-                }
-                .keyboardShortcut(
-                    "n",
-                    modifiers: [.command]
-                )
-            }
+            RavenCommands(
+                projectsFeature: appContainer.projectsFeature,
+                filesFeature: appContainer.projectFilesFeature,
+                chatFeature: appContainer.mainContentFeature
+            )
         }
+
+        #if os(macOS)
+        Window(DesignSystem.Menu.keyboardShortcuts, id: DesignSystem.Shortcuts.windowID) {
+            KeyboardShortcutsView()
+        }
+        .windowResizability(.contentSize)
+        .defaultPosition(.center)
         #endif
     }
 }
