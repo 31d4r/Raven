@@ -1,0 +1,3162 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Add Chat" : {
+
+    },
+    "Add Files" : {
+
+    },
+    "Add Images" : {
+
+    },
+    "Add Photos" : {
+
+    },
+    "Ask" : {
+
+    },
+    "Clear Chat" : {
+
+    },
+    "Close" : {
+
+    },
+    "Copy" : {
+
+    },
+    "Copy Response" : {
+
+    },
+    "Create Chat" : {
+
+    },
+    "Files" : {
+
+    },
+    "Import" : {
+
+    },
+    "Menu" : {
+
+    },
+    "Options" : {
+
+    },
+    "Save" : {
+
+    },
+    "Send" : {
+
+    },
+    "Sources" : {
+
+    },
+    "Stop" : {
+
+    },
+    "app.assistantName" : {
+      "comment" : "Name shown above the assistant’s answers in a chat",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Raven"
+          }
+        }
+      }
+    },
+    "app.name" : {
+      "comment" : "App name, used as the window title when no chat is selected",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Raven"
+          }
+        }
+      }
+    },
+    "app.you" : {
+      "comment" : "Name shown above the person’s own questions in a chat",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You"
+          }
+        }
+      }
+    },
+    "chat.answerReady.a11y" : {
+      "comment" : "VoiceOver announcement when an answer arrives",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Raven answered."
+          }
+        }
+      }
+    },
+    "chat.cancel" : {
+      "comment" : "Menu item that stops the answer being written",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Cancel Answer"
+          }
+        }
+      }
+    },
+    "chat.clearConfirm.button" : {
+      "comment" : "Destructive button in the clear history confirmation",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear History"
+          }
+        }
+      }
+    },
+    "chat.clearConfirm.message" : {
+      "comment" : "Clear history confirmation message; the number of messages. Has plural variants",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "The message in this chat is deleted. Its sources stay."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "All %lld messages in this chat are deleted. Its sources stay."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "chat.clearConfirm.title" : {
+      "comment" : "Clear history confirmation title; the chat name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear the History of “%@”?"
+          }
+        }
+      }
+    },
+    "chat.clearHistory" : {
+      "comment" : "Destructive menu item that asks to delete all messages in a chat",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear History…"
+          }
+        }
+      }
+    },
+    "chat.clearHistory.detail" : {
+      "comment" : "Tooltip detail and accessibility hint of Clear History",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Deletes this chat’s messages. Its sources stay."
+          }
+        }
+      }
+    },
+    "chat.clearHistory.label" : {
+      "comment" : "iOS menu item and VoiceOver name of Clear History (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear History"
+          }
+        }
+      }
+    },
+    "chat.copied" : {
+      "comment" : "VoiceOver announcement after copying an answer",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copied Raven’s answer."
+          }
+        }
+      }
+    },
+    "chat.copyResponse" : {
+      "comment" : "Toolbar button and menu item that copies Raven’s latest answer",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Last Response"
+          }
+        }
+      }
+    },
+    "chat.copyResponse.detail" : {
+      "comment" : "Tooltip detail and accessibility hint of Copy Last Response",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copies Raven’s latest answer so you can paste it anywhere."
+          }
+        }
+      }
+    },
+    "chat.copyResponse.short" : {
+      "comment" : "Short toolbar title for Copy Last Response",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Response"
+          }
+        }
+      }
+    },
+    "chat.drop.title" : {
+      "comment" : "Empty state title while files are dragged over the window",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Release to Add Sources"
+          }
+        }
+      }
+    },
+    "chat.empty.message" : {
+      "comment" : "Chat empty state message; the number of sources. Has plural variants",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ask a question about the source in this chat. Your conversation is saved here."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ask a question about the %lld sources in this chat. Your conversation is saved here."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "chat.empty.noSources.message" : {
+      "comment" : "Chat empty state message when the chat has no sources",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add PDFs, images, audio or video to this chat, then ask about them below. Raven works with copies, so your originals aren’t changed."
+          }
+        }
+      }
+    },
+    "chat.empty.noSources.title" : {
+      "comment" : "Chat empty state title when the chat has no sources",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add Sources to Get Started"
+          }
+        }
+      }
+    },
+    "chat.empty.title" : {
+      "comment" : "Chat empty state title when the chat has sources but no messages",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ask About Your Sources"
+          }
+        }
+      }
+    },
+    "chat.first.message" : {
+      "comment" : "Detail empty state message when there are no chats",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create a chat, add PDFs, images, audio or video, and ask questions about them. Apple Intelligence answers on your device."
+          }
+        }
+      }
+    },
+    "chat.first.title" : {
+      "comment" : "Detail empty state title when there are no chats",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Start Your First Chat"
+          }
+        }
+      }
+    },
+    "chat.input.hint" : {
+      "comment" : "Accessibility hint of the question field",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Type a question about this chat’s sources, then send it."
+          }
+        }
+      }
+    },
+    "chat.input.label" : {
+      "comment" : "Accessibility label of the question field",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Question"
+          }
+        }
+      }
+    },
+    "chat.input.prompt" : {
+      "comment" : "Placeholder of the question field",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ask about your sources…"
+          }
+        }
+      }
+    },
+    "chat.message.assistant.a11y" : {
+      "comment" : "VoiceOver label of an answer; its text is read as the value",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Raven answered"
+          }
+        }
+      }
+    },
+    "chat.message.user.a11y" : {
+      "comment" : "VoiceOver label of a question bubble; its text is read as the value",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You asked"
+          }
+        }
+      }
+    },
+    "chat.none.message" : {
+      "comment" : "Detail empty state message when chats exist but none is selected",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose a chat in the sidebar to continue where you left off."
+          }
+        }
+      }
+    },
+    "chat.none.title" : {
+      "comment" : "Detail empty state title when chats exist but none is selected",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select a Chat"
+          }
+        }
+      }
+    },
+    "chat.progress" : {
+      "comment" : "Activity bar text while Raven answers",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reading your sources and writing an answer…"
+          }
+        }
+      }
+    },
+    "chat.reason.busy" : {
+      "comment" : "Why a chat command is unavailable while an answer is being written",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Available when Raven finishes answering."
+          }
+        }
+      }
+    },
+    "chat.reason.emptyQuestion" : {
+      "comment" : "Why Send Question is unavailable",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Type a question to send."
+          }
+        }
+      }
+    },
+    "chat.reason.noMessages" : {
+      "comment" : "Why Clear History is unavailable",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat has no messages to clear."
+          }
+        }
+      }
+    },
+    "chat.reason.noResponse" : {
+      "comment" : "Why Copy Last Response is unavailable",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ask a question first. Then you can copy Raven’s answer."
+          }
+        }
+      }
+    },
+    "chat.reason.notAnswering" : {
+      "comment" : "Why Cancel Answer is unavailable",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Raven isn’t answering right now."
+          }
+        }
+      }
+    },
+    "chat.send" : {
+      "comment" : "Button and menu item that sends the typed question",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Question"
+          }
+        }
+      }
+    },
+    "chat.send.detail" : {
+      "comment" : "Tooltip detail and accessibility hint of Send Question",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Raven reads this chat’s sources and answers on your device."
+          }
+        }
+      }
+    },
+    "chat.switched.a11y" : {
+      "comment" : "VoiceOver announcement after selecting a chat; the chat name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Switched to chat %@"
+          }
+        }
+      }
+    },
+    "chat.unavailable.notEligible" : {
+      "comment" : "Why answers are unavailable on an unsupported device",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This device doesn’t support Apple Intelligence, so Raven can’t answer questions here. Your chats and sources are still saved."
+          }
+        }
+      }
+    },
+    "chat.unavailable.notEnabled.ios" : {
+      "comment" : "iPhone and iPad: why answers are unavailable and how to fix it",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Turn on Apple Intelligence in Settings ▸ Apple Intelligence & Siri, then come back to ask your question."
+          }
+        }
+      }
+    },
+    "chat.unavailable.notEnabled.mac" : {
+      "comment" : "Mac: why answers are unavailable and how to fix it",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Turn on Apple Intelligence in System Settings ▸ Apple Intelligence & Siri, then come back to ask your question."
+          }
+        }
+      }
+    },
+    "chat.unavailable.notReady" : {
+      "comment" : "Why answers are unavailable while the model downloads",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Apple Intelligence is still getting ready. Keep your device connected to power and Wi‑Fi, then try again later."
+          }
+        }
+      }
+    },
+    "chat.unavailable.other" : {
+      "comment" : "Generic reason answers are unavailable",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Apple Intelligence can’t be used right now. Check that it’s turned on in Settings, then try again."
+          }
+        }
+      }
+    },
+    "chat.unavailable.title" : {
+      "comment" : "Chat empty state title when the on-device model can’t be used",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Apple Intelligence Isn’t Available"
+          }
+        }
+      }
+    },
+    "chatColor.amber" : {
+      "comment" : "Chat color name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yellow"
+          }
+        }
+      }
+    },
+    "chatColor.black" : {
+      "comment" : "Chat color name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Black"
+          }
+        }
+      }
+    },
+    "chatColor.blue" : {
+      "comment" : "Chat color name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blue"
+          }
+        }
+      }
+    },
+    "chatColor.brown" : {
+      "comment" : "Chat color name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Brown"
+          }
+        }
+      }
+    },
+    "chatColor.graphite" : {
+      "comment" : "Chat color name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Gray"
+          }
+        }
+      }
+    },
+    "chatColor.green" : {
+      "comment" : "Chat color name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Green"
+          }
+        }
+      }
+    },
+    "chatColor.orange" : {
+      "comment" : "Chat color name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Orange"
+          }
+        }
+      }
+    },
+    "chatColor.pink" : {
+      "comment" : "Chat color name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pink"
+          }
+        }
+      }
+    },
+    "chatColor.purple" : {
+      "comment" : "Chat color name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Purple"
+          }
+        }
+      }
+    },
+    "chatColor.red" : {
+      "comment" : "Chat color name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Red"
+          }
+        }
+      }
+    },
+    "chatColor.teal" : {
+      "comment" : "Chat color name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Teal"
+          }
+        }
+      }
+    },
+    "chatColor.white" : {
+      "comment" : "Chat color name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "White"
+          }
+        }
+      }
+    },
+    "chatShape.blob" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blob"
+          }
+        }
+      }
+    },
+    "chatShape.circle" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Circle"
+          }
+        }
+      }
+    },
+    "chatShape.cloud" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Cloud"
+          }
+        }
+      }
+    },
+    "chatShape.flower" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Flower"
+          }
+        }
+      }
+    },
+    "chatShape.heart" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Heart"
+          }
+        }
+      }
+    },
+    "chatShape.hexagon" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hexagon"
+          }
+        }
+      }
+    },
+    "chatShape.pentagon" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pentagon"
+          }
+        }
+      }
+    },
+    "chatShape.pill" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pill"
+          }
+        }
+      }
+    },
+    "chatShape.rhombus" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Diamond"
+          }
+        }
+      }
+    },
+    "chatShape.roundedSquare" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Square"
+          }
+        }
+      }
+    },
+    "chatShape.scallop" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Scallop"
+          }
+        }
+      }
+    },
+    "chatShape.star" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Star"
+          }
+        }
+      }
+    },
+    "chatShape.teardrop" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Drop"
+          }
+        }
+      }
+    },
+    "chatShape.triangle" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Triangle"
+          }
+        }
+      }
+    },
+    "chats.delete" : {
+      "comment" : "Destructive menu item that asks to delete a chat",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Delete Chat…"
+          }
+        }
+      }
+    },
+    "chats.delete.label" : {
+      "comment" : "iOS menu item and VoiceOver name of Delete Chat (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Delete Chat"
+          }
+        }
+      }
+    },
+    "chats.delete.short" : {
+      "comment" : "Swipe action that asks to delete a chat",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "chats.deleteConfirm.message" : {
+      "comment" : "Delete chat confirmation message",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Its chat history and Raven’s copies of its sources are deleted. Your original files aren’t changed."
+          }
+        }
+      }
+    },
+    "chats.deleteConfirm.title" : {
+      "comment" : "Delete chat confirmation title; the chat name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Delete “%@”?"
+          }
+        }
+      }
+    },
+    "chats.empty.message" : {
+      "comment" : "Empty chats list message",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Start a chat, add your documents, and ask questions about them."
+          }
+        }
+      }
+    },
+    "chats.empty.title" : {
+      "comment" : "Empty chats list title",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No Chats Yet"
+          }
+        }
+      }
+    },
+    "chats.loading" : {
+      "comment" : "Shown while the list of chats loads",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Loading Chats…"
+          }
+        }
+      }
+    },
+    "chats.loading.a11y" : {
+      "comment" : "VoiceOver label while the list of chats loads (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Loading chats"
+          }
+        }
+      }
+    },
+    "chats.new" : {
+      "comment" : "Toolbar button and menu item that creates a chat",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New Chat"
+          }
+        }
+      }
+    },
+    "chats.new.ellipsis" : {
+      "comment" : "Button and menu item that opens the New Chat sheet",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New Chat…"
+          }
+        }
+      }
+    },
+    "chats.new.help" : {
+      "comment" : "Tooltip detail and accessibility hint for New Chat",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Creates a chat where you add sources and ask questions about them."
+          }
+        }
+      }
+    },
+    "chats.reason.nameRequired" : {
+      "comment" : "Why Create or Rename is unavailable",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Type a name for the chat."
+          }
+        }
+      }
+    },
+    "chats.reason.noChat" : {
+      "comment" : "Why a chat command is unavailable when no chat is selected",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select or create a chat first."
+          }
+        }
+      }
+    },
+    "chats.rename" : {
+      "comment" : "Menu item that opens the rename dialog for a chat",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Rename Chat…"
+          }
+        }
+      }
+    },
+    "chats.rename.label" : {
+      "comment" : "iOS menu item and VoiceOver name of Rename Chat (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Rename Chat"
+          }
+        }
+      }
+    },
+    "chats.rename.short" : {
+      "comment" : "Swipe action and confirm button that renames a chat",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Rename"
+          }
+        }
+      }
+    },
+    "chats.renameAlert.message" : {
+      "comment" : "Message of the rename alert; the current chat name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Enter a new name for “%@”."
+          }
+        }
+      }
+    },
+    "chats.renameAlert.title" : {
+      "comment" : "Title of the rename alert",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Rename Chat"
+          }
+        }
+      }
+    },
+    "chats.row.a11y" : {
+      "comment" : "VoiceOver label of a chat row. First placeholder is the chat name, second the creation date",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat: %1$@, created %2$@"
+          }
+        }
+      }
+    },
+    "chats.sheet.create" : {
+      "comment" : "Confirm button in the New Chat sheet",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create"
+          }
+        }
+      }
+    },
+    "chats.sheet.footer" : {
+      "comment" : "Footer under the name field in the New Chat sheet",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You can add sources and rename the chat later."
+          }
+        }
+      }
+    },
+    "chats.sheet.name" : {
+      "comment" : "Label of the chat name field",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "chats.sheet.name.hint" : {
+      "comment" : "Accessibility hint of the chat name field",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Enter a name for the chat."
+          }
+        }
+      }
+    },
+    "chats.sheet.name.prompt" : {
+      "comment" : "Placeholder example name in the New Chat sheet",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Research Notes"
+          }
+        }
+      }
+    },
+    "chats.title" : {
+      "comment" : "Title of the chats list on iPhone and iPad",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Raven"
+          }
+        }
+      }
+    },
+    "common.cancel" : {
+      "comment" : "Button that closes a dialog or stops a task without changes",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "common.copy" : {
+      "comment" : "Context menu item that copies one message",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy"
+          }
+        }
+      }
+    },
+    "common.dismiss" : {
+      "comment" : "Accessibility label of the button that closes a banner",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Dismiss"
+          }
+        }
+      }
+    },
+    "common.done" : {
+      "comment" : "Button that closes a sheet",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Done"
+          }
+        }
+      }
+    },
+    "common.more" : {
+      "comment" : "Toolbar menu with less common chat commands",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "More"
+          }
+        }
+      }
+    },
+    "common.more.help" : {
+      "comment" : "Tooltip and accessibility hint of the More toolbar menu",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Rename, clear or delete this chat"
+          }
+        }
+      }
+    },
+    "common.ok" : {
+      "comment" : "Button that closes an error alert",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "conversation.add" : {
+      "comment" : "Accessibility label of the + menu in the composer",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add Attachments"
+          }
+        }
+      }
+    },
+    "conversation.add.camera" : {
+      "comment" : "Composer + menu item that opens the camera",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Take Photo"
+          }
+        }
+      }
+    },
+    "conversation.add.detail" : {
+      "comment" : "Tooltip and hint of the + menu in the composer",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Attach files or photos. They’re added to this chat’s sources when you send."
+          }
+        }
+      }
+    },
+    "conversation.add.file" : {
+      "comment" : "Composer + menu item that opens the file browser",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose File"
+          }
+        }
+      }
+    },
+    "conversation.add.photo" : {
+      "comment" : "Composer + menu item that opens the photo library",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Photo or Video"
+          }
+        }
+      }
+    },
+    "conversation.ask" : {
+      "comment" : "Composer placeholder on iPhone. Placeholder is the chat name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ask %@"
+          }
+        }
+      }
+    },
+    "conversation.attachFiles" : {
+      "comment" : "Composer menu item that opens the file panel",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Attach Files…"
+          }
+        }
+      }
+    },
+    "conversation.attachFiles.confirm" : {
+      "comment" : "Confirm button of the file panel opened from the composer",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Attach"
+          }
+        }
+      }
+    },
+    "conversation.attachFiles.label" : {
+      "comment" : "VoiceOver name of Attach Files (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Attach Files"
+          }
+        }
+      }
+    },
+    "conversation.attachment.a11y" : {
+      "comment" : "VoiceOver label of a pending attachment. Placeholder is the file name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Attachment: %@"
+          }
+        }
+      }
+    },
+    "conversation.attachment.remove" : {
+      "comment" : "Button and VoiceOver action that removes a pending attachment",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove Attachment"
+          }
+        }
+      }
+    },
+    "conversation.attachments.ready" : {
+      "comment" : "Tooltip of Send when only attachments are waiting",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send to add these files to the chat’s sources."
+          }
+        }
+      }
+    },
+    "conversation.back" : {
+      "comment" : "Floating back button on the iPhone chat screen",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Back to Chats"
+          }
+        }
+      }
+    },
+    "conversation.close" : {
+      "comment" : "Close button of the New Chat card",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "conversation.create.color" : {
+      "comment" : "Label of the color picker in the New Chat card",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Color"
+          }
+        }
+      }
+    },
+    "conversation.create.prompt" : {
+      "comment" : "Placeholder of the name field in the New Chat card",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name your chat"
+          }
+        }
+      }
+    },
+    "conversation.create.shape" : {
+      "comment" : "Label of the shape picker in the New Chat card",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shape"
+          }
+        }
+      }
+    },
+    "conversation.create.shapeOption" : {
+      "comment" : "VoiceOver label of a shape in the New Chat card. Placeholder is the shape name, e.g. Heart shape",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%@ shape"
+          }
+        }
+      }
+    },
+    "conversation.create.title" : {
+      "comment" : "Title of the New Chat card",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create New Chat"
+          }
+        }
+      }
+    },
+    "conversation.find" : {
+      "comment" : "Chat ⋯ menu item that searches the open conversation",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Find in Chat"
+          }
+        }
+      }
+    },
+    "conversation.find.announce" : {
+      "comment" : "VoiceOver announcement when find-in-chat moves to a match",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Match %1$lld of %2$lld"
+          }
+        }
+      }
+    },
+    "conversation.find.next" : {
+      "comment" : "Find-in-chat button that moves to the next match",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Next Match"
+          }
+        }
+      }
+    },
+    "conversation.find.none" : {
+      "comment" : "Find-in-chat counter when nothing matches",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No matches"
+          }
+        }
+      }
+    },
+    "conversation.find.position" : {
+      "comment" : "Find-in-chat match counter, e.g. 2 of 5",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld of %2$lld"
+          }
+        }
+      }
+    },
+    "conversation.find.previous" : {
+      "comment" : "Find-in-chat button that moves to the previous match",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Previous Match"
+          }
+        }
+      }
+    },
+    "conversation.find.prompt" : {
+      "comment" : "Placeholder of the find-in-chat field",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Find in chat"
+          }
+        }
+      }
+    },
+    "conversation.goTo" : {
+      "comment" : "Menu section listing the first nine chats with ⌘1–⌘9",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Go to Chat"
+          }
+        }
+      }
+    },
+    "conversation.image.more" : {
+      "comment" : "⋯ menu in the image viewer",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Image Actions"
+          }
+        }
+      }
+    },
+    "conversation.image.next" : {
+      "comment" : "Image viewer button on Mac",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Next Image"
+          }
+        }
+      }
+    },
+    "conversation.image.position" : {
+      "comment" : "VoiceOver label of an image in the viewer. Placeholders are its position and the total",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Image %1$lld of %2$lld"
+          }
+        }
+      }
+    },
+    "conversation.image.previous" : {
+      "comment" : "Image viewer button on Mac",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Previous Image"
+          }
+        }
+      }
+    },
+    "conversation.image.share" : {
+      "comment" : "Image viewer menu item that shares the image",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share Image…"
+          }
+        }
+      }
+    },
+    "conversation.image.share.label" : {
+      "comment" : "iOS image viewer menu item that shares the image, and its VoiceOver name (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share Image"
+          }
+        }
+      }
+    },
+    "conversation.image.zoom.hint" : {
+      "comment" : "Accessibility hint of an image in the viewer",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pinch or double-tap to zoom."
+          }
+        }
+      }
+    },
+    "conversation.images.a11y.time" : {
+      "comment" : "VoiceOver value of a sent image stack on Mac; the time it was sent",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sent %@"
+          }
+        }
+      }
+    },
+    "conversation.images.hint" : {
+      "comment" : "Accessibility hint of a sent image pile",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Opens the images full screen."
+          }
+        }
+      }
+    },
+    "conversation.images.many" : {
+      "comment" : "Caption under a pile of sent images. Placeholder is how many",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld images"
+          }
+        }
+      }
+    },
+    "conversation.images.one" : {
+      "comment" : "Caption under one sent image",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "1 image"
+          }
+        }
+      }
+    },
+    "conversation.list.search" : {
+      "comment" : "Placeholder of the floating search field at the bottom of the chat list",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Search"
+          }
+        }
+      }
+    },
+    "conversation.list.search.clear" : {
+      "comment" : "Round button beside the chat list search field",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear Search"
+          }
+        }
+      }
+    },
+    "conversation.list.search.hint" : {
+      "comment" : "Accessibility hint of the chat list search field",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Filters chats by name and message text."
+          }
+        }
+      }
+    },
+    "conversation.message.a11y.time" : {
+      "comment" : "VoiceOver label of a message on Mac. First placeholder is who wrote it (You asked / Raven answered), second the time it was sent or received",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, %2$@"
+          }
+        }
+      }
+    },
+    "conversation.messageActions" : {
+      "comment" : "Menu with more actions for one answer",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "More Actions"
+          }
+        }
+      }
+    },
+    "conversation.more.share" : {
+      "comment" : "Chat ⋯ menu item that shares the conversation as text",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share Chat…"
+          }
+        }
+      }
+    },
+    "conversation.more.share.label" : {
+      "comment" : "iOS chat ⋯ menu item that shares the conversation, and its VoiceOver name (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share Chat"
+          }
+        }
+      }
+    },
+    "conversation.more.sources" : {
+      "comment" : "Chat ⋯ menu item that opens the sources of this chat",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Sources"
+          }
+        }
+      }
+    },
+    "conversation.photos.preparing" : {
+      "comment" : "Shown in the composer while chosen photos are loaded",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Preparing photos…"
+          }
+        }
+      }
+    },
+    "conversation.photos.preparing.a11y" : {
+      "comment" : "VoiceOver label of the composer spinner while chosen photos load (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Preparing photos"
+          }
+        }
+      }
+    },
+    "conversation.preview.empty" : {
+      "comment" : "Sidebar preview line of a chat without messages",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
+          }
+        }
+      }
+    },
+    "conversation.search" : {
+      "comment" : "Title of the chat switcher and its toolbar button",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Search Chats"
+          }
+        }
+      }
+    },
+    "conversation.search.empty" : {
+      "comment" : "Chat switcher title when nothing matches",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No Chats Found"
+          }
+        }
+      }
+    },
+    "conversation.search.hint" : {
+      "comment" : "Accessibility hint and tooltip of the chat switcher",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Type to filter. Use the arrow keys to choose, Return to open and Escape to close."
+          }
+        }
+      }
+    },
+    "conversation.search.menu" : {
+      "comment" : "Menu item that opens the chat switcher",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Search Chats…"
+          }
+        }
+      }
+    },
+    "conversation.search.prompt" : {
+      "comment" : "Placeholder of the chat switcher search field",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Search chats"
+          }
+        }
+      }
+    },
+    "conversation.share" : {
+      "comment" : "Message action that shares the answer",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share…"
+          }
+        }
+      }
+    },
+    "conversation.share.label" : {
+      "comment" : "iOS title and VoiceOver name of the message Share action (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share"
+          }
+        }
+      }
+    },
+    "conversation.stop" : {
+      "comment" : "Composer button that stops the answer being written",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stop Answering"
+          }
+        }
+      }
+    },
+    "conversation.thinking" : {
+      "comment" : "Shown under the last message while Raven writes an answer",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Thinking…"
+          }
+        }
+      }
+    },
+    "conversation.thinking.a11y" : {
+      "comment" : "VoiceOver label of the thinking indicator",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Raven is thinking"
+          }
+        }
+      }
+    },
+    "conversation.timestamp.other" : {
+      "comment" : "Separator above older messages. First placeholder is the date, second the time",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ %2$@"
+          }
+        }
+      }
+    },
+    "conversation.timestamp.today" : {
+      "comment" : "Separator above messages sent today. Placeholder is the time, e.g. Today 1:55 PM",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Today %@"
+          }
+        }
+      }
+    },
+    "conversation.timestamp.yesterday" : {
+      "comment" : "Separator above messages sent yesterday. Placeholder is the time",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yesterday %@"
+          }
+        }
+      }
+    },
+    "conversation.transcript.line" : {
+      "comment" : "One message in a shared chat transcript. First placeholder is who wrote it",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@: %2$@"
+          }
+        }
+      }
+    },
+    "conversation.transcript.you" : {
+      "comment" : "Speaker name of the user's messages in a shared transcript",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You"
+          }
+        }
+      }
+    },
+    "error.addPhotos" : {
+      "comment" : "Error when some photos can’t be imported",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Some photos couldn’t be added. If they’re in iCloud, try again when they’ve downloaded."
+          }
+        }
+      }
+    },
+    "error.addSources" : {
+      "comment" : "Error when adding sources fails",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The files couldn’t be added. Make sure they’re PDFs, images, audio, video or text files you can open, and that there’s space on this device, then try again."
+          }
+        }
+      }
+    },
+    "error.answer" : {
+      "comment" : "Error when generating an answer fails",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Raven couldn’t answer this question. Make sure Apple Intelligence is ready, then try again."
+          }
+        }
+      }
+    },
+    "error.answer.contextTooLong" : {
+      "comment" : "Error when the model context window is exceeded",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat’s sources and history are too long for Apple Intelligence to read at once. Remove some sources or clear the history, then try again."
+          }
+        }
+      }
+    },
+    "error.answer.guardrail" : {
+      "comment" : "Error when the model refuses because of safety guidelines",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Apple Intelligence couldn’t answer this question because of its safety guidelines. Try asking it a different way."
+          }
+        }
+      }
+    },
+    "error.clearHistory" : {
+      "comment" : "Error when clearing chat history fails",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The chat history couldn’t be cleared. Try again."
+          }
+        }
+      }
+    },
+    "error.createChat" : {
+      "comment" : "Error when creating a chat fails",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The chat couldn’t be created. Make sure there’s space on this device, then try again."
+          }
+        }
+      }
+    },
+    "error.deleteChat" : {
+      "comment" : "Error when deleting a chat fails",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The chat couldn’t be deleted. Try again."
+          }
+        }
+      }
+    },
+    "error.loadChat" : {
+      "comment" : "Error when chat messages can’t be loaded",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat’s history couldn’t be loaded. Select the chat again to retry."
+          }
+        }
+      }
+    },
+    "error.loadChats" : {
+      "comment" : "Error when the chats list can’t be loaded",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your chats couldn’t be loaded. Quit and reopen Raven to try again."
+          }
+        }
+      }
+    },
+    "error.loadSources" : {
+      "comment" : "Error when sources can’t be loaded",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat’s sources couldn’t be loaded. Select the chat again to retry."
+          }
+        }
+      }
+    },
+    "error.removeSource" : {
+      "comment" : "Error when removing a source fails",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The source couldn’t be removed. Try again."
+          }
+        }
+      }
+    },
+    "error.renameChat" : {
+      "comment" : "Error when renaming a chat fails",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The chat couldn’t be renamed. Try again."
+          }
+        }
+      }
+    },
+    "error.title" : {
+      "comment" : "Title of every error alert",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something Went Wrong"
+          }
+        }
+      }
+    },
+    "error.unsupportedDrop" : {
+      "comment" : "Error when dropped files have an unsupported type",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Raven can’t read some of these files. Add PDFs, images, audio, video or text files."
+          }
+        }
+      }
+    },
+    "help.withDetail" : {
+      "comment" : "Tooltip with two lines. First placeholder is the command name (and shortcut), second says what happens or why it is unavailable",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@\n%2$@"
+          }
+        }
+      }
+    },
+    "help.withShortcut" : {
+      "comment" : "Tooltip first line. First placeholder is the command name, second is its keyboard shortcut, e.g. New Chat (⌘N)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ (%2$@)"
+          }
+        }
+      }
+    },
+    "menu.chat" : {
+      "comment" : "Menu bar menu with chat commands",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat"
+          }
+        }
+      }
+    },
+    "menu.keyboardShortcuts" : {
+      "comment" : "Help menu item and window title listing keyboard shortcuts",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Keyboard Shortcuts"
+          }
+        }
+      }
+    },
+    "menu.showMessageTimes" : {
+      "comment" : "Mac View menu toggle and Keyboard Shortcuts row that keeps the time of every message visible",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Message Times"
+          }
+        }
+      }
+    },
+    "quit.button" : {
+      "comment" : "Confirm button that quits Raven",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        }
+      }
+    },
+    "quit.message" : {
+      "comment" : "Message of the alert shown when closing the Mac window",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your chats and sources are saved, so you can pick up where you left off."
+          }
+        }
+      }
+    },
+    "quit.title" : {
+      "comment" : "Title of the alert shown when closing the Mac window",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit Raven?"
+          }
+        }
+      }
+    },
+    "shortcuts.cancelDialog" : {
+      "comment" : "Keyboard Shortcuts window row: Escape cancels",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Cancel a Sheet or Dialog"
+          }
+        }
+      }
+    },
+    "shortcuts.confirm" : {
+      "comment" : "Keyboard Shortcuts window row: Return confirms a sheet",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Create or Confirm"
+          }
+        }
+      }
+    },
+    "shortcuts.key.space" : {
+      "comment" : "Name of the Space bar key in the Keyboard Shortcuts window",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Space"
+          }
+        }
+      }
+    },
+    "shortcuts.quickLook" : {
+      "comment" : "Keyboard Shortcuts window row",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quick Look Selected Source"
+          }
+        }
+      }
+    },
+    "shortcuts.removeSelected" : {
+      "comment" : "Keyboard Shortcuts window row",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove Selected Source…"
+          }
+        }
+      }
+    },
+    "shortcuts.removeSelected.label" : {
+      "comment" : "VoiceOver name of the Remove Selected Source row in the Keyboard Shortcuts window (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove Selected Source"
+          }
+        }
+      }
+    },
+    "shortcuts.section.chats" : {
+      "comment" : "Keyboard Shortcuts window section",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chats"
+          }
+        }
+      }
+    },
+    "shortcuts.section.conversation" : {
+      "comment" : "Keyboard Shortcuts window section",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Conversation"
+          }
+        }
+      }
+    },
+    "shortcuts.section.dialogs" : {
+      "comment" : "Keyboard Shortcuts window section",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Dialogs"
+          }
+        }
+      }
+    },
+    "shortcuts.section.sources" : {
+      "comment" : "Keyboard Shortcuts window section",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sources"
+          }
+        }
+      }
+    },
+    "shortcuts.section.view" : {
+      "comment" : "Keyboard Shortcuts window section",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View"
+          }
+        }
+      }
+    },
+    "shortcuts.sendFromField" : {
+      "comment" : "Keyboard Shortcuts window row: Return in the question field",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Question from the Question Field"
+          }
+        }
+      }
+    },
+    "shortcuts.toggleSidebar" : {
+      "comment" : "Keyboard Shortcuts window row for the system sidebar toggle",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show or Hide Sidebar"
+          }
+        }
+      }
+    },
+    "shortcuts.toggleSources" : {
+      "comment" : "Keyboard Shortcuts window row for the sources panel",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show or Hide Sources"
+          }
+        }
+      }
+    },
+    "sources.add" : {
+      "comment" : "Button and menu item that opens the file panel to add sources",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add Sources…"
+          }
+        }
+      }
+    },
+    "sources.add.detail" : {
+      "comment" : "Tooltip detail and accessibility hint of Add Sources",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Adds PDFs, images, audio, video or text files. Raven works with copies."
+          }
+        }
+      }
+    },
+    "sources.add.label" : {
+      "comment" : "iOS title and VoiceOver name of Add Sources (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add Sources"
+          }
+        }
+      }
+    },
+    "sources.add.menu" : {
+      "comment" : "iOS menu that offers Add Files and Add from Photos",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add"
+          }
+        }
+      }
+    },
+    "sources.addFiles" : {
+      "comment" : "Button that opens the Files picker",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add Files…"
+          }
+        }
+      }
+    },
+    "sources.addFiles.detail" : {
+      "comment" : "Menu subtitle and accessibility hint of Add Files",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Adds PDFs, audio, video or text files from Files."
+          }
+        }
+      }
+    },
+    "sources.addFiles.label" : {
+      "comment" : "iOS button and menu item that opens the Files picker (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add Files"
+          }
+        }
+      }
+    },
+    "sources.addPhotos" : {
+      "comment" : "Button that opens the photo picker",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add from Photos…"
+          }
+        }
+      }
+    },
+    "sources.addPhotos.detail" : {
+      "comment" : "Menu subtitle and accessibility hint of Add from Photos",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Adds photos in the order you pick them."
+          }
+        }
+      }
+    },
+    "sources.addPhotos.label" : {
+      "comment" : "iOS button and menu item that opens the photo picker, and its VoiceOver name (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add from Photos"
+          }
+        }
+      }
+    },
+    "sources.added.banner" : {
+      "comment" : "Success banner after adding sources; the number added. Has plural variants",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Added 1 source. Ask a question below and Raven reads it on your device."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Added %lld sources. Ask a question below and Raven reads them on your device."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "sources.count" : {
+      "comment" : "Header of the sources list; the number of sources. Has plural variants",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 source"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld sources"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "sources.empty.message" : {
+      "comment" : "Sources panel empty state message",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add PDFs, images, audio or video. Raven copies them into this chat, so your originals aren’t changed."
+          }
+        }
+      }
+    },
+    "sources.empty.title" : {
+      "comment" : "Sources panel empty state title",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add Your First Source"
+          }
+        }
+      }
+    },
+    "sources.footer" : {
+      "comment" : "Footer under the sources list",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Raven works with copies of these files. Your originals aren’t changed."
+          }
+        }
+      }
+    },
+    "sources.hide" : {
+      "comment" : "Toolbar button and menu item that hides the sources panel",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Sources"
+          }
+        }
+      }
+    },
+    "sources.kind.audio" : {
+      "comment" : "File kind of an audio source",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Audio"
+          }
+        }
+      }
+    },
+    "sources.kind.file" : {
+      "comment" : "File kind of any other source",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "File"
+          }
+        }
+      }
+    },
+    "sources.kind.image" : {
+      "comment" : "File kind of an image source",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Image"
+          }
+        }
+      }
+    },
+    "sources.kind.pdf" : {
+      "comment" : "File kind of a PDF source",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "PDF"
+          }
+        }
+      }
+    },
+    "sources.kind.text" : {
+      "comment" : "File kind of a text source",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Text"
+          }
+        }
+      }
+    },
+    "sources.kind.video" : {
+      "comment" : "File kind of a video source",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Video"
+          }
+        }
+      }
+    },
+    "sources.loading" : {
+      "comment" : "Shown while a chat’s sources load",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Loading Sources…"
+          }
+        }
+      }
+    },
+    "sources.loading.a11y" : {
+      "comment" : "VoiceOver label while a chat’s sources load (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Loading sources"
+          }
+        }
+      }
+    },
+    "sources.noChat.message" : {
+      "comment" : "Sources panel message when no chat is selected",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select a chat to see and add its sources."
+          }
+        }
+      }
+    },
+    "sources.noChat.title" : {
+      "comment" : "Sources panel title when no chat is selected",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No Chat Selected"
+          }
+        }
+      }
+    },
+    "sources.panel.confirm" : {
+      "comment" : "Confirm button of the file panel that adds sources",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add"
+          }
+        }
+      }
+    },
+    "sources.panel.message" : {
+      "comment" : "Message at the top of the Mac file panel",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose PDFs, images, audio, video or text files to add to this chat."
+          }
+        }
+      }
+    },
+    "sources.progress.photos" : {
+      "comment" : "Activity bar text while photos are imported",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Adding Photos…"
+          }
+        }
+      }
+    },
+    "sources.progress.photos.a11y" : {
+      "comment" : "VoiceOver label of the activity bar while photos are imported (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Adding photos"
+          }
+        }
+      }
+    },
+    "sources.quickLook" : {
+      "comment" : "Menu item that previews a source",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quick Look"
+          }
+        }
+      }
+    },
+    "sources.remove" : {
+      "comment" : "Destructive menu item that asks to remove a source from the chat",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove Source…"
+          }
+        }
+      }
+    },
+    "sources.remove.label" : {
+      "comment" : "iOS menu item and VoiceOver name of Remove Source (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove Source"
+          }
+        }
+      }
+    },
+    "sources.remove.short" : {
+      "comment" : "Swipe action and destructive confirm button that removes a source",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        }
+      }
+    },
+    "sources.removeConfirm.message" : {
+      "comment" : "Remove source confirmation message",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Raven deletes its copy from this chat. Your original file isn’t changed."
+          }
+        }
+      }
+    },
+    "sources.removeConfirm.title" : {
+      "comment" : "Remove source confirmation title; the file name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove “%@”?"
+          }
+        }
+      }
+    },
+    "sources.row.a11y" : {
+      "comment" : "VoiceOver label of a source. First placeholder is the file name without extension, second the file kind",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, %2$@"
+          }
+        }
+      }
+    },
+    "sources.row.a11y.value" : {
+      "comment" : "VoiceOver value of a source; the date it was added",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Added %@"
+          }
+        }
+      }
+    },
+    "sources.row.meta" : {
+      "comment" : "Meta line under a source name. First placeholder is the file kind (PDF, Image…), second the date it was added",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "sources.show" : {
+      "comment" : "Toolbar button and menu item that shows the sources panel",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Sources"
+          }
+        }
+      }
+    },
+    "sources.showInFinder" : {
+      "comment" : "Mac menu item that reveals Raven’s copy of a source in Finder",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show in Finder"
+          }
+        }
+      }
+    },
+    "sources.title" : {
+      "comment" : "Title of the sources inspector and sheet",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sources"
+          }
+        }
+      }
+    },
+    "sources.toggle.detail" : {
+      "comment" : "Tooltip detail and accessibility hint of Show Sources",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shows the files Raven reads for this chat."
+          }
+        }
+      }
+    },
+    "window.subtitle.answering" : {
+      "comment" : "macOS window subtitle while Raven writes an answer",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Answering…"
+          }
+        }
+      }
+    },
+    "window.subtitle.answering.a11y" : {
+      "comment" : "VoiceOver value of the macOS window subtitle while Raven writes an answer (no ellipsis)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Answering"
+          }
+        }
+      }
+    },
+    "window.subtitle.joined" : {
+      "comment" : "macOS window subtitle joining two status parts, e.g. 3 sources · 12 messages",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "window.subtitle.messages" : {
+      "comment" : "Part of the macOS window subtitle; the number of messages in the chat. Has plural variants",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 message"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld messages"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "window.subtitle.noChat" : {
+      "comment" : "macOS window subtitle when no chat is selected",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No chat selected"
+          }
+        }
+      }
+    },
+    "window.subtitle.sources" : {
+      "comment" : "Part of the macOS window subtitle; the number of sources in the chat. Has plural variants",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 source"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld sources"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -5,111 +5,57 @@
 //  Created by Eldar Tutnjic on 24.07.25.
 //
 
-import QuickLook
 import RDatabaseManager
 import SwiftUI
 
+/// One source in the Sources list. Commands come from the list’s context
+/// menu, swipe actions and VoiceOver actions, so the row stays quiet.
 struct FileRowView: View {
     let file: FileRecord
-    let onDelete: () -> Void
-    @State private var selectedURL: URL?
-    
-    var body: some View {
-        HStack(spacing: 12) {
-            fileIcon(for: file.fileType)
-            
-            VStack(
-                alignment: .leading,
-                spacing: 2
-            ) {
-                Text(file.name)
-                    .font(.subheadline)
-                    .lineLimit(1)
-                    .supportsDynamicType()
-                
-                Text(
-                    file.createdAt.formatted(
-                        date: .numeric,
-                        time: .shortened
-                    )
-                )
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .supportsDynamicType()
-            }
-            
-            Spacer()
-            
-            Menu {
-                Button {
-                    selectedURL = URL(fileURLWithPath: file.publicPath)
-                } label: {
-                    Text("Preview")
-                }
-                .accessibilityLabel("Preview \(file.name)")
-                .accessibilityHint("Opens preview of the file")
-                .accessibilityInputLabels(["Preview", "View", "Open", "Show"])
-                
-                Button {
-                    onDelete()
-                } label: {
-                    Text("Delete")
-                }
-                .accessibilityLabel("Delete \(file.name)")
-                .accessibilityHint("Deletes this file from the chat")
-                .accessibilityInputLabels(["Delete", "Remove", "Trash"])
-     
-            } label: {
-                Image(systemName: "ellipsis")
-                    .foregroundColor(.secondary)
-            }
-            .menuStyle(.borderlessButton)
-            .accessibilityLabel("File Actions for \(file.name)")
-            .accessibilityHint("Opens menu with preview and delete options")
-            .accessibilityInputLabels(["File Actions", "Options", "More", "Menu"])
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(Color.gray.opacity(0.15))
-        .cornerRadius(
-            8,
-            corners: .allCorners
-        )
-        .accessibilityElement(children: .contain)
-        .accessibilityIdentifier("fileRow_\(String(describing: file.id))")
-        .quickLookPreview(
-            $selectedURL,
-            in: [URL(
-                fileURLWithPath: file.publicPath
-            )]
-        )
+
+    @ScaledMetric(relativeTo: .title3) private var iconWidth: CGFloat = 24
+
+    private var kind: String {
+        DesignSystem.Sources.kind(forExtension: file.fileType)
     }
-    
-    func fileIcon(for fileType: String) -> some View {
-        let iconName: String
-        let color: Color
-        
-        switch fileType.lowercased() {
-        case "mp3", "wav", "aiff", "m4a":
-            iconName = "waveform"
-            color = .blue
-        case "jpg", "jpeg", "png", "tiff", "heic":
-            iconName = "photo"
-            color = .green
-        case "pdf":
-            iconName = "doc.richtext"
-            color = .red
-        case "mp4", "mov", "avi", "mkv", "m4v":
-            iconName = "film"
-            color = .purple
-        default:
-            iconName = "doc"
-            color = .gray
+
+    private var addedDate: String {
+        file.createdAt.formatted(date: .abbreviated, time: .shortened)
+    }
+
+    private var spokenName: String {
+        let base = (file.name as NSString).deletingPathExtension
+        return DesignSystem.Sources.spokenName(base.isEmpty ? file.name : base, kind)
+    }
+
+    var body: some View {
+        HStack(spacing: DesignSystem.Spacing.small + 2) {
+            Image(systemName: DesignSystem.Sources.icon(forExtension: file.fileType))
+                .font(.title3)
+                .foregroundStyle(.secondary)
+                .frame(width: iconWidth)
+                .accessibilityHidden(true)
+
+            VStack(alignment: .leading, spacing: DesignSystem.Spacing.labelToMeta) {
+                Text(file.name)
+                    .font(.callout)
+                    .lineLimit(2)
+                    .truncationMode(.middle)
+
+                Text(DesignSystem.Sources.meta(kind, addedDate))
+                    .font(.caption)
+                    .foregroundStyle(DesignSystem.Colors.supporting)
+                    .lineLimit(1)
+            }
+
+            Spacer(minLength: 0)
         }
-        
-        return Image(systemName: iconName)
-            .foregroundColor(color)
-            .font(.title3)
-            .accessibilityHidden(true)
+        .padding(.vertical, DesignSystem.Spacing.labelToMeta)
+        .contentShape(Rectangle())
+        .help(file.name)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(spokenName)
+        .accessibilityValue(DesignSystem.Sources.addedOn(addedDate))
+        .accessibilityIdentifier("fileRow_\(String(describing: file.id))")
     }
 }

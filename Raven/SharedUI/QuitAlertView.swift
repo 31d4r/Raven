@@ -9,18 +9,13 @@ import SwiftUI
 
 #if os(macOS)
 enum QuitAlert {
-    static let title = "Quit Raven?"
-    static let message = "Are you sure you want to quit Raven?"
-    static let primary = "Quit"
-    static let cancel = "Cancel"
-
     static func make() -> NSAlert {
         let alert = NSAlert()
-        alert.messageText = title
-        alert.informativeText = message
-        alert.alertStyle = .warning
-        alert.addButton(withTitle: primary)
-        alert.addButton(withTitle: cancel)
+        alert.messageText = DesignSystem.Quit.title
+        alert.informativeText = DesignSystem.Quit.message
+        alert.alertStyle = .informational
+        alert.addButton(withTitle: DesignSystem.Quit.quit)
+        alert.addButton(withTitle: DesignSystem.Common.cancel)
         return alert
     }
 }
