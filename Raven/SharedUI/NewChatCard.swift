@@ -2,114 +2,102 @@
 //  NewChatCard.swift
 //  Raven
 //
-//  “Create New Chat” card: avatar preview, name, icon grid and colors.
-//  Mac shows it as a centered card; iOS reuses the pickers in its sheet.
+//  “Create New Chat” card: a morphing shape avatar, the name, a grid of
+//  14 shapes and a row of colors, and a full-width Create button.
+//  A sheet on iPhone and iPad, a centered card on Mac.
 //
 
 import RDatabaseManager
 import SwiftUI
 
-/// Icon grid and color row. Each choice is a button with the selected trait.
+/// Shape grid (2 rows of 7) and color row. Each choice is a button with
+/// the selected trait; the selected one gets a gray ring.
 struct ChatAppearancePicker: View {
     @Binding var appearance: ChatAppearance
     @Environment(\.colorSchemeContrast) private var contrast
-    @ScaledMetric(relativeTo: .body) private var cellSize: CGFloat = DesignSystem.Conversation.pickerCellSize
-    @ScaledMetric(relativeTo: .body) private var swatchSize: CGFloat = DesignSystem.Conversation.swatchSize
-    /// A fixed column count (Mac card); nil wraps to the available width.
-    private let columns: Int?
+    @ScaledMetric(relativeTo: .body) private var swatchSize: CGFloat = DesignSystem.Conversation.colorSwatchSize
 
-    init(
-        appearance: Binding<ChatAppearance>,
-        columns: Int? = DesignSystem.Conversation.pickerColumns,
-        cellSize: CGFloat = DesignSystem.Conversation.pickerCellSize,
-        swatchSize: CGFloat = DesignSystem.Conversation.swatchSize
-    ) {
-        _appearance = appearance
-        self.columns = columns
-        _cellSize = ScaledMetric(wrappedValue: cellSize, relativeTo: .body)
-        _swatchSize = ScaledMetric(wrappedValue: swatchSize, relativeTo: .body)
-    }
-
-    private var symbolColumns: [GridItem] {
-        if let columns {
-            Array(repeating: GridItem(.fixed(cellSize), spacing: DesignSystem.Spacing.small), count: columns)
-        } else {
-            [GridItem(.adaptive(minimum: cellSize, maximum: cellSize), spacing: DesignSystem.Spacing.small + DesignSystem.Spacing.xSmall)]
-        }
+    private var ringColor: Color {
+        contrast == .increased ? .primary : DesignSystem.Colors.selectionRing
     }
 
     var body: some View {
         VStack(spacing: DesignSystem.Spacing.large) {
-            symbolGrid
+            shapeGrid
             colorRow
         }
     }
 
-    private var symbolGrid: some View {
+    private var shapeGrid: some View {
         LazyVGrid(
-            columns: symbolColumns,
-            spacing: columns == nil ? DesignSystem.Spacing.small + DesignSystem.Spacing.xSmall : DesignSystem.Spacing.small
+            columns: Array(
+                repeating: GridItem(.flexible(), spacing: DesignSystem.Spacing.small),
+                count: DesignSystem.Conversation.shapeColumns
+            ),
+            spacing: DesignSystem.Spacing.small
         ) {
-            ForEach(ChatSymbol.allCases) { symbol in
-                let isSelected = appearance.symbol == symbol
+            ForEach(ChatShape.allCases) { shape in
+                let isSelected = appearance.shape == shape
                 Button {
-                    appearance.symbol = symbol
+                    appearance.shape = shape
                 } label: {
-                    Image(systemName: symbol.rawValue)
-                        .font(.system(size: cellSize * 0.42, weight: .semibold))
-                        .foregroundStyle(isSelected ? Color.white : appearance.color.color)
-                        .frame(width: cellSize, height: cellSize)
-                        .background {
-                            Circle().fill(isSelected ? AnyShapeStyle(appearance.color.color.gradient) : AnyShapeStyle(DesignSystem.ConversationColors.assistantBubble))
-                        }
-                        .overlay {
-                            if contrast == .increased && isSelected {
-                                Circle().strokeBorder(Color.primary, lineWidth: 2)
-                            }
-                        }
-                        .contentShape(Circle())
+                    GeometryReader { proxy in
+                        ChatShapeGlyph(shape: shape, color: appearance.color)
+                            .padding(proxy.size.width * DesignSystem.Conversation.shapeOptionInset)
+                            .frame(width: proxy.size.width, height: proxy.size.height)
+                    }
+                    .aspectRatio(1, contentMode: .fit)
+                    .overlay {
+                        Circle()
+                            .strokeBorder(ringColor, lineWidth: 2)
+                            .opacity(isSelected ? 1 : 0)
+                    }
+                    .contentShape(Circle())
                 }
                 .buttonStyle(.plain)
-                .help(symbol.name)
-                .accessibilityLabel(symbol.name)
+                .help(shape.name)
+                .accessibilityLabel(DesignSystem.Conversation.shapeOption(shape.name))
                 .accessibilityAddTraits(isSelected ? .isSelected : [])
+                .accessibilityIdentifier("shapeOption_\(shape.rawValue)")
             }
         }
         .accessibilityElement(children: .contain)
-        .accessibilityLabel(DesignSystem.Conversation.iconLabel)
+        .accessibilityLabel(DesignSystem.Conversation.shapeLabel)
         .accessibilityIdentifier("newChatIconPicker")
     }
 
     private var colorRow: some View {
         LazyVGrid(
-            columns: [GridItem(.adaptive(minimum: swatchSize + 6, maximum: swatchSize + 6), spacing: DesignSystem.Spacing.small + DesignSystem.Spacing.xSmall)],
+            columns: Array(
+                repeating: GridItem(.flexible(), spacing: DesignSystem.Spacing.xSmall),
+                count: ChatColor.allCases.count
+            ),
             spacing: DesignSystem.Spacing.small
         ) {
             ForEach(ChatColor.allCases) { color in
                 let isSelected = appearance.color == color
                 Button {
-                    appearance.color = color
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        appearance.color = color
+                    }
                 } label: {
-                    Circle()
-                        .fill(color.color.gradient)
-                        .frame(width: swatchSize, height: swatchSize)
+                    ColorSwatch(color: color)
                         .padding(3)
                         .overlay {
-                            Circle().strokeBorder(isSelected ? color.color : .clear, lineWidth: 2)
+                            Circle()
+                                .strokeBorder(ringColor, lineWidth: 2)
+                                .opacity(isSelected ? 1 : 0)
                         }
-                        .overlay {
-                            if isSelected {
-                                Image(systemName: "checkmark")
-                                    .font(.system(size: swatchSize * 0.45, weight: .bold))
-                                    .foregroundStyle(.white)
-                            }
-                        }
-                        .contentShape(Circle())
+                        .aspectRatio(1, contentMode: .fit)
+                        .frame(maxWidth: swatchSize)
+                        .frame(maxWidth: .infinity)
+                        .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
                 .help(color.name)
                 .accessibilityLabel(color.name)
                 .accessibilityAddTraits(isSelected ? .isSelected : [])
+                .accessibilityIdentifier("colorOption_\(color.rawValue)")
             }
         }
         .accessibilityElement(children: .contain)
@@ -118,9 +106,25 @@ struct ChatAppearancePicker: View {
     }
 }
 
-#if os(macOS)
+/// One round color choice; light and dark fills get a hairline edge.
+private struct ColorSwatch: View {
+    let color: ChatColor
+    @Environment(\.colorScheme) private var colorScheme
+
+    var body: some View {
+        Circle()
+            .fill(color.color)
+            .overlay {
+                if color.needsOutline(in: colorScheme) {
+                    Circle().strokeBorder(Color.primary.opacity(0.2), lineWidth: 1)
+                }
+            }
+    }
+}
+
 struct NewChatCard: View {
     @Environment(ProjectsView.ProjectsFeature.self) private var feature
+    @Environment(\.colorSchemeContrast) private var contrast
     @FocusState private var isNameFocused: Bool
     @State private var appearance = ChatAppearance.random()
 
@@ -135,87 +139,135 @@ struct NewChatCard: View {
     var body: some View {
         VStack(spacing: 0) {
             header
-            Divider()
-            VStack(spacing: DesignSystem.Spacing.large) {
-                ChatAvatar(appearance: appearance, size: DesignSystem.Conversation.previewAvatarSize)
-                    .animation(.snappy(duration: 0.2), value: appearance)
-
-                TextField(
-                    DesignSystem.Chats.nameField,
-                    text: feature.binding(for: \.newProjectName),
-                    prompt: Text(DesignSystem.Conversation.namePrompt)
-                )
-                .textFieldStyle(.roundedBorder)
-                .multilineTextAlignment(.center)
-                .font(.title3)
-                .frame(maxWidth: DesignSystem.Conversation.newChatNameWidth)
-                .focused($isNameFocused)
-                .onSubmit(create)
-                .accessibilityHint(DesignSystem.Chats.nameFieldHint)
-                .accessibilityIdentifier("newChatNameTextField")
-
-                ChatAppearancePicker(appearance: $appearance)
+            #if os(macOS)
+            form
+            #else
+            ScrollView {
+                form
             }
-            .padding(DesignSystem.Spacing.large)
-            Divider()
-            footer
+            .scrollBounceBehavior(.basedOnSize)
+            .scrollDismissesKeyboard(.interactively)
+            #endif
+            createButton
         }
+        #if os(macOS)
         .frame(width: DesignSystem.Conversation.newChatCardWidth)
         .fixedSize(horizontal: false, vertical: true)
+        #else
+        .presentationDetents([.large])
+        .presentationCornerRadius(DesignSystem.Conversation.newChatSheetRadius)
+        #endif
         .onAppear { isNameFocused = true }
         .accessibilityIdentifier("newChatCard")
     }
 
+    private var form: some View {
+        VStack(spacing: DesignSystem.Spacing.large) {
+            ChatAvatarPreview(appearance: appearance, size: DesignSystem.Conversation.newChatAvatarSize)
+            nameField
+            ChatAppearancePicker(appearance: $appearance)
+        }
+        .padding(.horizontal, DesignSystem.Spacing.large)
+        .padding(.vertical, DesignSystem.Spacing.small)
+    }
+
     private var header: some View {
-        HStack {
+        ZStack {
             Text(DesignSystem.Conversation.createTitle)
                 .font(.headline)
                 .accessibilityAddTraits(.isHeader)
-            Spacer()
-            Button {
-                feature.send(.hideNewProjectAlert)
-            } label: {
-                Image(systemName: DesignSystem.Icons.close)
-                    .font(.body.weight(.semibold))
-                    .foregroundStyle(DesignSystem.Colors.supporting)
-                    .frame(width: DesignSystem.Conversation.hoverButtonSize, height: DesignSystem.Conversation.hoverButtonSize)
-                    .background(Circle().fill(DesignSystem.ConversationColors.assistantBubble))
-                    .contentShape(Circle())
+            HStack {
+                closeButton
+                Spacer()
             }
-            .buttonStyle(.plain)
-            .help(DesignSystem.Conversation.close)
-            .accessibilityLabel(DesignSystem.Conversation.close)
-            .accessibilityInputLabels(DesignSystem.VoiceControl.dismiss)
-            .accessibilityIdentifier("closeNewChatButton")
         }
+        #if os(macOS)
         .padding(.horizontal, DesignSystem.Spacing.medium)
-        .padding(.vertical, DesignSystem.Spacing.small + DesignSystem.Spacing.xSmall)
+        .padding(.top, DesignSystem.Spacing.medium)
+        .padding(.bottom, DesignSystem.Spacing.small)
+        #else
+        .padding(.horizontal, DesignSystem.Conversation.floatingBarPadding)
+        .padding(.top, DesignSystem.Conversation.floatingBarPadding)
+        .padding(.bottom, DesignSystem.Spacing.small)
+        #endif
     }
 
-    private var footer: some View {
-        HStack {
-            Spacer()
-            Button(DesignSystem.Common.cancel) {
-                feature.send(.hideNewProjectAlert)
-            }
-            .keyboardShortcut(.cancelAction)
-            .accessibilityInputLabels(DesignSystem.VoiceControl.cancel)
-            .accessibilityIdentifier("cancelNewChatButton")
-
-            Button(action: create) {
-                Text(DesignSystem.Chats.create)
-                    .fontWeight(.semibold)
-            }
-            .keyboardShortcut(.defaultAction)
-            .buttonStyle(.borderedProminent)
-            .disabled(createUnavailableReason != nil)
-            .help(DesignSystem.Help.tooltip(DesignSystem.Chats.create, detail: createUnavailableReason))
-            .accessibilityHint(createUnavailableReason ?? DesignSystem.Chats.newChatHelp)
-            .accessibilityInputLabels(DesignSystem.VoiceControl.create)
-            .accessibilityIdentifier("createNewChatButton")
+    @ViewBuilder
+    private var closeButton: some View {
+        #if os(macOS)
+        Button {
+            feature.send(.hideNewProjectAlert)
+        } label: {
+            Image(systemName: DesignSystem.Icons.close)
+                .font(.body.weight(.semibold))
+                .foregroundStyle(DesignSystem.Colors.supporting)
+                .frame(width: DesignSystem.Conversation.hoverButtonSize, height: DesignSystem.Conversation.hoverButtonSize)
+                .background(Circle().fill(DesignSystem.ConversationColors.assistantBubble))
+                .contentShape(Circle())
         }
-        .controlSize(.large)
-        .padding(DesignSystem.Spacing.medium)
+        .buttonStyle(.plain)
+        .keyboardShortcut(.cancelAction)
+        .help(DesignSystem.Conversation.close)
+        .accessibilityLabel(DesignSystem.Conversation.close)
+        .accessibilityInputLabels(DesignSystem.VoiceControl.dismiss)
+        .accessibilityIdentifier("closeNewChatButton")
+        #else
+        Button {
+            feature.send(.hideNewProjectAlert)
+        } label: {
+            FloatingIcon(systemImage: DesignSystem.Icons.close)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(DesignSystem.Common.cancel)
+        .accessibilityInputLabels(DesignSystem.VoiceControl.cancel)
+        .accessibilityIdentifier("cancelNewChatButton")
+        #endif
+    }
+
+    private var nameField: some View {
+        let shape = RoundedRectangle(cornerRadius: DesignSystem.Conversation.newChatFieldRadius, style: .continuous)
+        return TextField(
+            DesignSystem.Chats.nameField,
+            text: feature.binding(for: \.newProjectName),
+            prompt: Text(DesignSystem.Conversation.namePrompt)
+        )
+        .font(.title3.weight(.semibold))
+        .multilineTextAlignment(.center)
+        .textFieldStyle(.plain)
+        .padding(.vertical, DesignSystem.Spacing.medium)
+        .padding(.horizontal, DesignSystem.Spacing.medium)
+        .background(shape.fill(DesignSystem.ConversationColors.assistantBubble))
+        .overlay {
+            if contrast == .increased {
+                shape.strokeBorder(Color.primary, lineWidth: 1)
+            }
+        }
+        .focused($isNameFocused)
+        #if os(iOS)
+        .submitLabel(.done)
+        #endif
+        .onSubmit(create)
+        .accessibilityHint(DesignSystem.Chats.nameFieldHint)
+        .accessibilityIdentifier("newChatNameTextField")
+    }
+
+    private var createButton: some View {
+        Button(action: create) {
+            Text(DesignSystem.Chats.create)
+                .font(.headline)
+        }
+        .buttonStyle(CreateCapsuleButtonStyle())
+        .keyboardShortcut(.defaultAction)
+        .disabled(createUnavailableReason != nil)
+        #if os(macOS)
+        .help(DesignSystem.Help.tooltip(DesignSystem.Chats.create, detail: createUnavailableReason))
+        #endif
+        .accessibilityHint(createUnavailableReason ?? DesignSystem.Chats.newChatHelp)
+        .accessibilityInputLabels(DesignSystem.VoiceControl.create)
+        .accessibilityIdentifier("createNewChatButton")
+        .padding(.horizontal, DesignSystem.Spacing.large)
+        .padding(.top, DesignSystem.Spacing.small)
+        .padding(.bottom, DesignSystem.Conversation.floatingBarPadding)
     }
 
     private func create() {
@@ -224,4 +276,20 @@ struct NewChatCard: View {
         feature.send(.createProject(trimmedName))
     }
 }
-#endif
+
+/// Full-width capsule in the primary color: black in light mode, white in
+/// dark mode, dimmed while disabled.
+private struct CreateCapsuleButtonStyle: ButtonStyle {
+    @Environment(\.isEnabled) private var isEnabled
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundStyle(.background)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, DesignSystem.Conversation.createButtonPadding)
+            .background {
+                Capsule().fill(Color.primary.opacity(isEnabled ? (configuration.isPressed ? 0.75 : 1) : 0.22))
+            }
+            .contentShape(Capsule())
+    }
+}

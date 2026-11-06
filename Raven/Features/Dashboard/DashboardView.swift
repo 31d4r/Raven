@@ -54,7 +54,7 @@ struct DashboardView: View {
         }
         #else
         .sheet(isPresented: projectsFeature.binding(for: \.showingNewProjectAlert)) {
-            NewChatSheet()
+            NewChatCard()
         }
         #endif
         .alert(DesignSystem.Chats.renameTitle, isPresented: projectsFeature.binding(for: \.showingRenameAlert)) {

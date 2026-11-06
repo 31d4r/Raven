@@ -64,6 +64,8 @@ extension DesignSystem {
         static let userBubbleOpacity: Double = 0.14
         static let dropOverContentOpacity: Double = 0.06
         static let dropOnEmptyStateOpacity: Double = 0.08
+        /// Ring around the selected shape and color in the New Chat card.
+        static let selectionRing = Color.gray.opacity(0.55)
     }
 
     enum Storage {

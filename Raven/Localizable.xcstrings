@@ -605,6 +605,30 @@
         }
       }
     },
+    "chatColor.amber" : {
+      "comment" : "Chat color name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yellow"
+          }
+        }
+      }
+    },
+    "chatColor.black" : {
+      "comment" : "Chat color name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Black"
+          }
+        }
+      }
+    },
     "chatColor.blue" : {
       "comment" : "Chat color name",
       "extractionState" : "extracted_with_value",
@@ -636,7 +660,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Graphite"
+            "value" : "Gray"
           }
         }
       }
@@ -649,18 +673,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Green"
-          }
-        }
-      }
-    },
-    "chatColor.indigo" : {
-      "comment" : "Chat color name",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Indigo"
           }
         }
       }
@@ -725,116 +737,68 @@
         }
       }
     },
-    "chatSymbol.bolt" : {
-      "comment" : "Chat icon name",
+    "chatColor.white" : {
+      "comment" : "Chat color name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Bolt"
+            "value" : "White"
           }
         }
       }
     },
-    "chatSymbol.book" : {
-      "comment" : "Chat icon name",
+    "chatShape.blob" : {
+      "comment" : "Chat avatar shape name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Book"
+            "value" : "Blob"
           }
         }
       }
     },
-    "chatSymbol.briefcase" : {
-      "comment" : "Chat icon name",
+    "chatShape.circle" : {
+      "comment" : "Chat avatar shape name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Briefcase"
+            "value" : "Circle"
           }
         }
       }
     },
-    "chatSymbol.bubble" : {
-      "comment" : "Chat icon name",
+    "chatShape.cloud" : {
+      "comment" : "Chat avatar shape name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Speech Bubble"
+            "value" : "Cloud"
           }
         }
       }
     },
-    "chatSymbol.camera" : {
-      "comment" : "Chat icon name",
+    "chatShape.flower" : {
+      "comment" : "Chat avatar shape name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Camera"
+            "value" : "Flower"
           }
         }
       }
     },
-    "chatSymbol.document" : {
-      "comment" : "Chat icon name",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Document"
-          }
-        }
-      }
-    },
-    "chatSymbol.flame" : {
-      "comment" : "Chat icon name",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Flame"
-          }
-        }
-      }
-    },
-    "chatSymbol.folder" : {
-      "comment" : "Chat icon name",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Folder"
-          }
-        }
-      }
-    },
-    "chatSymbol.graduation" : {
-      "comment" : "Chat icon name",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Graduation Cap"
-          }
-        }
-      }
-    },
-    "chatSymbol.heart" : {
-      "comment" : "Chat icon name",
+    "chatShape.heart" : {
+      "comment" : "Chat avatar shape name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
@@ -845,50 +809,110 @@
         }
       }
     },
-    "chatSymbol.leaf" : {
-      "comment" : "Chat icon name",
+    "chatShape.hexagon" : {
+      "comment" : "Chat avatar shape name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Leaf"
+            "value" : "Hexagon"
           }
         }
       }
     },
-    "chatSymbol.lightbulb" : {
-      "comment" : "Chat icon name",
+    "chatShape.pentagon" : {
+      "comment" : "Chat avatar shape name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Light Bulb"
+            "value" : "Pentagon"
           }
         }
       }
     },
-    "chatSymbol.music" : {
-      "comment" : "Chat icon name",
+    "chatShape.pill" : {
+      "comment" : "Chat avatar shape name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Music"
+            "value" : "Pill"
           }
         }
       }
     },
-    "chatSymbol.star" : {
-      "comment" : "Chat icon name",
+    "chatShape.rhombus" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Diamond"
+          }
+        }
+      }
+    },
+    "chatShape.roundedSquare" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Square"
+          }
+        }
+      }
+    },
+    "chatShape.scallop" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Scallop"
+          }
+        }
+      }
+    },
+    "chatShape.star" : {
+      "comment" : "Chat avatar shape name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Star"
+          }
+        }
+      }
+    },
+    "chatShape.teardrop" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Drop"
+          }
+        }
+      }
+    },
+    "chatShape.triangle" : {
+      "comment" : "Chat avatar shape name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Triangle"
           }
         }
       }
@@ -1469,18 +1493,6 @@
         }
       }
     },
-    "conversation.create.icon" : {
-      "comment" : "Label of the icon picker in the New Chat card",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Icon"
-          }
-        }
-      }
-    },
     "conversation.create.prompt" : {
       "comment" : "Placeholder of the name field in the New Chat card",
       "extractionState" : "extracted_with_value",
@@ -1489,6 +1501,30 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Name your chat"
+          }
+        }
+      }
+    },
+    "conversation.create.shape" : {
+      "comment" : "Label of the shape picker in the New Chat card",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shape"
+          }
+        }
+      }
+    },
+    "conversation.create.shapeOption" : {
+      "comment" : "VoiceOver label of a shape in the New Chat card. Placeholder is the shape name, e.g. Heart shape",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%@ shape"
           }
         }
       }

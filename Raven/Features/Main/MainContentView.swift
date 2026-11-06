@@ -333,10 +333,10 @@ struct MainContentView: View {
         HStack(alignment: .center, spacing: DesignSystem.Spacing.small) {
             ChatAvatar(appearance: appearance, size: DesignSystem.Conversation.titleAvatarSize)
                 .accessibilityHidden(true)
-            TypingIndicator(color: appearance.color.color)
+            TypingIndicator(color: appearance.color.accent)
         }
         #else
-        TypingIndicator(color: appearance.color.color)
+        TypingIndicator(color: appearance.color.accent)
         #endif
     }
 

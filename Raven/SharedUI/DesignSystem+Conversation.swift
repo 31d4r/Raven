@@ -14,10 +14,6 @@ extension DesignSystem {
         static let sidebarAvatarSize: CGFloat = 36
         static let titleAvatarSize: CGFloat = 20
         static let paletteAvatarSize: CGFloat = 28
-        static let previewAvatarSize: CGFloat = 76
-        static let pickerCellSize: CGFloat = 36
-        static let swatchSize: CGFloat = 24
-        static let avatarSymbolScale: CGFloat = 0.46
 
         // Sidebar
         static let sidebarRowRadius: CGFloat = 10
@@ -86,8 +82,13 @@ extension DesignSystem {
 
         // New Chat card
         static let newChatCardWidth: CGFloat = 440
-        static let newChatNameWidth: CGFloat = 280
-        static let pickerColumns = 7
+        static let shapeColumns = 7
+        /// Inset of a shape inside its option, as a fraction of the option.
+        static let shapeOptionInset: CGFloat = 0.17
+        static let colorSwatchSize: CGFloat = 32
+        static let createButtonPadding: CGFloat = 14
+        /// The New Chat preview springs into a newly picked shape.
+        static let shapeMorph = Animation.spring(response: 0.5, dampingFraction: 0.58)
 
         // iOS chat list
         static let listAvatarSize: CGFloat = 52
@@ -99,8 +100,6 @@ extension DesignSystem {
 
         // iOS New Chat card
         static let newChatAvatarSize: CGFloat = 104
-        static let newChatPickerCellSize: CGFloat = 48
-        static let newChatSwatchSize: CGFloat = 30
         static let newChatFieldRadius: CGFloat = 16
         static let newChatSheetRadius: CGFloat = 32
 
@@ -324,8 +323,12 @@ extension DesignSystem.Conversation {
         String(localized: "conversation.create.prompt", defaultValue: "Name your chat", comment: "Placeholder of the name field in the New Chat card")
     }
 
-    static var iconLabel: String {
-        String(localized: "conversation.create.icon", defaultValue: "Icon", comment: "Label of the icon picker in the New Chat card")
+    static var shapeLabel: String {
+        String(localized: "conversation.create.shape", defaultValue: "Shape", comment: "Label of the shape picker in the New Chat card")
+    }
+
+    static func shapeOption(_ name: String) -> String {
+        String(localized: "conversation.create.shapeOption", defaultValue: "\(name) shape", comment: "VoiceOver label of a shape in the New Chat card. Placeholder is the shape name, e.g. Heart shape")
     }
 
     static var colorLabel: String {
